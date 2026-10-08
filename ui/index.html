@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mentor — Chess Coach (UI prototype)</title>
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♞</text></svg>">
+</head>
+<body>
+  <a class="skip" href="#view">Skip to content</a>
+  <div id="app">
+    <aside id="nav" aria-label="Main navigation"></aside>
+    <main id="view" tabindex="-1"></main>
+  </div>
+  <button id="teacher-fab" aria-label="Ask the teacher">💬<span>Ask Mentor</span></button>
+  <aside id="teacher" class="drawer" hidden aria-label="Teacher chat"></aside>
+  <div id="toasts" aria-live="polite"></div>
+  <div id="modal-root"></div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

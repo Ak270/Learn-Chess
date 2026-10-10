@@ -5,6 +5,7 @@ import skillmap from './skillmap.json';
 import diagnosisCfg from './diagnosis.json';
 import learningCfg from './learning.json';
 import copyCfg from './copy.json';
+import opponentCfg from './opponent.json';
 
 export interface ConfigEntry<T = unknown> {
   value: T;
@@ -49,4 +50,5 @@ export const cfg = createConfig(
   ['diagnosis.json', diagnosisCfg],
   ['learning.json', learningCfg],
   ['copy.json', copyCfg],
+  ['opponent.json', opponentCfg],
 );

@@ -1,7 +1,8 @@
 // Game Review (docs/backend/04 §6, docs/backend/10 §2). Ported from ui/js/views/review.js, wired to real data.
 import { Chess, type Move } from 'chess.js';
 import { Board } from '../components/BoardApi';
-import { db, metrics, reviews, store } from '../app';
+import { ai, db, metrics, reviews, store } from '../app';
+import { packageFromStored } from '../core/ai/package';
 import { mistakeFacts, moveLabel } from '../core/chess/facts';
 import { $, $$, esc, toast } from '../shell/dom';
 import { classMeta, lineChart, sound } from '../shell/ui';
@@ -279,7 +280,7 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
         return `<div class="coach-card ${isFirst ? 'bad' : 'warn'} spoil" data-m="${m.id}">
           <h4>${isFirst ? '🎯 First meaningful mistake' : '⚠️ Also worth learning from'} · move ${Math.ceil(m.ply / 2)}</h4>
           <div class="small">${esc(f.summary)} ${esc(f.reply?.sentence ?? '')} <span class="muted">${esc(f.turn)}</span></div>
-          <div class="row" style="margin-top:8px"><button class="btn small primary" data-jump="${m.ply}">Show me the position</button></div>
+          <div class="row" style="margin-top:8px"><button class="btn small primary" data-jump="${m.ply}">Show me the position</button><button class="btn small" data-explain="${m.id}">✨ Explain in plain words</button></div><div class="small" data-explain-out="${m.id}" style="margin-top:8px" aria-live="polite"></div>
           ${
             isFirst
               ? `<div class="coach-card info" style="margin-top:10px"><h4>❓ Your turn, before I explain</h4><div class="small" style="margin-bottom:8px">What were you aiming for with ${esc(p.san)}?</div>
@@ -292,6 +293,20 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
       })
       .join('');
     $$('[data-jump]', box).forEach((b) => (b.onclick = () => go(+b.dataset.jump!, true)));
+    $$('[data-explain]', box).forEach(
+      (b) =>
+        (b.onclick = async () => {
+          const m = mistakes.find((x) => x.id === b.dataset.explain)!;
+          const p = plies.find((q) => q.ply === m.ply)!;
+          const out = $(`[data-explain-out="${m.id}"]`, box);
+          const r = await ai.explain(packageFromStored(m, p));
+          out.innerHTML = `${esc(r.now.text)}<div class="small muted" style="margin-top:4px">${r.now.source === 'ai' ? '✨ Reworded by Groq; every move, square and number was checked against the facts.' : 'Built from the verified facts. Add a Groq key in Settings for friendlier wording.'}</div>`;
+          void r.upgrade.then((u) => {
+            if (u)
+              out.innerHTML = `${esc(u.text)}<div class="small muted" style="margin-top:4px">✨ Reworded by Groq; every move, square and number was checked against the facts.</div>`;
+          });
+        }),
+    );
     let chip: 'attack' | 'defend' | 'develop' | 'unsure' | undefined;
     $$('.chipbtn', box).forEach(
       (b) =>

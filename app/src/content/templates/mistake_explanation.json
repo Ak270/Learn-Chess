@@ -1,0 +1,71 @@
+{
+  "_provenance": "Authored for Mentor: template fallback for grounded explanations (docs/backend/07 \u00a73.6). Own wording; needs owner review.",
+  "leads": {
+    "hanging.piece": "On move {moveNo} you played {san}, and one of your pieces could then be taken for free.",
+    "hanging.protected": "On move {moveNo} you played {san}. A piece of yours had a defender, but the exchange still lost material.",
+    "loose.piece": "On move {moveNo} you played {san}, leaving a piece with nothing protecting it.",
+    "fork.knight": "On move {moveNo} you played {san}, and a knight could then attack two of your pieces at once.",
+    "fork.pawn": "On move {moveNo} you played {san}, and a pawn could then attack two of your pieces at once.",
+    "fork.queen": "On move {moveNo} you played {san}, and the queen could then attack two things at once.",
+    "fork.other": "On move {moveNo} you played {san}, and one move could then attack two of your pieces.",
+    "pin.absolute": "On move {moveNo} you played {san}, and a piece of yours was pinned to your king.",
+    "pin.relative": "On move {moveNo} you played {san}, and a piece of yours was pinned against something more valuable.",
+    "skewer": "On move {moveNo} you played {san}, and a valuable piece was lined up in front of another.",
+    "discovered.attack": "On move {moveNo} you played {san}, and moving that piece uncovered an attack.",
+    "discovered.check": "On move {moveNo} you played {san}, and moving that piece uncovered a check.",
+    "backrank.threat": "On move {moveNo} you played {san}, and your king had no escape square on the back rank.",
+    "backrank.mate": "On move {moveNo} there was a back-rank checkmate, and {san} missed it.",
+    "missed.capture": "On move {moveNo} you played {san}, and a free capture was available.",
+    "missed.check": "On move {moveNo} you played {san}, and a strong check was available.",
+    "missed.mate": "On move {moveNo} there was a checkmate, and {san} missed it.",
+    "check.waste": "On move {moveNo} you played {san}, a check that gained nothing.",
+    "greedy.capture": "On move {moveNo} you played {san}, a capture that lost material in the exchange.",
+    "unfavorable.trade": "On move {moveNo} you played {san}, starting a trade that left you worse off.",
+    "early.queen": "On move {moveNo} you played {san}, bringing the queen out early.",
+    "opening.repeat_piece": "On move {moveNo} you played {san}, moving the same piece again in the opening.",
+    "king.center": "On move {moveNo} you played {san}, with your king still in the centre.",
+    "stalemate.risk": "On move {moveNo} you played {san}, and the position was close to a stalemate.",
+    "no.luft": "On move {moveNo} you played {san}, and your king had no escape square.",
+    "unsound.sacrifice": "On move {moveNo} you played {san}, a sacrifice without enough in return.",
+    "overloaded.defender": "On move {moveNo} you played {san}, and one defender had too many jobs.",
+    "trapped.piece": "On move {moveNo} you played {san}, and a piece of yours had nowhere to go.",
+    "removing.defender": "On move {moveNo} you played {san}, and a key defender was removed.",
+    "ignored.threat": "On move {moveNo} you played {san}, while one of your pieces was already attacked.",
+    "generic": "On move {moveNo} you played {san}, and it gave up a lot compared with the alternatives."
+  },
+  "causes": {
+    "perception": [
+      "It looks like the threat was easy to miss, and I may be wrong about that.",
+      "This may have been a threat that did not get noticed in time. Tell me if that does not match."
+    ],
+    "calculation": [
+      "It looks like the idea was seen, but the follow-up was not fully counted.",
+      "The plan may have been fine, with one reply left out. Does that sound right?"
+    ],
+    "over_focus_own_plan": [
+      "It looks like your own plan took your attention away from their threat.",
+      "Your plan may have been working while their threat was growing."
+    ],
+    "rushed": [
+      "The move came quickly, and a short pause might have helped.",
+      "This may have been a move played a little too fast."
+    ],
+    "knowledge_gap": [
+      "This idea is still new, and that is fine: it is exactly what we are practising.",
+      "This may be a pattern that has not become familiar yet."
+    ],
+    "transfer_failure": [
+      "You solve this in practice, so the skill is there. The job now is to use it in games.",
+      "The pattern is known from drills; it did not show up during the game."
+    ],
+    "tilt": [
+      "It may have been a hard moment in the game. A short pause between games helps.",
+      "This may have followed a tough stretch. There is no rush."
+    ],
+    "unknown": [
+      "There is not enough information to say why it happened, and that is okay.",
+      "I cannot tell why this happened from the data yet."
+    ]
+  },
+  "closing": ["Habit: {habit}", "The habit to build: {habit}", "Next time: {habit}"]
+}

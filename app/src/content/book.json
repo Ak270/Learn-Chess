@@ -1,0 +1,16 @@
+{
+  "_provenance": "Authored for Mentor: a tiny weighted opening book of sound, simple first moves so the sparring partner varies its openings (docs/backend/07 §1.2 a). Replaced by the frequency trie built from the CC0 Lichess DB in Phase 6 §3.3 (M4). Own selection; moves are common theory.",
+  "lines": [
+    { "w": 5, "moves": ["e2e4", "e7e5", "g1f3", "b8c6", "f1c4", "f8c5"] },
+    { "w": 3, "moves": ["e2e4", "e7e5", "g1f3", "b8c6", "f1b5", "a7a6"] },
+    { "w": 3, "moves": ["e2e4", "e7e5", "g1f3", "g8f6", "f3e5", "d7d6"] },
+    { "w": 3, "moves": ["e2e4", "c7c5", "g1f3", "d7d6", "d2d4", "c5d4"] },
+    { "w": 2, "moves": ["e2e4", "e7e6", "d2d4", "d7d5", "b1c3", "g8f6"] },
+    { "w": 2, "moves": ["e2e4", "c7c6", "d2d4", "d7d5", "b1c3", "d5e4"] },
+    { "w": 4, "moves": ["d2d4", "d7d5", "c2c4", "e7e6", "b1c3", "g8f6"] },
+    { "w": 3, "moves": ["d2d4", "g8f6", "c2c4", "e7e6", "g1f3", "d7d5"] },
+    { "w": 2, "moves": ["d2d4", "d7d5", "g1f3", "g8f6", "c1f4", "e7e6"] },
+    { "w": 2, "moves": ["g1f3", "d7d5", "d2d4", "g8f6", "c2c4", "e7e6"] },
+    { "w": 1, "moves": ["c2c4", "e7e5", "b1c3", "g8f6", "g1f3", "b8c6"] }
+  ]
+}

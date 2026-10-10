@@ -13,6 +13,8 @@ import * as learnView from './views/learn';
 import * as sessionView from './views/session';
 import * as profileView from './views/profile';
 import * as progressView from './views/progress';
+import * as playView from './views/play';
+import { initTeacher } from './shell/teacher';
 
 export interface ViewCtx {
   args: string[];
@@ -45,6 +47,7 @@ const routes: Record<string, View> = {
   session: sessionView,
   profile: profileView,
   progress: progressView,
+  play: playView,
 };
 const placeholder = (label: string): View => ({
   render(root) {
@@ -95,3 +98,4 @@ if (navigator.storage?.persist)
 window.addEventListener('hashchange', route);
 onJobUpdate(() => void renderNav(location.hash.replace(/^#\/?/, '').split(/[/?]/)[0] || 'home'));
 route();
+initTeacher();

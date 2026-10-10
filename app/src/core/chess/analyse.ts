@@ -68,7 +68,8 @@ export async function analyseGame(
   const game = new Chess();
   game.loadPgn(pgn);
   const verbose = game.history({ verbose: true });
-  const replay = new Chess();
+  const startFen = (game.header() as Record<string, string | null>).FEN ?? undefined;
+  const replay = startFen ? new Chess(startFen) : new Chess();
   const fens: string[] = [replay.fen()];
   for (const m of verbose) {
     replay.move(m.san);

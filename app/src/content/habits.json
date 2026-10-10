@@ -1,0 +1,18 @@
+{
+  "_provenance": "Authored for Mentor: one habit sentence per skill, used in grounded packages and templates (docs/backend/07 §3.2). Own wording; needs owner review.",
+  "habits": {
+    "piece_safety": "Before you move, ask which of your pieces nothing protects, and which enemy piece could take on the new square.",
+    "opponent_threats": "After every move they make, ask what it attacks now and what it will attack next.",
+    "checks_captures_threats": "List every check, capture and threat, theirs first, before you choose.",
+    "tactic_fork": "Look for one move that attacks two valuable things at once, and watch for the same against you.",
+    "tactic_pin": "Notice which of your pieces are lined up with something more valuable behind them.",
+    "tactic_skewer": "Notice when a valuable piece stands in front of another piece on the same line.",
+    "tactic_discovered": "When one of your pieces moves, ask what line it uncovers for them or for you.",
+    "tactic_backrank": "Give your king an escape square so a rook or queen cannot trap it on the back rank.",
+    "tactic_removing_defender": "Ask which piece guards the target, and whether it can be taken or chased away.",
+    "mate_patterns": "Count the king's escape squares before you decide there is no mate.",
+    "material_counting": "Count what you win and what you lose before you trade or capture.",
+    "blunder_check": "After you choose a move, scan where their pieces can land before you play it.",
+    "default": "Before you move, check what their last move did and what your move leaves unprotected."
+  }
+}

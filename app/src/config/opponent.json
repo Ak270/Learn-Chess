@@ -1,0 +1,187 @@
+{
+  "levels": {
+    "value": [
+      {
+        "id": 1,
+        "name": "Pawn Pete",
+        "elo": 400,
+        "depth": 2,
+        "multiPv": 6,
+        "temperature": 220,
+        "pBlunder": 0.3,
+        "blurb": "Plays fast, hangs pieces. Great for your first wins.",
+        "bookPlies": 4
+      },
+      {
+        "id": 2,
+        "name": "Knight Nora",
+        "elo": 600,
+        "depth": 3,
+        "multiPv": 6,
+        "temperature": 160,
+        "pBlunder": 0.2,
+        "blurb": "Grabs free pieces but misses 2-move ideas.",
+        "bookPlies": 6
+      },
+      {
+        "id": 3,
+        "name": "Bishop Ben",
+        "elo": 800,
+        "depth": 4,
+        "multiPv": 5,
+        "temperature": 120,
+        "pBlunder": 0.14,
+        "blurb": "Sees simple threats. Sometimes sloppy.",
+        "bookPlies": 8
+      },
+      {
+        "id": 4,
+        "name": "Rook Rita",
+        "elo": 1000,
+        "depth": 6,
+        "multiPv": 5,
+        "temperature": 80,
+        "pBlunder": 0.08,
+        "blurb": "Your target level. Punishes loose pieces.",
+        "bookPlies": 10
+      },
+      {
+        "id": 5,
+        "name": "Queen Quin",
+        "elo": 1200,
+        "depth": 8,
+        "multiPv": 4,
+        "temperature": 55,
+        "pBlunder": 0.04,
+        "blurb": "Calculates three plies. Few free gifts.",
+        "bookPlies": 10
+      }
+    ],
+    "source": "docs/backend/07 \u00a71.2 per-level table (starting values; calibrate in Phase 9 \u00a72.4). Names from the prototype (ui/js/bot.js). Elo labels are labels until calibrated."
+  },
+  "blunderPool.minLossCp": {
+    "value": 150,
+    "source": "docs/backend/07 \u00a71.2 blunder pool loss in [150, 500]"
+  },
+  "blunderPool.maxLossCp": {
+    "value": 500,
+    "source": "docs/backend/07 \u00a71.2"
+  },
+  "plausible.queenHangMaxLevel": {
+    "value": 2,
+    "source": "docs/backend/07 \u00a71.2 do not hang the queen to a 1-move capture unless level <= 2"
+  },
+  "think.minMs": {
+    "value": 600,
+    "source": "docs/backend/07 \u00a71.2 think time 0.6-3.5 s"
+  },
+  "think.maxMs": {
+    "value": 3500,
+    "source": "docs/backend/07 \u00a71.2"
+  },
+  "think.openingFactor": {
+    "value": 0.6,
+    "source": "docs/backend/07 \u00a71.2 faster in the opening (factor chosen; spec gives no number)"
+  },
+  "think.openingPlies": {
+    "value": 12,
+    "source": "docs/backend/07 \u00a71.2 'faster in the opening'; 12 plies chosen"
+  },
+  "think.clockFraction": {
+    "value": 0.05,
+    "source": "never think longer than 1/20 of the remaining clock (no spec number)"
+  },
+  "resign.evalCp": {
+    "value": -800,
+    "source": "docs/backend/07 \u00a71.2 resign when eval < -8 pawns ..."
+  },
+  "resign.consecutive": {
+    "value": 3,
+    "source": "docs/backend/07 \u00a71.2 ... for 3 consecutive moves"
+  },
+  "resign.minLevel": {
+    "value": 3,
+    "source": "docs/backend/07 \u00a71.2 and level >= 3"
+  },
+  "draw.maxAbsCp": {
+    "value": 30,
+    "source": "docs/backend/07 \u00a71.2 draw offers accepted only when eval within +/-0.3"
+  },
+  "draw.minPly": {
+    "value": 60,
+    "source": "docs/backend/07 \u00a71.2 and ply > 60"
+  },
+  "intent.maxLossCp": {
+    "value": 40,
+    "source": "docs/backend/07 \u00a71.4 near-equal candidates (loss <= 40 cp)"
+  },
+  "intent.threatEveryMoves": {
+    "value": 7,
+    "source": "docs/backend/07 \u00a71.4 1 per 6-8 moves (7 chosen)"
+  },
+  "intent.forkPerGame": {
+    "value": 1,
+    "source": "docs/backend/07 \u00a71.4 fork cap 1 per game"
+  },
+  "coach.takebacksPerGame": {
+    "value": 2,
+    "source": "docs/backend/07 \u00a72.2 takebacksUsed < 2"
+  },
+  "coach.interruptEveryMoves": {
+    "value": 5,
+    "source": "docs/backend/07 \u00a72.2 never more than once per 5 moves"
+  },
+  "coach.interceptDepth": {
+    "value": 10,
+    "source": "docs/backend/07 \u00a72.2 engine-verify at depth 10"
+  },
+  "coach.interceptBudgetMs": {
+    "value": 500,
+    "source": "docs/backend/07 \u00a72.2 < 500 ms budget for the cheap pre-filter"
+  },
+  "coach.rushedNudgeMs": {
+    "value": 2000,
+    "source": "prototype nudge: moved in under 2 s without a Safety Check (docs/backend/05 \u00a78 rushedMs min 3 s applies to diagnosis)"
+  },
+  "play.defaultTimeControl": {
+    "value": "15+10",
+    "source": "docs/backend/10 \u00a75.2 training default 15+10 or slower"
+  },
+  "play.timeControls": {
+    "value": [
+      ["15+10", 900, 10],
+      ["10+0", 600, 0],
+      ["30+0", 1800, 0],
+      ["Untimed", 0, 0]
+    ],
+    "source": "prototype views/play.js TCS"
+  },
+  "play.levelMargin": {
+    "value": 0.1,
+    "source": "docs/backend/10 \u00a75.3 recommend the level where expected score is ~40-60%"
+  },
+  "play.challengeEvery": {
+    "value": 5,
+    "source": "docs/backend/10 \u00a75.3 every 5th game offer a challenge one level up"
+  },
+  "ai.dailyCap.groq": {
+    "value": 150,
+    "source": "soft local guard only (docs/backend/07 \u00a73.5 quota guard); the real limits are on the Groq console limits page and change"
+  },
+  "ai.timeoutMs": {
+    "value": 8000,
+    "source": "abort a slow provider and keep the template (docs/backend/07 \u00a76 AI outage test)"
+  },
+  "ai.backoffMs": {
+    "value": 60000,
+    "source": "docs/backend/07 \u00a73.5 back-off after 429 when no retry-after header; jitter added"
+  },
+  "ai.maxAttempts": {
+    "value": 2,
+    "source": "docs/backend/07 \u00a73.4 retry once with the verifier's error list"
+  },
+  "ai.groq.defaultModel": {
+    "value": "llama-3.3-70b-versatile",
+    "source": "docs/backend/07 \u00a73.5 default production model on Groq (re-verified at build, see DECISIONS)"
+  }
+}

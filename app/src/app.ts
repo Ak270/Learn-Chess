@@ -6,6 +6,11 @@ import { db } from './data/db';
 import { withPersistentCache } from './data/evalCache';
 import { repos } from './data/repos';
 import { createCoachMemoryService } from './services/CoachMemoryService';
+import { createAiService } from './services/AiService';
+import { createGroqProvider } from './core/ai/providers';
+import { settings } from './shell/settings';
+import { createOpponent } from './core/opponent/opponent';
+import { createPlayService } from './services/PlayService';
 import { createContentService } from './services/ContentService';
 import { createMetricsService } from './services/MetricsService';
 import { createMisconceptionService } from './services/MisconceptionService';
@@ -32,6 +37,18 @@ export const misconceptions = createMisconceptionService(db);
 export const planner = createPlannerService({ db, srs, content, misconceptions });
 export const tests = createTestService(db);
 export const coachMemory = createCoachMemoryService(db);
+export const ai = createAiService({
+  db,
+  providers: [createGroqProvider({ getKey: () => settings.get('groqKey'), getModel: () => settings.get('groqModel') })],
+});
+/** The opponent has its OWN engine/worker so a background review never delays its reply (docs/backend/07 §7). */
+let oppEngine: (EngineClient & { cacheSize(): number }) | undefined;
+export const getOpponentEngine = () => (oppEngine ??= createEngineClient(workerTransport));
+export const play = createPlayService({
+  db,
+  analysis: cachedEngine,
+  makeOpponent: (id) => createOpponent(getOpponentEngine(), id),
+});
 export { db };
 
 // After every review: refresh misconception states, and reopen cleared cards whose skill leaked again (transfer check).

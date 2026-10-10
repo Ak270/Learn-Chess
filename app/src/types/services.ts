@@ -15,7 +15,7 @@ export interface EngineClient {
 
 export interface AiProvider {
   id: string;
-  explain(pkg: unknown, style: string): Promise<string>;
+  explain(pkg: unknown, style?: string): Promise<string>;
   available(): Promise<boolean>;
 }
 

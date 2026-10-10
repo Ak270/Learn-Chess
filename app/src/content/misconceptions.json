@@ -1,5 +1,5 @@
 {
-  "_provenance": "Authored for Mentor (docs/backend/10 §1.3 catalogue). M01-M05 for milestone M2; M06-M11 arrive with M4. Own wording. Needs owner review.",
+  "_provenance": "Authored for Mentor (docs/backend/10 \u00a71.3 catalogue). M01-M08, M10, M11; M09 (miscounted exchanges) needs counting drills and arrives with them. Own wording. Needs owner review.",
   "misconceptions": [
     {
       "id": "M01",
@@ -60,6 +60,66 @@
       "skill": "material_counting",
       "lessonId": "l-ps-trades",
       "learnerPhrase": "A belief that may be costing you games: 'any equal trade is fine'."
+    },
+    {
+      "id": "M06",
+      "title": "The queen should attack early",
+      "belief": "Bring the queen out and attack at once.",
+      "truth": "Early queen moves lose time and get chased. Develop the other pieces first.",
+      "detectors": ["early.queen"],
+      "minOccurrences": 2,
+      "windowGames": 10,
+      "skill": "opening_principles",
+      "lessonId": "l-open-principles",
+      "learnerPhrase": "A belief that may be costing you games: 'the queen should attack early'."
+    },
+    {
+      "id": "M07",
+      "title": "Move the same piece again and again",
+      "belief": "If a piece is doing well, keep moving it.",
+      "truth": "Develop each piece once, then connect the rest.",
+      "detectors": ["opening.repeat_piece"],
+      "minOccurrences": 3,
+      "windowGames": 10,
+      "skill": "opening_principles",
+      "lessonId": "l-open-principles",
+      "learnerPhrase": "A belief that may be costing you games: 'keep moving the same piece'."
+    },
+    {
+      "id": "M08",
+      "title": "My king is fine in the middle",
+      "belief": "The king can wait in the centre.",
+      "truth": "Castle early, before lines open up.",
+      "detectors": ["king.center"],
+      "minOccurrences": 2,
+      "windowGames": 10,
+      "skill": "king_safety",
+      "lessonId": "l-king-castle",
+      "learnerPhrase": "A belief that may be costing you games: 'my king is fine in the middle'."
+    },
+    {
+      "id": "M10",
+      "title": "A winning position cannot be spoiled",
+      "belief": "Once I am ahead, I just keep taking.",
+      "truth": "Stalemate and back-rank tricks can ruin a won game.",
+      "detectors": ["stalemate.risk", "no.luft"],
+      "minOccurrences": 1,
+      "windowGames": 10,
+      "skill": "conversion",
+      "lessonId": "l-eg-kq",
+      "learnerPhrase": "A belief that may be costing you games: 'a winning position cannot be spoiled'."
+    },
+    {
+      "id": "M11",
+      "title": "A sacrifice makes an attack",
+      "belief": "Giving up material always creates an attack.",
+      "truth": "A sacrifice needs a calculated follow-up. Without one it is just lost material.",
+      "detectors": ["unsound.sacrifice"],
+      "minOccurrences": 2,
+      "windowGames": 10,
+      "skill": "conversion",
+      "lessonId": "l-bc-lastscan",
+      "learnerPhrase": "A belief that may be costing you games: 'a sacrifice makes an attack'."
     }
   ]
 }

@@ -1,0 +1,131 @@
+{
+  "_provenance": "Authored for Mentor (docs/backend/06 §3). A DEFAULT starter set chosen from the owner's own games (1.e4 e5 2.Nf3 as White, ...e5 vs 1.e4, ...d5 vs 1.d4; see docs/DECISIONS.md D15). The owner has not picked yet, so these are proposals; swap any line. Common theory, own 'why' wording. Needs owner review and engine check (tools/validate-content).",
+  "repertoires": [
+    {
+      "id": "w-italian",
+      "side": "w",
+      "name": "White: Italian Game, quiet plan",
+      "oppFirst": null,
+      "ideas": [
+        {
+          "id": "i1",
+          "title": "Why a bishop on c4",
+          "text": "The bishop aims at f7, the weakest square in Black's camp, and gets out of the way so you can castle."
+        },
+        {
+          "id": "i2",
+          "title": "Why c3 and d3",
+          "text": "c3 prepares d4 to take the centre later, and d3 keeps e4 safe. Calm moves, strong centre."
+        }
+      ],
+      "line": [
+        { "san": "e4", "byLearner": true, "why": "Take the centre and open lines for the bishop and queen." },
+        { "san": "e5", "byLearner": false, "why": "Black fights for the centre too." },
+        { "san": "Nf3", "byLearner": true, "why": "Develop a piece and attack the e5 pawn." },
+        {
+          "san": "Nc6",
+          "byLearner": false,
+          "why": "Black defends the pawn and develops.",
+          "replies": [
+            { "san": "d6", "note": "Philidor: keep developing, Bc4 and d3 still work." },
+            { "san": "Nf6", "note": "Petroff: trade on e5 only if you know why; otherwise play d4." }
+          ]
+        },
+        {
+          "san": "Bc4",
+          "byLearner": true,
+          "why": "Aim at f7 and get ready to castle.",
+          "replies": [{ "san": "Bb5", "note": "Not for us: that is the Ruy Lopez; you play Bc4." }]
+        },
+        {
+          "san": "Bc5",
+          "byLearner": false,
+          "why": "Black copies the idea.",
+          "replies": [{ "san": "Nf6", "note": "Two Knights: play d3, then castle." }]
+        },
+        { "san": "c3", "byLearner": true, "why": "Prepare d4 and make room for the queen." },
+        { "san": "Nf6", "byLearner": false, "why": "Develop and attack e4." },
+        { "san": "d3", "byLearner": true, "why": "Protect e4 and open the c1 bishop." },
+        { "san": "d6", "byLearner": false, "why": "Black supports e5." },
+        { "san": "O-O", "byLearner": true, "why": "Castle early: the king is safe and the rook joins the game." }
+      ]
+    },
+    {
+      "id": "b-e5",
+      "side": "b",
+      "name": "Black vs 1.e4: ...e5 and quick development",
+      "oppFirst": "e4",
+      "ideas": [
+        {
+          "id": "i3",
+          "title": "Mirror the centre",
+          "text": "Answering e4 with e5 claims your share of the centre and gives your bishop and knight good squares."
+        }
+      ],
+      "line": [
+        { "san": "e4", "byLearner": false, "why": "White takes the centre." },
+        { "san": "e5", "byLearner": true, "why": "Claim the centre too and open the bishop and queen." },
+        {
+          "san": "Nf3",
+          "byLearner": false,
+          "why": "White attacks e5.",
+          "replies": [
+            { "san": "Bc4", "note": "Play ...Nf6 and fight for the centre." },
+            { "san": "d4", "note": "Take back: ...exd4, then develop." }
+          ]
+        },
+        { "san": "Nc6", "byLearner": true, "why": "Defend e5 and develop a piece in one move." },
+        {
+          "san": "Bc4",
+          "byLearner": false,
+          "why": "White eyes f7.",
+          "replies": [
+            { "san": "Bb5", "note": "Ruy Lopez: answer ...a6, then ...Nf6." },
+            { "san": "d4", "note": "Scotch: ...exd4 and develop." },
+            { "san": "Nc3", "note": "Four Knights: ...Nf6 and keep developing." }
+          ]
+        },
+        { "san": "Bc5", "byLearner": true, "why": "Develop and aim at f2, the weak square near White's king." },
+        { "san": "c3", "byLearner": false, "why": "White prepares d4." },
+        { "san": "Nf6", "byLearner": true, "why": "Develop and attack the e4 pawn." },
+        { "san": "d3", "byLearner": false, "why": "White protects e4 quietly." },
+        { "san": "d6", "byLearner": true, "why": "Protect e5 and free the c8 bishop." },
+        { "san": "O-O", "byLearner": false, "why": "White castles." },
+        { "san": "O-O", "byLearner": true, "why": "Castle early to protect your king." }
+      ]
+    },
+    {
+      "id": "b-qgd",
+      "side": "b",
+      "name": "Black vs 1.d4: ...d5 and a solid Queen's Gambit Declined",
+      "oppFirst": "d4",
+      "ideas": [
+        {
+          "id": "i4",
+          "title": "A solid wall",
+          "text": "Pawns on d5 and e6 hold the centre. Your bad-looking c8 bishop gets freed later, so be patient."
+        }
+      ],
+      "line": [
+        { "san": "d4", "byLearner": false, "why": "White takes the centre." },
+        { "san": "d5", "byLearner": true, "why": "Stop e4 and fight for the centre." },
+        {
+          "san": "c4",
+          "byLearner": false,
+          "why": "White offers a pawn to win the centre.",
+          "replies": [
+            { "san": "Nf3", "note": "Play ...Nf6 and ...e6." },
+            { "san": "Bf4", "note": "London: ...Nf6, ...e6, ...Bd6 is fine." }
+          ]
+        },
+        { "san": "e6", "byLearner": true, "why": "Protect d5 and keep your pawns solid." },
+        { "san": "Nc3", "byLearner": false, "why": "White develops and adds pressure on d5." },
+        { "san": "Nf6", "byLearner": true, "why": "Develop and defend d5 again." },
+        { "san": "Bg5", "byLearner": false, "why": "White pins your knight to the queen." },
+        { "san": "Be7", "byLearner": true, "why": "Break the pin and get ready to castle." },
+        { "san": "e3", "byLearner": false, "why": "White opens the bishop and prepares to castle." },
+        { "san": "O-O", "byLearner": true, "why": "Castle: the king is safe and the rook joins." }
+      ]
+    }
+  ]
+}

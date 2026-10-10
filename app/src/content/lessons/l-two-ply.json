@@ -1,0 +1,42 @@
+{
+  "id": "l-two-ply",
+  "title": "My move, their best reply",
+  "skills": ["calculation_2ply"],
+  "phase": 3,
+  "minutes": 5,
+  "prereqs": ["l-candidates"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Look one reply ahead",
+      "body": "For each candidate, ask what their best reply is, and whether you are still happy after it. That one extra step catches most blunders."
+    },
+    {
+      "type": "board",
+      "fen": "4k3/8/8/3q4/8/8/8/3RK3 w - - 0 1",
+      "body": "Rxd5 wins the queen. Their best reply does not change that, because nothing can recapture.",
+      "arrows": [["d1", "d5", "green"]]
+    },
+    {
+      "type": "check",
+      "q": "After you pick a move, what do you ask?",
+      "options": ["What is their best reply?", "What is my next move?", "Is the board full?"],
+      "answer": 0,
+      "why": "Their best reply decides whether your move works."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "What do you ask after choosing a move?",
+      "solution": ["What is their best reply?"],
+      "why": "It catches most blunders."
+    }
+  ]
+}

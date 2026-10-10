@@ -1,0 +1,53 @@
+{
+  "id": "l-king-castle",
+  "title": "Castle early",
+  "skills": ["king_safety"],
+  "phase": 5,
+  "minutes": 4,
+  "prereqs": ["l-open-principles"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "A safe king",
+      "body": "A king in the middle is easy to attack once lines open. Castling tucks it away and brings a rook into play in one move."
+    },
+    {
+      "type": "board",
+      "fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 6 5",
+      "body": "White can castle here: the squares between king and rook are empty and nothing attacks them.",
+      "arrows": [["e1", "g1", "green"]]
+    },
+    {
+      "type": "check",
+      "q": "When can you not castle?",
+      "options": [
+        "If your king has moved, or you would pass through check",
+        "If you have a knight developed",
+        "If your opponent has castled"
+      ],
+      "answer": 0,
+      "why": "Castling needs an unmoved king and safe squares."
+    },
+    {
+      "type": "check",
+      "q": "When should you usually castle?",
+      "options": ["Early, before lines open", "Only in the endgame", "Never"],
+      "answer": 0,
+      "why": "A king that waits can be attacked before it hides."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "Why castle early?",
+      "solution": ["It protects the king and connects the rooks."],
+      "why": "A king in the middle is easy to attack."
+    }
+  ]
+}

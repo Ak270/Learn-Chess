@@ -5,6 +5,7 @@ import { LESSONS, lessonById } from '../core/content/lessons';
 import { SKILL_DEFS, mastery } from '../core/planner/plan';
 import { $, $$, esc } from '../shell/dom';
 import { confetti } from '../shell/ui';
+import { listModelGames, renderModelGame } from './modelGame';
 import type { SkillState, SkillStatus } from '../types/model';
 
 const PHASES: Record<number, string> = {
@@ -20,6 +21,7 @@ const PHASES: Record<number, string> = {
 const solid = (s?: SkillState) => s?.status === 'solid' || s?.status === 'maintenance';
 
 export async function render(root: HTMLElement, ctx: { args: string[] }) {
+  if (ctx.args[0] === 'game' && ctx.args[1]) return renderModelGame(root, ctx.args[1]);
   if (ctx.args[0]) return openLesson(root, ctx.args[0]);
   const states = Object.fromEntries((await db.skills.toArray()).map((s) => [s.skill, s]));
   const done = new Set(
@@ -72,6 +74,12 @@ export async function render(root: HTMLElement, ctx: { args: string[] }) {
         return `<div class="lesson-row ${isDone ? 'done' : ''}" data-id="${l.id}" tabindex="0" role="button" aria-disabled="${locked}"><span class="avatar" style="background:${isDone ? 'var(--accent)' : 'var(--panel2)'};color:${isDone ? 'var(--accent-ink)' : 'inherit'}">${isDone ? '✓' : locked ? '🔒' : '▶'}</span>
         <div class="grow"><b>${esc(l.title)}</b><div class="small muted">Phase ${l.phase} · ${l.minutes} min${locked ? ' · finish the earlier lesson first' : ''}</div></div>${!isDone && !locked ? '<span class="chip yellow">New</span>' : ''}</div>`;
       }).join('')}
+      <h2 style="margin-top:20px">Think like a stronger player</h2>${listModelGames()
+        .map(
+          (g) =>
+            `<div class="lesson-row"><span class="avatar">♔</span><div class="grow"><a href="#/learn/game/${g.id}" style="color:inherit"><b>${esc(g.title)}</b></a><div class="small muted">${esc(g.sub)}</div></div></div>`,
+        )
+        .join('')}
       <p class="small muted" style="margin-top:12px">Lessons are written for a 600 to 1000 learner, and every position is checked with the engine. Each lesson is marked "needs owner review" until you have read it.</p>
     </section>
   </div>`;

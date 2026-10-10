@@ -47,7 +47,7 @@ describe('puzzle shards (docs/backend/06 §10: spot-check by replay)', () => {
         provenance: { license: string; engineVerified: boolean; source: string };
         puzzles: RawPuzzle[];
       };
-      expect(j.provenance.license).toBe('CC0');
+      expect(j.provenance.license).toMatch(/^(CC0|own)/);
       expect(j.provenance.engineVerified).toBe(true);
       for (const p of j.puzzles) {
         total++;

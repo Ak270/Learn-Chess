@@ -1,7 +1,10 @@
 import { $, $$, toast, modal, esc } from '../shell/dom';
 import { settings } from '../shell/settings';
 import { db } from '../data/db';
-import { deleteAll, exportAll } from '../data/exportImport';
+import { deleteAll, exportAll, importAll } from '../data/exportImport';
+import { buildPackage } from '../core/ai/package';
+import { AiFailure, createGroqProvider } from '../core/ai/providers';
+import { verifyText } from '../core/ai/verify';
 
 const BOARDS: [string, string, string][] = [
   ['green', '#ebecd0', '#739552'],
@@ -32,7 +35,14 @@ export function render(root: HTMLElement) {
       <div class="setting"><label for="gm"><b>Model</b></label><input type="text" id="gm" value="${esc(settings.get('groqModel'))}" style="width:220px"></div>
       <h2 style="margin-top:20px">Your data</h2><p class="small muted">Games, answers and timings are used only to drive training.</p>
       <div class="row"><button class="btn" id="exp">Export everything</button><button class="btn danger" id="del">Delete everything</button></div></section>
-  </div>`;
+  </div>
+  <section class="card" style="margin-top:16px;max-width:980px"><h2>This device</h2>
+    <div class="setting"><div><b>Storage</b><div class="small muted" id="stor">Checking…</div></div><button class="btn small" id="persist">Keep my data</button></div>
+    <div class="setting"><div><b>Analysis engine</b><div class="small muted">Stockfish 19 (lite, single thread) runs in a worker on this device. Cross-origin isolation: <span id="coi"></span></div></div></div>
+    <div class="setting"><div><b>Groq connection</b><div class="small muted" id="gstat">Add a key above, then test it. The test sends one tiny, fixed message, nothing about your games.</div></div><button class="btn small" id="gtest">Test Groq key</button></div>
+    <div class="setting"><div><b>Import a backup</b><div class="small muted">A file made by "Export everything". Merges by id; nothing is lost.</div></div><input type="file" id="imp" accept=".json" aria-label="Backup file"></div>
+    <div class="setting"><div><b>Start onboarding again</b><div class="small muted">Does not delete anything.</div></div><button class="btn small" id="reon">Reset onboarding</button></div>
+  </section>`;
   const seg = (id: string, key: 'theme' | 'mode') =>
     $$(`#${id} button`, root).forEach(
       (b) =>
@@ -68,6 +78,7 @@ export function render(root: HTMLElement) {
     a.download = `mentor-export-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(a.href);
+    await db.kv.put({ key: 'export.last', value: Date.now() });
     toast('Exported. The Groq key is not included.');
   };
   $('#del', root).onclick = () =>
@@ -84,4 +95,67 @@ export function render(root: HTMLElement) {
         },
       },
     );
+  const stor = $('#stor', root);
+  void (async () => {
+    const est = await navigator.storage?.estimate?.();
+    const persisted = await navigator.storage?.persisted?.();
+    stor.textContent = est
+      ? `${((est.usage ?? 0) / 1048576).toFixed(1)} MB used of about ${Math.round((est.quota ?? 0) / 1048576)} MB. ${persisted ? 'The browser will keep it.' : 'The browser may clear it if space runs low, so export a backup now and then.'}`
+      : 'Storage information is not available in this browser.';
+  })();
+  $('#coi', root).textContent =
+    typeof crossOriginIsolated !== 'undefined' && crossOriginIsolated ? 'on' : 'off (single thread)';
+  $('#persist', root).onclick = async () =>
+    toast(
+      (await navigator.storage?.persist?.())
+        ? 'Your data is now marked to keep.'
+        : 'The browser did not grant it. Install the app or export regularly.',
+    );
+  $('#gtest', root).onclick = async () => {
+    const out = $('#gstat', root);
+    const key = settings.get('groqKey');
+    if (!key) return void (out.textContent = 'Add a Groq key first.');
+    out.textContent = 'Testing…';
+    const pkg = buildPackage({
+      fenBefore: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+      playedSan: 'e4',
+      playedUci: 'e2e4',
+      replySans: ['e5'],
+      moveNo: 1,
+    });
+    try {
+      const text = await createGroqProvider({
+        getKey: () => settings.get('groqKey'),
+        getModel: () => settings.get('groqModel'),
+      }).explainWithNote(pkg);
+      const v = verifyText(text, pkg);
+      out.textContent = v.ok
+        ? 'Connected. Groq answered and the answer passed the fact check.'
+        : 'Connected, but the test answer failed the fact check (that is the checker doing its job). Wording will fall back to built-in text when it happens.';
+    } catch (e) {
+      const f = e as AiFailure;
+      out.textContent =
+        f.reason === 'rate-limit'
+          ? 'Groq says to slow down. Try again in a minute.'
+          : f.reason === 'http'
+            ? `Groq answered ${f.status}. Check the key and the model name.`
+            : f.reason === 'network'
+              ? 'Could not reach Groq. Built-in wording stays on.'
+              : 'The test did not work.';
+    }
+  };
+  ($('#imp', root) as HTMLInputElement).onchange = async (e) => {
+    const f = (e.target as HTMLInputElement).files?.[0];
+    if (!f) return;
+    try {
+      const r = await importAll(db, JSON.parse(await f.text()));
+      toast(`Imported ${r.rows} records.`);
+    } catch (err) {
+      toast((err as Error).message, 'warn', 5000);
+    }
+  };
+  $('#reon', root).onclick = async () => {
+    await db.kv.delete('onboarding.done');
+    location.hash = '#/onboarding';
+  };
 }

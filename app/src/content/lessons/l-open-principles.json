@@ -1,0 +1,53 @@
+{
+  "id": "l-open-principles",
+  "title": "Three opening rules",
+  "skills": ["opening_principles"],
+  "phase": 4,
+  "minutes": 5,
+  "prereqs": ["l-ps-safety"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Rules that work",
+      "body": "In the opening, do three things: take the centre with pawns, develop each piece once, and castle. Moving the queen early or the same piece twice loses time."
+    },
+    {
+      "type": "board",
+      "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1",
+      "body": "White has taken the centre with e4. That already opens lines for the bishop and the queen.",
+      "arrows": [["e2", "e4", "green"]]
+    },
+    {
+      "type": "check",
+      "q": "Which is a better second move for White after e4 e5?",
+      "options": ["Develop a knight to f3", "Bring the queen out to h5", "Move the same pawn again"],
+      "answer": 0,
+      "why": "A knight develops and attacks the pawn on e5."
+    },
+    {
+      "type": "check",
+      "q": "Why avoid early queen moves?",
+      "options": [
+        "The queen gets chased and you lose time",
+        "The queen cannot move early",
+        "Queens are not allowed in the centre"
+      ],
+      "answer": 0,
+      "why": "Each chase is a free developing move for them."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "What are the three opening rules?",
+      "solution": ["Take the centre, develop each piece once, castle."],
+      "why": "They give you a safe king and active pieces."
+    }
+  ]
+}

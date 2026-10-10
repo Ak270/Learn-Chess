@@ -8,6 +8,8 @@ export interface RawPuzzle {
   moves: string;
   rating: number;
   themes: string[];
+  /** generated drills: the FEN is already the learner's position (no opponent move first) */
+  own?: boolean;
 }
 export interface PuzzleView {
   id: string;
@@ -25,6 +27,19 @@ export interface PuzzleView {
 
 export function toPuzzleView(p: RawPuzzle, skill: SkillId): PuzzleView {
   const mv = p.moves.split(' ');
+  if (p.own) {
+    const c0 = new Chess(p.fen);
+    return {
+      id: p.id,
+      skill,
+      fen: p.fen,
+      lastMove: { from: '', to: '' },
+      line: mv,
+      rating: p.rating,
+      themes: p.themes,
+      turn: c0.turn(),
+    };
+  }
   const c = new Chess(p.fen);
   c.move({ from: mv[0].slice(0, 2), to: mv[0].slice(2, 4), promotion: mv[0][4] });
   return {

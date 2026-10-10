@@ -5,6 +5,7 @@ import { cfg } from '../config';
 import { skillTitle, SKILL_DEFS } from '../core/planner/plan';
 import { assistLevel, evidenceFromAttempt } from '../core/skills/derive';
 import { $, esc, toast } from '../shell/dom';
+import { runFlash } from './flash';
 import type { PuzzleView } from '../core/content/puzzles';
 import type { SkillId } from '../types/ids';
 
@@ -46,7 +47,7 @@ export async function render(root: HTMLElement) {
         <div class="seg" id="mode" role="group" aria-label="Practice kind"><button data-m="recognition" class="${mode === 'recognition' ? 'on' : ''}">Recognition</button><button data-m="calculation" class="${mode === 'calculation' ? 'on' : ''}">Calculation</button></div></div>
       <div class="setting"><label for="sk"><b>Skill</b></label><select id="sk" style="width:240px"><option value="auto">Automatic (today's focus)</option>${have.map((s) => `<option value="${s}" ${skill === s ? 'selected' : ''}>${esc(skillTitle(s))}</option>`).join('')}</select></div>
       ${have.length ? '' : '<p class="small muted">No puzzle shards found. Run the content build, or use the Blunder Box for your own positions.</p>'}
-      <div class="row" style="margin-top:12px"><button class="btn primary big" id="start" ${have.length ? '' : 'disabled'}>Start ${mode === 'recognition' ? cfg.get<number>('puzzle.recognitionSetSize') : cfg.get<number>('puzzle.calcSetSize')} puzzles</button></div></section>`;
+      <div class="row" style="margin-top:12px"><button class="btn big" id="flash">🧠 Flash position</button><button class="btn primary big" id="start" ${have.length ? '' : 'disabled'}>Start ${mode === 'recognition' ? cfg.get<number>('puzzle.recognitionSetSize') : cfg.get<number>('puzzle.calcSetSize')} puzzles</button></div></section>`;
     $('#mode', root)
       .querySelectorAll('button')
       .forEach(
@@ -59,6 +60,7 @@ export async function render(root: HTMLElement) {
     ($('#sk', root) as HTMLSelectElement).onchange = (e) =>
       (skill = (e.target as HTMLSelectElement).value as SkillId | 'auto');
     $('#start', root).onclick = () => void runSet();
+    $('#flash', root).onclick = () => void runFlash(root, () => void lobby());
   };
 
   const runSet = async () => {

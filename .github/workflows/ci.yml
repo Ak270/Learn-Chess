@@ -11,7 +11,10 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
-      - run: npm test
+      - run: npm test            # unit, golden, property, integration (real Stockfish in Node)
+      - run: npm run validate:content
+      - run: npm run check:licenses
       - run: npm run build
+      - run: npm run check:budget
       - run: npx playwright install --with-deps chromium
-      - run: npm run e2e
+      - run: npm run e2e         # flows, a11y (axe), offline, CSP

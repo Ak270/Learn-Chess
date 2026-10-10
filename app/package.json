@@ -16,7 +16,10 @@
     "prebuild": "npm run copy-engine",
     "pretest": "npm run copy-engine",
     "validate:content": "tsx tools/validate-content.ts",
-    "build:puzzles": "echo \"usage: zstd -dc lichess_db_puzzle.csv.zst | tsx tools/build-puzzles.ts 150\""
+    "build:puzzles": "echo \"usage: zstd -dc lichess_db_puzzle.csv.zst | tsx tools/build-puzzles.ts 150\"",
+    "check:licenses": "tsx tools/check-licenses.ts",
+    "check:budget": "tsx tools/check-budget.ts",
+    "build:endgames": "tsx tools/build-endgames.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

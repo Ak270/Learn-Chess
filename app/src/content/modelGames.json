@@ -1,0 +1,86 @@
+{
+  "_provenance": "Authored for Mentor (docs/backend/06 \u00a77). Historic games are public domain; commentary is Mentor's own wording and kept to what the moves show. 3 of the planned 10; needs owner review.",
+  "games": [
+    {
+      "id": "mg-opera",
+      "title": "The Opera Game",
+      "white": "Paul Morphy",
+      "black": "Duke of Brunswick and Count Isouard",
+      "where": "Paris, 1858",
+      "skill": "checks_captures_threats",
+      "pgn": "1. e4 e5 2. Nf3 d6 3. d4 Bg4 4. dxe5 Bxf3 5. Qxf3 dxe5 6. Bc4 Nf6 7. Qb3 Qe7 8. Nc3 c6 9. Bg5 b5 10. Nxb5 cxb5 11. Bxb5+ Nbd7 12. O-O-O Rd8 13. Rxd7 Rxd7 14. Rd1 Qe6 15. Bxd7+ Nxd7 16. Qb8+ Nxb8 17. Rd8#",
+      "pauses": [
+        {
+          "ply": 12,
+          "prompt": "White to move. Black has just developed the knight. What can White attack, and what can White do about Black's pieces?",
+          "ideas": ["threats", "candidates"],
+          "reveal": "Qb3 attacks the pawn on b7 and the pawn on f7 at the same time. Black cannot guard both easily, so White gains time."
+        },
+        {
+          "ply": 18,
+          "prompt": "White to move. Black has just played ...b5. Is it safe? Look at what the knight and the bishop on c4 can capture.",
+          "ideas": ["captures", "threats"],
+          "reveal": "Nxb5 gives up a knight for a pawn, but opens the b-file and the diagonal to the king. White is ahead in development, so the attack comes first."
+        },
+        {
+          "ply": 22,
+          "prompt": "White to move. Black's king is still in the centre. Which of White's pieces can join the attack at once?",
+          "ideas": ["candidates", "checks"],
+          "reveal": "Castling long brings the rook to the open d-file with tempo. Developing with a threat keeps Black busy."
+        },
+        {
+          "ply": 28,
+          "prompt": "White to move. Black's pieces are tied up. Is there a check that wins material or leads to mate?",
+          "ideas": ["checks", "captures"],
+          "reveal": "Bxd7+ removes a defender with check, and the following Qb8+ forces the knight away so that Rd8 is checkmate."
+        }
+      ]
+    },
+    {
+      "id": "mg-legal",
+      "title": "L\u00e9gal's mate",
+      "white": "L\u00e9gal de Kermeur",
+      "black": "Saint Brie",
+      "where": "Paris, 1750",
+      "skill": "checks_captures_threats",
+      "pgn": "1. e4 e5 2. Nf3 d6 3. Bc4 Bg4 4. Nc3 g6 5. Nxe5 Bxd1 6. Bxf7+ Ke7 7. Nd5#",
+      "pauses": [
+        {
+          "ply": 8,
+          "prompt": "White to move. Black's bishop on g4 attacks the queen. Do you have to move the queen?",
+          "ideas": ["threats", "captures"],
+          "reveal": "No. Nxe5 lets Black take the queen, but the pieces left behind are ready for a mating attack on the king."
+        },
+        {
+          "ply": 10,
+          "prompt": "White to move. Black has taken the queen. What check is available?",
+          "ideas": ["checks", "candidates"],
+          "reveal": "Bxf7+ forces the king to e7, where it has nowhere safe to go."
+        }
+      ]
+    },
+    {
+      "id": "mg-reti",
+      "title": "R\u00e9ti against Tartakower",
+      "white": "Richard R\u00e9ti",
+      "black": "Savielly Tartakower",
+      "where": "Vienna, 1910",
+      "skill": "mate_patterns",
+      "pgn": "1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Nf6 5. Qd3 e5 6. dxe5 Qa5+ 7. Bd2 Qxe5 8. O-O-O Nxe4 9. Qd8+ Kxd8 10. Bg5+ Kc7 11. Bd8#",
+      "pauses": [
+        {
+          "ply": 16,
+          "prompt": "White to move. Black's knight has just taken on e4. Look at the d-file and at Black's king.",
+          "ideas": ["checks", "captures", "candidates"],
+          "reveal": "Qd8+ is a queen sacrifice: the king must take, and then two bishop moves finish the game."
+        },
+        {
+          "ply": 18,
+          "prompt": "White to move. Black's king has taken the queen. What is the next check?",
+          "ideas": ["checks", "threats"],
+          "reveal": "Bg5+ is a double check from the bishop and the rook on d1. The king can only go to c7, and Bd8 is mate."
+        }
+      ]
+    }
+  ]
+}

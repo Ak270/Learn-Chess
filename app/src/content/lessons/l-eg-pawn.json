@@ -1,0 +1,58 @@
+{
+  "id": "l-eg-pawn",
+  "title": "King and pawn: get in front",
+  "skills": ["eg_opposition"],
+  "phase": 6,
+  "minutes": 6,
+  "prereqs": ["l-eg-kq"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "The king helps the pawn",
+      "body": "In king and pawn endings the king is the strongest piece. Put your king in front of your pawn, and the enemy king cannot stop it from reaching the end."
+    },
+    {
+      "type": "board",
+      "fen": "3k4/8/3K4/3P4/8/8/8/8 w - - 0 1",
+      "body": "White's king is on d6, in front of the pawn on d5. Black's king cannot get in front.",
+      "arrows": [["d6", "d7", "green"]]
+    },
+    {
+      "type": "interactive",
+      "fen": "3k4/8/3K4/3P4/8/8/8/8 w - - 0 1",
+      "solution": ["d6e6", "d6c6"],
+      "wrong": {
+        "default": "Step the king sideways, not the pawn forward. Keep the king in front."
+      },
+      "onSuccess": "The king steps aside and the pawn follows, so Black cannot stop it."
+    },
+    {
+      "type": "check",
+      "q": "Where should your king stand?",
+      "options": ["In front of your pawn", "Far behind your pawn", "Next to the enemy rook"],
+      "answer": 0,
+      "why": "A king in front clears the way and guards the pawn."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "Where does the king go in a king and pawn ending?",
+      "solution": ["In front of the pawn."],
+      "why": "It clears the way and cannot be blocked."
+    }
+  ],
+  "drills": {
+    "puzzleQuery": {
+      "skill": "eg_opposition",
+      "band": "400-700",
+      "count": 0
+    }
+  }
+}

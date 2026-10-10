@@ -64,3 +64,20 @@ describe('content validator (docs/backend/06 §4.2)', () => {
     ).toBeGreaterThan(14);
   });
 });
+
+describe('cross references', () => {
+  it('every misconception points to an existing lesson and a known skill', async () => {
+    const m = (await import('../../src/content/misconceptions.json')).default as {
+      misconceptions: { lessonId: string; skill: string }[];
+    };
+    const { SKILL_IDS } = await import('../../src/types/ids');
+    for (const x of m.misconceptions) {
+      expect(
+        lessons.some((l) => l.id === x.lessonId),
+        x.lessonId,
+      ).toBe(true);
+      expect(SKILL_IDS as readonly string[]).toContain(x.skill);
+    }
+    expect(m.misconceptions.length).toBeGreaterThanOrEqual(10);
+  });
+});

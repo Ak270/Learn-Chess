@@ -13,6 +13,7 @@ import { $, $$, esc, modal, toast } from '../shell/dom';
 import { settings } from '../shell/settings';
 import { confetti, sound } from '../shell/ui';
 import { setChatContext } from '../shell/teacher';
+import { assessAfterGame } from '../core/play/wellbeing';
 import type { SkillId } from '../types/ids';
 
 const ICONS = ['♟', '♞', '♝', '♜', '♛'];
@@ -388,12 +389,17 @@ function game(root: HTMLElement, s: GameSession): () => void {
       board.render();
       board.setLastMove(s.chess.history({ verbose: true }).at(-1) ?? null);
     }
-    if (e === 'ended') return endModal();
+    if (e === 'ended') return void endModal();
     sync();
   });
 
-  const endModal = () => {
+  const endModal = async () => {
     clearInterval(timer);
+    const a = assessAfterGame((await play.results()).map((r) => ({ score: r.score })));
+    const wellbeingHtml =
+      a.kind === 'none'
+        ? ''
+        : `<div class="coach-card info"><h4>${a.kind === 'tilt' ? 'Good place to stop' : 'A quick thought'}</h4><div class="small">${esc(a.message)}</div></div>`;
     const sum = s.summary();
     if (sum.won) confetti();
     const title =
@@ -413,7 +419,7 @@ function game(root: HTMLElement, s: GameSession): () => void {
       : '';
     modal(
       `<h2>${esc(title)}</h2><p class="muted">${esc(sum.termination ?? '')}</p>
-      <div class="coach-card"><h4>What happened</h4><div class="small">${sum.takebacks ? `${sum.takebacks} take-back${sum.takebacks > 1 ? 's' : ''} used. ` : ''}${sum.hints ? `${sum.hints} hint${sum.hints > 1 ? 's' : ''} used. ` : ''}${sum.interceptions.filter((i) => i.kept).length ? 'You kept a move Mentor flagged; the review will look at it. ' : ''}${sum.reviewable ? 'The review will find the first mistake that really mattered and ask what you were aiming for.' : 'Critical-position games are for practice and are not reviewed.'}</div></div>${intents}
+      <div class="coach-card"><h4>What happened</h4><div class="small">${sum.takebacks ? `${sum.takebacks} take-back${sum.takebacks > 1 ? 's' : ''} used. ` : ''}${sum.hints ? `${sum.hints} hint${sum.hints > 1 ? 's' : ''} used. ` : ''}${sum.interceptions.filter((i) => i.kept).length ? 'You kept a move Mentor flagged; the review will look at it. ' : ''}${sum.reviewable ? 'The review will find the first mistake that really mattered and ask what you were aiming for.' : 'Critical-position games are for practice and are not reviewed.'}</div></div>${intents}${wellbeingHtml}
       <div class="row" style="margin-top:16px">${sum.reviewable ? '<button class="btn primary" id="rv">Review the game</button>' : ''}<button class="btn" id="again">New game</button></div>`,
       {
         onMount: (bg, close) => {

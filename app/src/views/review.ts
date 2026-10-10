@@ -3,6 +3,7 @@ import { Chess, type Move } from 'chess.js';
 import { Board } from '../components/BoardApi';
 import { ai, db, metrics, reviews, store } from '../app';
 import { packageFromStored } from '../core/ai/package';
+import { annotatedPgn } from '../core/export/pgn';
 import { mistakeFacts, moveLabel } from '../core/chess/facts';
 import { $, $$, esc, toast } from '../shell/dom';
 import { classMeta, lineChart, sound } from '../shell/ui';
@@ -181,7 +182,7 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
         <h3 style="margin-top:14px">Chance to win</h3><div id="graph"></div></div>
         <h3 style="margin-top:14px">Moves</h3><div class="moves" id="mv" role="list"></div>
       </div>
-      <div class="ctrls">${first?.cardId ? `<button class="btn ${cardOn ? 'primary' : ''}" id="boxbtn">${cardOn ? '📦 In your Blunder Box' : '📦 Add to Blunder Box'}</button>` : ''}${first ? `<a class="btn" href="#/play?fen=${encodeURIComponent(first.fen)}&mode=critical">Play this position</a>` : ''}</div>
+      <div class="ctrls"><button class="btn" id="pgnx">⬇ Annotated PGN</button>${first?.cardId ? `<button class="btn ${cardOn ? 'primary' : ''}" id="boxbtn">${cardOn ? '📦 In your Blunder Box' : '📦 Add to Blunder Box'}</button>` : ''}${first ? `<a class="btn" href="#/play?fen=${encodeURIComponent(first.fen)}&mode=critical">Play this position</a>` : ''}</div>
     </aside>
   </div>`;
 
@@ -453,6 +454,16 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
       boxbtn.classList.toggle('primary', on);
     };
   }
+  $('#pgnx', root).onclick = () => {
+    const url = URL.createObjectURL(
+      new Blob([annotatedPgn(game, plies, mistakes, review)], { type: 'application/x-chess-pgn' }),
+    );
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `mentor-review-${game.id}.pgn`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
   $('#rerev', root).onclick = async () => {
     const depth = cfg.get<number>('engine.review.depth') + 4;
     root.innerHTML =

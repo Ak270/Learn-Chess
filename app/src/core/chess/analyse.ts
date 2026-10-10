@@ -8,7 +8,7 @@ import { classifyMove, type LearnerPly } from './classify';
 import { flipWinPct, moveAccuracy, winPctLoss, winPctOf } from './eval';
 import { gamePhase, materialFor } from './material';
 import { motifsForPly } from './motifs';
-import { habitMotifs, protectedButHanging } from './habits';
+import { gameHabits, habitMotifs, protectedButHanging, type HabitPly } from './habits';
 import { see } from './see';
 
 export interface AnalyseOptions {
@@ -86,6 +86,7 @@ export async function analyseGame(
   const learner: LearnerPly[] = [];
   const refutations: Record<number, string> = {};
   const lossByPly: number[] = [];
+  const habitHistory: HabitPly[] = [];
   const whiteWinPct = positions.map((p, i) => (new Chess(fens[i]).turn() === 'w' ? p.stmWin : flipWinPct(p.stmWin)));
 
   for (let i = 0; i < verbose.length && i + 1 < positions.length; i++) {
@@ -168,7 +169,28 @@ export async function analyseGame(
       const afterHabits = isBook
         ? []
         : [...habitMotifs(fens[i], m.lan, mover, refute), ...protectedButHanging(fens[i + 1], mover)];
-      const raw: MotifHit[] = isBook ? [] : [...motifsForPly(fens[i], m.lan, before.bestUci), ...afterHabits];
+      habitHistory.push({
+        ply,
+        color: mover,
+        san: m.san,
+        uci: m.lan,
+        fenBefore: fens[i],
+        fenAfter: fens[i + 1],
+        winPctBefore: winBefore,
+        winPctLoss: loss,
+        materialDropAfterBestReply: dropAfter,
+      });
+      const gameLevel = isBook
+        ? []
+        : gameHabits(
+            habitHistory,
+            cfg.get<number>('classification.inaccuracyWinPct'),
+            cfg.get<number>('classification.mistakeWinPct'),
+            cfg.get<number>('classification.blunderWinPct'),
+          );
+      const raw: MotifHit[] = isBook
+        ? []
+        : [...motifsForPly(fens[i], m.lan, before.bestUci), ...afterHabits, ...gameLevel];
       const realised = dropAfter >= cfg.get('motif.refutationMinGainPawns') || mateAllowed;
       rec.motifs = raw.filter((h) =>
         h.role === 'allowed'

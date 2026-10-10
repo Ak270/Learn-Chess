@@ -73,7 +73,10 @@ export async function render(root: HTMLElement) {
       ${prev === undefined ? '<div class="small muted">First measurement</div>' : `<div class="delta ${better ? 'up' : 'dn'}">${better ? '▲ improving' : '▼ slipping'} <span class="muted">(was ${prev.toFixed(1)}${unit})</span></div>`}</div>`;
   };
 
+  const lastExport = ((await db.kv.get('export.last'))?.value as number | undefined) ?? 0;
+  const needBackup = games.length > 0 && Date.now() - lastExport > 7 * 86_400_000;
   root.innerHTML = `
+  ${needBackup ? '<section class="card" style="border-left:4px solid var(--warn);margin-bottom:12px"><b>Weekly backup</b><div class="small muted">Your data lives only in this browser. The export file is the only copy you can restore from.</div><a class="btn small" href="#/settings" style="margin-top:6px">Export from Settings</a></section>' : ''}
   <div class="page-h"><div><h1>${greeting()}${prof?.displayName && prof.displayName !== 'Learner' ? ', ' + esc(prof.displayName) : ''}</h1>
     <p class="muted">${games.length} games imported · ${reviewed.length ? 'focus: ' + (await focusLabel()) : 'ready to review'}</p></div></div>
   <div class="grid stagger">

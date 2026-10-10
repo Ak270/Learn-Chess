@@ -82,5 +82,29 @@
   "unfavorable.trade": {
     "value": "material_counting",
     "source": "docs/backend/Phase 10 \u00a71.3 M05"
+  },
+  "early.queen": {
+    "value": "opening_principles",
+    "source": "docs/backend/10 \u00a71.3 M06-M11 catalogue; skill from docs/backend/05 \u00a72"
+  },
+  "opening.repeat_piece": {
+    "value": "opening_principles",
+    "source": "docs/backend/10 \u00a71.3 M06-M11 catalogue; skill from docs/backend/05 \u00a72"
+  },
+  "king.center": {
+    "value": "king_safety",
+    "source": "docs/backend/10 \u00a71.3 M06-M11 catalogue; skill from docs/backend/05 \u00a72"
+  },
+  "stalemate.risk": {
+    "value": "conversion",
+    "source": "docs/backend/10 \u00a71.3 M06-M11 catalogue; skill from docs/backend/05 \u00a72"
+  },
+  "no.luft": {
+    "value": "tactic_backrank",
+    "source": "docs/backend/10 \u00a71.3 M06-M11 catalogue; skill from docs/backend/05 \u00a72"
+  },
+  "unsound.sacrifice": {
+    "value": "conversion",
+    "source": "docs/backend/10 \u00a71.3 M06-M11 catalogue; skill from docs/backend/05 \u00a72"
   }
 }

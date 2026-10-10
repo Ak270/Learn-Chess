@@ -1,0 +1,43 @@
+{
+  "id": "l-candidates",
+  "title": "Find three candidates",
+  "skills": ["candidate_moves"],
+  "phase": 3,
+  "minutes": 5,
+  "prereqs": ["l-bc-lastscan"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Do not take the first idea",
+      "body": "Before you play, find two or three real options, then compare them. The first idea is often the obvious one, and the obvious move is not always the best."
+    },
+    {
+      "type": "check",
+      "q": "What is a candidate move?",
+      "options": ["A move worth a closer look", "The first legal move", "A move the opponent made"],
+      "answer": 0,
+      "why": "You compare candidates, then choose."
+    },
+    {
+      "type": "check",
+      "q": "How many candidates should you look for?",
+      "options": ["Two or three", "Exactly one", "All thirty"],
+      "answer": 0,
+      "why": "Enough to compare, few enough to check."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "How many candidate moves should you look for?",
+      "solution": ["Two or three."],
+      "why": "Comparing options beats playing the first idea."
+    }
+  ]
+}

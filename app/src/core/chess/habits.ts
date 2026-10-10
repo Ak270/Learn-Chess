@@ -122,3 +122,103 @@ export const habitMotifs = (fenBefore: string, uci: string, color: 'w' | 'b', re
   ...unfavorableTrade(fenBefore, uci, replyUci),
   ...ignoredThreat(fenBefore, uci, color),
 ];
+
+// ---------- game-level habits (M06-M08, M10, M11): need the learner's neighbouring plies ----------
+export interface HabitPly {
+  ply: number;
+  color: 'w' | 'b';
+  san: string;
+  uci: string;
+  fenBefore: string;
+  fenAfter: string;
+  winPctBefore: number;
+  winPctLoss: number;
+  materialDropAfterBestReply: number;
+}
+const QUEEN_MOVE = /^Q/;
+
+/** Habit hits for one learner ply given the learner's plies so far (oldest first, including this one last). */
+export function gameHabits(
+  history: HabitPly[],
+  inaccuracyLoss: number,
+  mistakeLoss: number,
+  blunderLoss: number,
+): MotifHit[] {
+  const cur = history[history.length - 1];
+  const out: MotifHit[] = [];
+  const learnerMoveNo = history.length;
+  // M06 early.queen: the queen moves a second time before the learner's 7th move, and it cost something
+  const queenMoves = history.filter((h) => QUEEN_MOVE.test(h.san));
+  if (QUEEN_MOVE.test(cur.san) && queenMoves.length >= 2 && learnerMoveNo <= 6 && cur.winPctLoss >= inaccuracyLoss)
+    out.push(
+      hit(
+        'early.queen',
+        [cur.uci.slice(0, 2), cur.uci.slice(2, 4)],
+        `the queen has moved ${queenMoves.length} times in the first ${learnerMoveNo} moves, and ${cur.san} lost time or material`,
+        1,
+      ),
+    );
+  // M07 opening.repeat_piece: the same minor/major piece moves twice in the first 8 moves without capturing
+  if (
+    learnerMoveNo <= 8 &&
+    !/x/.test(cur.san) &&
+    /^[NBRK]/.test(cur.san) &&
+    !/^O/.test(cur.san) &&
+    cur.winPctLoss >= inaccuracyLoss
+  ) {
+    const sq = cur.uci.slice(0, 2);
+    const prev = history
+      .slice(0, -1)
+      .find((h) => h.uci.slice(2, 4) === sq && h.san[0] === cur.san[0] && !/x/.test(h.san));
+    if (prev)
+      out.push(
+        hit(
+          'opening.repeat_piece',
+          [cur.uci.slice(0, 2), cur.uci.slice(2, 4)],
+          `the same ${NAME[cur.san[0].toLowerCase()]} moved again (${prev.san} then ${cur.san}) while other pieces were still undeveloped`,
+          1,
+        ),
+      );
+  }
+  // M08 king.center: still uncastled after move 10 and a mistake was made
+  if (learnerMoveNo > 10 && cur.winPctLoss >= mistakeLoss && !history.some((h) => /^O-O/.test(h.san))) {
+    const c = new Chess(cur.fenAfter);
+    const king = c
+      .board()
+      .flat()
+      .find((p) => p && p.type === 'k' && p.color === cur.color);
+    if (king && 'def'.includes(king.square[0]) && king.square[1] === (cur.color === 'w' ? '1' : '8'))
+      out.push(
+        hit(
+          'king.center',
+          [king.square],
+          `your king was still on ${king.square}, uncastled, after move ${learnerMoveNo}`,
+          2,
+        ),
+      );
+  }
+  // M10 stalemate.risk: a winning position turned into stalemate
+  if (cur.winPctBefore > 85) {
+    const c = new Chess(cur.fenAfter);
+    if (c.isStalemate())
+      out.push(
+        hit(
+          'stalemate.risk',
+          [cur.uci.slice(2, 4)],
+          `${cur.san} left the opponent with no legal move and no check: stalemate, a draw from a winning position`,
+          3,
+        ),
+      );
+  }
+  // M11 unsound.sacrifice: gave up 3+ points with a capture or check and got nothing back
+  if (cur.materialDropAfterBestReply >= 3 && cur.winPctLoss >= blunderLoss && (/x/.test(cur.san) || /\+/.test(cur.san)))
+    out.push(
+      hit(
+        'unsound.sacrifice',
+        [cur.uci.slice(0, 2), cur.uci.slice(2, 4)],
+        `${cur.san} gave up ${cur.materialDropAfterBestReply} points of material and the best reply left nothing in return`,
+        2,
+      ),
+    );
+  return out;
+}

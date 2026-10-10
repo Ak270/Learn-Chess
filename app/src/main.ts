@@ -3,18 +3,6 @@ import { $, esc } from './shell/dom';
 import { loadSettings } from './shell/settings';
 import { activeJobs, latestJob, onJobUpdate } from './services/JobService';
 import { store } from './app';
-import * as settingsView from './views/settings';
-import * as homeView from './views/home';
-import * as reviewView from './views/review';
-import * as onboardingView from './views/onboarding';
-import * as blundersView from './views/blunders';
-import * as puzzlesView from './views/puzzles';
-import * as learnView from './views/learn';
-import * as sessionView from './views/session';
-import * as profileView from './views/profile';
-import * as progressView from './views/progress';
-import * as playView from './views/play';
-import { initTeacher } from './shell/teacher';
 
 export interface ViewCtx {
   args: string[];
@@ -36,18 +24,19 @@ const NAV: [string, string, string][] = [
   ['profile', '🧑', 'My Profile'],
   ['settings', '⚙️', 'Settings'],
 ];
-const routes: Record<string, View> = {
-  home: homeView,
-  review: reviewView,
-  settings: settingsView,
-  onboarding: onboardingView,
-  blunders: blundersView,
-  puzzles: puzzlesView,
-  learn: learnView,
-  session: sessionView,
-  profile: profileView,
-  progress: progressView,
-  play: playView,
+const routes: Record<string, () => Promise<View>> = {
+  home: () => import('./views/home'),
+  review: () => import('./views/review'),
+  settings: () => import('./views/settings'),
+  onboarding: () => import('./views/onboarding'),
+  blunders: () => import('./views/blunders'),
+  puzzles: () => import('./views/puzzles'),
+  learn: () => import('./views/learn'),
+  session: () => import('./views/session'),
+  profile: () => import('./views/profile'),
+  progress: () => import('./views/progress'),
+  play: () => import('./views/play'),
+  openings: () => import('./views/openings'),
 };
 const placeholder = (label: string): View => ({
   render(root) {
@@ -84,7 +73,7 @@ async function route() {
   view.style.animation = 'none';
   void view.offsetWidth;
   view.style.animation = '';
-  const v = routes[name] ?? placeholder(NAV.find(([n]) => n === name)![2]);
+  const v = routes[name] ? await routes[name]() : placeholder(NAV.find(([n]) => n === name)![2]);
   cleanup = (await v.render(view, { args: rest, query: new URLSearchParams(qs) })) || null;
   view.focus({ preventScroll: true });
   window.scrollTo(0, 0);
@@ -98,4 +87,38 @@ if (navigator.storage?.persist)
 window.addEventListener('hashchange', route);
 onJobUpdate(() => void renderNav(location.hash.replace(/^#\/?/, '').split(/[/?]/)[0] || 'home'));
 route();
-initTeacher();
+void import('./shell/teacher').then((m) => m.initTeacher());
+
+// Offline support (docs/backend/09 §3): a hand-written service worker, registered only in production builds.
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  navigator.serviceWorker
+    .register(`${import.meta.env.BASE_URL}sw.js`)
+    .then(async (reg) => {
+      const ready = await navigator.serviceWorker.ready;
+      // the files this page already loaded were fetched before the worker took control: cache them too
+      const urls = performance
+        .getEntriesByType('resource')
+        .map((r) => r.name)
+        .filter((u) => u.startsWith(location.origin));
+      (ready.active ?? reg.active)?.postMessage({ type: 'precache', urls: [...urls, location.href] });
+      reg.addEventListener('updatefound', () => {
+        const w = reg.installing;
+        w?.addEventListener('statechange', () => {
+          if (w.state === 'installed' && navigator.serviceWorker.controller) {
+            const b = document.createElement('div');
+            b.className = 'toast';
+            b.innerHTML = 'New version ready. <button class="btn small primary" id="upd">Refresh</button>';
+            document.getElementById('toasts')?.appendChild(b);
+            // never reload by itself: the learner may be in the middle of a game
+            b.querySelector('#upd')?.addEventListener('click', () => {
+              w.postMessage({ type: 'skip-waiting' });
+              location.reload();
+            });
+          }
+        });
+      });
+    })
+    .catch(() => {
+      /* offline support is optional */
+    });
+}

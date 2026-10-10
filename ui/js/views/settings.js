@@ -16,6 +16,9 @@ export function render(root) {
       <div class="setting"><div><b>Daily time</b><div class="small muted">Sessions are capped to this</div></div><select id="mins" style="width:110px">${[20, 30, 40, 60].map((m) => `<option ${settings.get('minutes') === m ? 'selected' : ''}>${m}</option>`).join('')}</select></div>
       <div class="setting"><div><b>Rest day</b><div class="small muted">No pressure, streak is safe</div></div><select id="rest" style="width:130px">${['Sunday', 'Saturday', 'Monday'].map((d) => `<option ${settings.get('restDay') === d ? 'selected' : ''}>${d}</option>`).join('')}</select></div>
       <div class="setting"><div><b>Default mode</b><div class="small muted">Coach adds the Safety Check</div></div><div class="seg" id="mode"><button data-v="coach" class="${settings.get('mode') === 'coach' ? 'on' : ''}">Coach</button><button data-v="normal" class="${settings.get('mode') === 'normal' ? 'on' : ''}">Normal</button></div></div>
+      <h2 style="margin-top:20px">AI explanations (Groq)</h2><p class="small muted">Optional. The key stays in this browser. Use a free key; wording only, chess facts always come from code.</p>
+      <div class="setting"><b>Groq API key</b><input type="password" id="gk" value="${settings.get('groqKey') || ''}" placeholder="gsk_…" style="width:220px" autocomplete="off"></div>
+      <div class="setting"><b>Model</b><input type="text" id="gm" value="${settings.get('groqModel') || 'llama-3.3-70b-versatile'}" style="width:220px"></div>
       <h2 style="margin-top:20px">Your data</h2><p class="small muted">Games, answers and timings are used only to drive training.</p>
       <div class="row"><button class="btn" id="exp">Export everything</button><button class="btn danger" id="del">Delete everything</button></div></section>
   </div>`;
@@ -25,6 +28,7 @@ export function render(root) {
   $$('input[data-k]', root).forEach((i) => i.onchange = () => settings.set(i.dataset.k, i.checked));
   $('#motion', root).onchange = (e) => settings.set('motion', e.target.checked ? 'off' : 'on');
   $('#mins', root).onchange = (e) => settings.set('minutes', +e.target.value); $('#rest', root).onchange = (e) => settings.set('restDay', e.target.value);
+  $('#gk', root).onchange = (e) => settings.set('groqKey', e.target.value.trim()); $('#gm', root).onchange = (e) => settings.set('groqModel', e.target.value.trim());
   $('#exp', root).onclick = () => toast('Prototype: export would download a JSON file.');
   $('#del', root).onclick = () => modal('<h2>Delete everything?</h2><p class="muted">Prototype only — nothing is stored yet.</p><button class="btn" onclick="this.closest(\'.modal-bg\').remove()">OK</button>');
 }

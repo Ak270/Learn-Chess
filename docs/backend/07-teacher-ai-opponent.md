@@ -112,11 +112,22 @@ Prompt-injection note: `learnerWords` can contain anything. Wrap it in delimiter
 6. **Fact coverage**: at least the facts flagged `required` appear (fuzzy match by keywords).
 On fail: retry once with the verifier's error list appended; on second fail → **template** (§3.6). Store `{pkgHash, textSource:'ai'|'template', verified:true}`.
 
+### 3.4a "What happens after this move" — deterministic line facts (the part that makes AI useful and safe)
+Language models play chess poorly, so **they never see a position and are never asked what is good**. The engine decides what is bad and what follows; code turns that line into facts; the model only rewords.
+1. Engine (Phase 3): for the learner's move, take the **principal variation after the move** (opponent's best reply and the next 1–3 plies), plus win% before/after.
+2. `lineFacts(fenBefore, playedSan, pvSans)` (prototype: `ui/js/facts.js`) replays the line with chess.js and emits one fact per move: piece, destination, captured piece and its point value, check, mate; then the net material result for the learner ("After this sequence you are down 3 points").
+3. `buildPackage` wraps those facts with `allowedMoves`, `allowedSquares`, the habit sentence, and (as quoted data) the learner's own words.
+4. The model rewrites facts into ≤ 80 words (what happens → why it matters → the habit).
+5. `verifyText` (prototype, same file) rejects any move, square, or number not in the facts, banned words, and over-long text; one retry with the problems listed, then template text. Tested in the prototype: a correct paraphrase passes; invented moves/numbers ("Bxf7+", "9 points", "engine") are rejected.
+This answers: *yes, the engine provides the follow-up line and the AI explains it in simple English; the AI never judges the move.* Remaining risk: a model can still mis-reason about *why* a fact matters; keep the "why it matters" part to the habit sentence we supply, and keep explanations short.
+
 ### 3.5 Provider abstraction & quotas
 ```ts
 interface AiProvider { id:string; explain(pkg:GroundedPackage, style:Style): Promise<string>; available(): Promise<boolean> }
 ```
-Chain: `[GeminiProvider, GroqProvider, OpenRouterProvider, LocalProvider(optional), TemplateProvider]`. Config lists model ids **read from config, never hard-coded** (free tiers and model names change — **VERIFY at build** against the providers' pricing/rate-limit pages: ai.google.dev/gemini-api/docs/pricing, console.groq.com/docs/rate-limits, openrouter.ai/pricing).
+**Owner decision (10 Oct 2026): Groq is the primary provider.** Chain: `[GroqProvider, (optional fallbacks: Gemini, OpenRouter), TemplateProvider]`.
+Groq specifics (read from Groq's docs on 10 Oct 2026; **re-verify at build**): OpenAI-compatible `POST https://api.groq.com/openai/v1/chat/completions` with `Authorization: Bearer <key>`; production model ids listed include `llama-3.3-70b-versatile`, `llama-3.1-8b-instant`, `openai/gpt-oss-120b`, `openai/gpt-oss-20b` (preview models can disappear at short notice — use production ones; model id is a **setting**, default `llama-3.3-70b-versatile`). Limits are per organisation in RPM/RPD/TPM/TPD and shown on the account's limits page; third-party articles quote conflicting free-tier numbers, so trust only the console. HTTP 429 returns a `retry-after` header: back off, then fall back to templates. **Browser CORS for api.groq.com is unverified (VERIFY with one real request);** if blocked, call it through a small local proxy on your own machine (personal use, Phase 11). Implemented in the prototype as `ui/js/groq.js` (key + model in Settings).
+Original chain, kept for reference: `[GeminiProvider, GroqProvider, OpenRouterProvider, LocalProvider(optional), TemplateProvider]`. Config lists model ids **read from config, never hard-coded** (free tiers and model names change — **VERIFY at build** against the providers' pricing/rate-limit pages: ai.google.dev/gemini-api/docs/pricing, console.groq.com/docs/rate-limits, openrouter.ai/pricing).
 - Keys: user pastes their own free API key in Settings; stored locally (IndexedDB), never sent anywhere except the provider; clear warning that browser-held keys are visible to anyone with access to the device.
 - Quota guard: counters per provider/day in `kv`; on 429 or quota hit → next provider; back-off with jitter.
 - **Spend only where it helps**: AI wording for (1) first meaningful mistake, (2) teacher note, (3) weekly/monthly letter, (4) chat questions. Everything else = templates. **Cache by `sha256(pkg+style+promptVersion)`**.

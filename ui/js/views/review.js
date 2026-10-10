@@ -1,7 +1,11 @@
 import { Chess } from '../../vendor/chess.js';
 import { Board } from '../board.js';
 import { sampleGame, classMeta, diagnosis, firstMistakePly } from '../data.js';
-import { $, $$, esc, lineChart, sound, toast } from '../ui.js';
+import { $, $$, esc, lineChart, sound, toast, settings } from '../ui.js';
+import { fenBeforeBlunder } from '../data.js';
+import { principalLine } from '../bot.js';
+import { lineFacts, buildPackage } from '../facts.js';
+import { explain } from '../groq.js';
 
 export function render(root) {
   const g = sampleGame;
@@ -31,6 +35,8 @@ export function render(root) {
         <div class="coach-card bad spoil" id="mist"><h4>🎯 First meaningful mistake · move ${Math.ceil(firstMistakePly / 2)}</h4>
           <div class="small"><b>11. Nh4??</b> left the knight on h4 attacked by the queen on f6 and unprotected. The game turned here: evaluation went from <b>−0.2</b> to <b>−3.4</b>.</div>
           <div class="row" style="margin-top:8px"><button class="btn small primary" id="jump">Show me the position</button></div></div>
+        <div class="coach-card spoil" id="after"><h4>🔮 What happens after 11. Nh4?</h4><div class="small" id="after-t"></div>
+          <div class="row" style="margin-top:8px;flex-wrap:wrap"><button class="btn small" id="ai">✨ Explain in plain English (Groq)</button><span class="small muted" id="ai-s">Facts above are computed by chess code, not AI.</span></div><div class="small" id="ai-t" style="margin-top:8px"></div></div>
         <div class="coach-card info spoil"><h4>❓ Your turn, before I explain</h4><div class="small" style="margin-bottom:8px">What were you aiming for with Nh4?</div>
           <textarea id="why" rows="2" placeholder="e.g. I wanted to attack the bishop on g6"></textarea>
           <button class="btn small" id="save-why" style="margin-top:8px">Save and reveal diagnosis</button></div>
@@ -85,6 +91,17 @@ export function render(root) {
     toast(msg, d === 0 ? '' : 'warn', 6000); go(truth, true); paintMoves();
   };
   $('#pick', root).onclick = () => reveal(ply || 1); $('#nopick', root).onclick = () => reveal(null); $('#showme', root).onclick = () => setBlind(false);
+  // facts about the blunder: computed by code (the real build uses Stockfish's line instead of this dummy search)
+  const afterFen = (() => { const c = new Chess(fenBeforeBlunder); c.move('Nh4'); return c.fen(); })();
+  const reply = principalLine(afterFen, 1, 3);
+  const lf = lineFacts(fenBeforeBlunder, 'Nh4', reply);
+  const pkg = buildPackage(fenBeforeBlunder, 'Nh4', lf);
+  $('#after-t', root).textContent = lf.sentence;
+  $('#ai', root).onclick = async () => {
+    $('#ai-s', root).textContent = 'Asking Groq…'; const r = await explain(pkg);
+    if (r.ok) { $('#ai-t', root).textContent = r.text; $('#ai-s', root).textContent = 'Reworded by Groq; every move, square and number was checked against the facts.'; }
+    else { $('#ai-t', root).textContent = lf.sentence + ' Habit: ' + pkg.habit; $('#ai-s', root).textContent = r.reason === 'no-key' ? 'No Groq key set (Settings). Showing the built-in text.' : `Groq unavailable (${r.reason}). Showing the built-in text.`; }
+  };
   paintGraph(); go(0, true);
   $('#p-next', root).onclick = () => go(ply + 1); $('#p-prev', root).onclick = () => go(ply - 1, true);
   $('#p-start', root).onclick = () => go(0, true); $('#p-end', root).onclick = () => go(g.moves.length, true);

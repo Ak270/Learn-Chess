@@ -93,3 +93,18 @@ export function classify(deltaPawns, { isBook = false, isBest = false } = {}) {
   if (deltaPawns <= -0.15) return 'good';
   return 'excellent';
 }
+
+/** best line (SAN list) for the side to move, by the dummy search. Real build: Stockfish principal variation. */
+export function principalLine(fen, plies = 3, depth = 3) {
+  const c = new Chess(fen), out = [];
+  for (let i = 0; i < plies && !c.isGameOver(); i++) {
+    let best = null, bs = -Infinity;
+    for (const m of c.moves({ verbose: true })) {
+      c.move(m); const v = -search(c, depth - 1, -Infinity, Infinity); c.undo();
+      if (v > bs) { bs = v; best = m; }
+    }
+    if (!best) break;
+    out.push(c.move(best).san);
+  }
+  return out;
+}

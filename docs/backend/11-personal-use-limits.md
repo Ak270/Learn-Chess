@@ -28,6 +28,7 @@ Numbers quoted from the blueprint's Appendix A or other sources are **as of 8 Oc
 | Resource | Limit (as found) | Your expected use | Verdict / handling |
 |---|---|---|---|
 | AI wording (free tiers: Gemini, Groq, OpenRouter) | Quotas/models change; OpenRouter documented 50 requests/day account limit on its Free plan; Groq returns HTTP 429 above model limits | ≈ 5–12 calls/day (1–2 game explanations + teacher note + a few chat questions), cached by hash | Fits. Provider chain + cache + template fallback (Phase 7 §3.5–3.6). If every provider is down, the app still works with templates |
+| Groq specifically (chosen provider) | Per-org RPM/RPD/TPM/TPD limits on the account limits page; 429 + `retry-after`; models may change; CORS unverified | ≈ 5–12 requests/day × ~600 tokens | Fine; model id is a setting; template fallback; local proxy if CORS blocks |
 | AI keys in the browser | Visible to anyone with access to your browser profile | single trusted user | Acceptable for personal use; use a key with a spending cap; never commit keys |
 | Lichess game export | Rate-limited, streaming; ordinary personal use is fine | 20 games at onboarding, then a few per day | Fine; fetch serially; respect HTTP 429 `Retry-After` |
 | Chess.com PubAPI | Serial access OK, parallel may 429; data refreshes ≤ every ~12 h | same | Fine; cache with ETag; serial fetch |

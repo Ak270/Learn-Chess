@@ -37,7 +37,7 @@ export function rushedThresholdMs(median?: number) {
   return Math.max(cfg.get('diagnosis.rushedMinMs'), (median ?? 0) * cfg.get('diagnosis.rushedMedianFrac'));
 }
 
-function ownThreatPlayed(fenBefore: string, uci: string): boolean {
+export function ownThreatPlayed(fenBefore: string, uci: string): boolean {
   const c = new Chess(fenBefore);
   try {
     const m = c.move({ from: uci.slice(0, 2), to: uci.slice(2, 4), promotion: uci[4] });
@@ -46,7 +46,7 @@ function ownThreatPlayed(fenBefore: string, uci: string): boolean {
     return false;
   }
 }
-function opponentThreatBefore(fenBefore: string, color: 'w' | 'b'): boolean {
+export function opponentThreatBefore(fenBefore: string, color: 'w' | 'b'): boolean {
   // a threat that existed before the move: a piece of ours already hanging
   return (
     new Chess(fenBefore).turn() === color && ONE_MOVE_THREATS.has('hanging.piece') && hangingBefore(fenBefore, color)

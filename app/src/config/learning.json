@@ -1,0 +1,461 @@
+{
+  "skills.halfLifeDays": {
+    "value": 30,
+    "source": "docs/backend/05 \u00a73.2 halfLife default 30 days (config per layer)"
+  },
+  "skills.priorAlpha": {
+    "value": 1,
+    "source": "docs/backend/05 \u00a73.2 uninformative prior (1,1)"
+  },
+  "skills.priorBeta": {
+    "value": 1,
+    "source": "docs/backend/05 \u00a73.2 uninformative prior (1,1)"
+  },
+  "skills.independenceWindow": {
+    "value": 20,
+    "source": "docs/backend/05 \u00a73.2 independence = last 20 evidence rows"
+  },
+  "skills.trendWindow": {
+    "value": 10,
+    "source": "docs/backend/05 \u00a73.2 trend = last 10 vs previous 10"
+  },
+  "skills.insufficientBelowNEff": {
+    "value": 6,
+    "source": "docs/backend/05 \u00a73.2 insufficient (nEff total < 6); cold start threshold"
+  },
+  "skills.transferGapMinN": {
+    "value": 5,
+    "source": "docs/backend/05 \u00a73.2 transferGap needs nEff >= 5 in both layers"
+  },
+  "skills.solid.recognition": {
+    "value": 0.8,
+    "source": "docs/backend/05 \u00a73.2 solid: recognition >= 0.8"
+  },
+  "skills.solid.decision": {
+    "value": 0.7,
+    "source": "docs/backend/05 \u00a73.2 solid: decision >= 0.7"
+  },
+  "skills.solid.independence": {
+    "value": 0.7,
+    "source": "docs/backend/05 \u00a73.2 solid: independence >= 0.7"
+  },
+  "skills.solid.transfer": {
+    "value": 0.7,
+    "source": "docs/backend/05 \u00a73.2 solid: transfer.mean >= 0.7"
+  },
+  "skills.solid.transferMinN": {
+    "value": 3,
+    "source": "docs/backend/05 \u00a73.2 'transfer.n < 3 ... not yet contradicted'"
+  },
+  "skills.solid.nEff": {
+    "value": 10,
+    "source": "docs/backend/05 \u00a73.2 solid: nEff >= 10"
+  },
+  "skills.maintenanceAfterDays": {
+    "value": 14,
+    "source": "docs/backend/05 \u00a73.2 maintenance = solid for >= 14 days"
+  },
+  "skills.decayingDrop": {
+    "value": 0.2,
+    "source": "docs/backend/05 \u00a73.2 decaying: last 5 mean < solid - 0.2"
+  },
+  "skills.decayingWindow": {
+    "value": 5,
+    "source": "docs/backend/05 \u00a73.2 decaying: last 5 evidence rows"
+  },
+  "weights.lessonCheck": {
+    "value": 0.5,
+    "source": "docs/backend/05 \u00a73.1 concept check weight 0.5"
+  },
+  "weights.puzzleRecognition": {
+    "value": 1.0,
+    "source": "docs/backend/05 \u00a73.1"
+  },
+  "weights.assistedFactor": {
+    "value": 0.4,
+    "source": "docs/backend/05 \u00a73.1 (0.4 if hints used)"
+  },
+  "weights.puzzleCalculation": {
+    "value": 1.0,
+    "source": "docs/backend/05 \u00a73.1"
+  },
+  "weights.calcDeepDive": {
+    "value": 1.5,
+    "source": "docs/backend/10 \u00a73 calculation deep-dive weight 1.5 (Phase 10 overrides Phase 5 table)"
+  },
+  "weights.criticalDrill": {
+    "value": 1.5,
+    "source": "docs/backend/05 \u00a73.1"
+  },
+  "weights.transferAvoided": {
+    "value": 1.5,
+    "source": "docs/backend/05 \u00a73.1"
+  },
+  "weights.transferMissed": {
+    "value": 2.0,
+    "source": "docs/backend/05 \u00a73.1 most informative"
+  },
+  "weights.retention": {
+    "value": 1.0,
+    "source": "docs/backend/05 \u00a73.1"
+  },
+  "weights.dailyTest": {
+    "value": 1.0,
+    "source": "docs/backend/05 \u00a73.1"
+  },
+  "weights.sureWrong": {
+    "value": 1.5,
+    "source": "docs/backend/05 \u00a73.1 sure & wrong -> weight x1.5 (misconception)"
+  },
+  "weights.guessRightOutcome": {
+    "value": 0.5,
+    "source": "docs/backend/05 \u00a73.1 guess & right -> outcome 0.5"
+  },
+  "weights.thinkAloud": {
+    "value": 1.0,
+    "source": "docs/backend/10 \u00a71.2 seeds states; weight 1.0 chosen (no number in spec)"
+  },
+  "weights.rulesCheck": {
+    "value": 0.5,
+    "source": "docs/backend/10 \u00a77; treated like a concept check (0.5)"
+  },
+  "srs.ladderDays": {
+    "value": [1, 3, 7, 21],
+    "source": "docs/backend/05 \u00a74.1 ladder steps [1,3,7,21]"
+  },
+  "srs.cleanMsLimit": {
+    "value": 60000,
+    "source": "docs/backend/05 \u00a74.1 cleanMsLimit default 60 s"
+  },
+  "srs.clearedAfterClean": {
+    "value": 3,
+    "source": "docs/backend/05 \u00a74.1 cleared when cleanStreak = 3"
+  },
+  "srs.probeAfterDays": {
+    "value": 45,
+    "source": "docs/backend/05 \u00a74.1 cleared cards return once after 45 days"
+  },
+  "srs.assistedRetryDays": {
+    "value": 1,
+    "source": "docs/backend/05 \u00a74.1 assisted/wrong: due tomorrow"
+  },
+  "srs.fsrs.retention": {
+    "value": 0.9,
+    "source": "docs/backend/05 \u00a74.2 request_retention 0.90 (0.85-0.92)"
+  },
+  "srs.fsrs.maxIntervalDays": {
+    "value": 180,
+    "source": "docs/backend/05 \u00a74.2 maximum_interval 180"
+  },
+  "srs.fsrs.slowMs": {
+    "value": 30000,
+    "source": "docs/backend/05 \u00a74.2 ms > slowMs -> Hard; 30 s chosen (spec gives no number)"
+  },
+  "srs.newCardsPerDay": {
+    "value": 5,
+    "source": "docs/backend/05 \u00a74.2 new cards <= 5/day"
+  },
+  "srs.reviewsPerMinute": {
+    "value": 1.5,
+    "source": "docs/backend/05 \u00a74.2 reviews <= minutes x 1.5 cards"
+  },
+  "planner.weights.leakRate": {
+    "value": 0.35,
+    "source": "docs/backend/05 \u00a75.2"
+  },
+  "planner.weights.severity": {
+    "value": 0.2,
+    "source": "docs/backend/05 \u00a75.2"
+  },
+  "planner.weights.weakness": {
+    "value": 0.2,
+    "source": "docs/backend/05 \u00a75.2"
+  },
+  "planner.weights.decayRisk": {
+    "value": 0.15,
+    "source": "docs/backend/05 \u00a75.2"
+  },
+  "planner.weights.leverage": {
+    "value": 0.1,
+    "source": "docs/backend/05 \u00a75.2"
+  },
+  "planner.weights.misconception": {
+    "value": 0.1,
+    "source": "docs/backend/05 \u00a75.2"
+  },
+  "planner.weights.recentlyFocused": {
+    "value": 0.3,
+    "source": "docs/backend/05 \u00a75.2 (subtracted)"
+  },
+  "planner.severityDivisor": {
+    "value": 50,
+    "source": "docs/backend/05 \u00a75.2 mean winPctLoss / 50"
+  },
+  "planner.remedialLeakRate": {
+    "value": 0.2,
+    "source": "docs/backend/05 \u00a75.2 remedial override leakRate >= 0.2"
+  },
+  "planner.decayDaysDivisor": {
+    "value": 45,
+    "source": "docs/backend/05 \u00a75.2 days_since_seen/45"
+  },
+  "planner.coldStartGames": {
+    "value": 5,
+    "source": "docs/backend/05 \u00a75.2 cold start < 5 reviewed games -> piece_safety"
+  },
+  "planner.coldStartSkill": {
+    "value": "piece_safety",
+    "source": "docs/backend/05 \u00a75.2"
+  },
+  "planner.focusHysteresis": {
+    "value": 0.15,
+    "source": "docs/backend/05 \u00a714 new score must beat current by 15%"
+  },
+  "planner.recentFocusDays": {
+    "value": 14,
+    "source": "docs/backend/05 \u00a75.2 focus in the last 2 weeks"
+  },
+  "planner.gamesWindow": {
+    "value": 10,
+    "source": "docs/backend/05 \u00a75.2 last 10 games"
+  },
+  "planner.lightMinutes": {
+    "value": 15,
+    "source": "docs/backend/05 \u00a75.3 light day 15 min"
+  },
+  "planner.blocks": {
+    "value": {
+      "recall": 5,
+      "lesson": 5,
+      "drills": 10,
+      "play": 15,
+      "test": 5,
+      "note": 1
+    },
+    "source": "docs/backend/05 \u00a75.3 default 40 min: recall 5, lesson 5, drills 10-15, play 15-25, test 5, note 1 (low ends so the total is ~40, scaled to the requested minutes)"
+  },
+  "planner.defaultMinutes": {
+    "value": 40,
+    "source": "docs/backend/05 \u00a75.3 default 40 min"
+  },
+  "planner.recallMaxCards": {
+    "value": 5,
+    "source": "docs/backend/05 \u00a75.3 up to 5 due cards"
+  },
+  "planner.drillCount": {
+    "value": 8,
+    "source": "docs/backend/05 \u00a75.3 8 positions"
+  },
+  "planner.overflowFactor": {
+    "value": 2,
+    "source": "docs/backend/05 \u00a75.3 many cards due (> 2x cap)"
+  },
+  "planner.timeTolerance": {
+    "value": 0.1,
+    "source": "docs/backend/05 \u00a713 time cap within +/-10%"
+  },
+  "test.questions": {
+    "value": 10,
+    "source": "docs/backend/05 \u00a76 10 questions"
+  },
+  "test.old": {
+    "value": 5,
+    "source": "docs/backend/05 \u00a76"
+  },
+  "test.today": {
+    "value": 3,
+    "source": "docs/backend/05 \u00a76"
+  },
+  "test.traps": {
+    "value": 2,
+    "source": "docs/backend/05 \u00a76"
+  },
+  "test.conf.sure": {
+    "value": 0.9,
+    "source": "docs/backend/05 \u00a76 Brier sure=0.9"
+  },
+  "test.conf.unsure": {
+    "value": 0.6,
+    "source": "docs/backend/05 \u00a76 unsure=0.6"
+  },
+  "test.conf.guess": {
+    "value": 0.35,
+    "source": "docs/backend/05 \u00a76 guess=0.35"
+  },
+  "session.struggleFails": {
+    "value": 3,
+    "source": "docs/backend/05 \u00a75.4 3 fails in a row -> simplify"
+  },
+  "session.skipAheadClean": {
+    "value": 4,
+    "source": "docs/backend/05 \u00a75.4 4 clean in a row -> skip ahead"
+  },
+  "session.eloK": {
+    "value": 24,
+    "source": "docs/backend/05 \u00a75.4 K = 24"
+  },
+  "assist.level3Below": {
+    "value": 0.4,
+    "source": "docs/backend/05 \u00a77 independence < 0.4 -> level 3"
+  },
+  "assist.level2Below": {
+    "value": 0.6,
+    "source": "docs/backend/05 \u00a77"
+  },
+  "assist.level1Below": {
+    "value": 0.8,
+    "source": "docs/backend/05 \u00a77"
+  },
+  "streak.freezeEveryDays": {
+    "value": 7,
+    "source": "docs/backend/05 \u00a78 1 freeze per 7 completed days"
+  },
+  "streak.freezeMax": {
+    "value": 2,
+    "source": "docs/backend/05 \u00a78 max 2"
+  },
+  "streak.welcomeBackMissedDays": {
+    "value": 2,
+    "source": "docs/backend/05 \u00a78 >= 2 missed days -> welcome-back path"
+  },
+  "streak.welcomeBackMinutes": {
+    "value": 10,
+    "source": "docs/backend/05 \u00a78 10-minute re-entry plan"
+  },
+  "consequence.slowDownLockMoves": {
+    "value": 3,
+    "source": "docs/backend/05 \u00a78 next 3 moves need a threat statement"
+  },
+  "consequence.sameMotifMistakes": {
+    "value": 3,
+    "source": "docs/backend/05 \u00a78 same motif in >= 3 mistakes"
+  },
+  "consequence.sameMotifDays": {
+    "value": 7,
+    "source": "docs/backend/05 \u00a78 within 7 days"
+  },
+  "consequence.hintDependency": {
+    "value": 1.5,
+    "source": "docs/backend/05 \u00a78 hints/attempt > 1.5"
+  },
+  "consequence.hintDependencySessions": {
+    "value": 5,
+    "source": "docs/backend/05 \u00a78 for 5 sessions"
+  },
+  "regression.stdevFactor": {
+    "value": 1.0,
+    "source": "docs/backend/05 \u00a711 baseline + 1.0 x stdev"
+  },
+  "regression.recentGames": {
+    "value": 5,
+    "source": "docs/backend/05 \u00a711 last-5-games leak rate"
+  },
+  "gate.p1.blundersPer40": {
+    "value": 2.0,
+    "source": "docs/backend/05 \u00a710 Phase 1->2 (a) blunders/40 <= 2.0"
+  },
+  "gate.p1.reductionVsBaseline": {
+    "value": 0.35,
+    "source": "docs/backend/05 \u00a710 (a) or -35% vs baseline"
+  },
+  "gate.p1.unpromptedThreatStatements": {
+    "value": 0.7,
+    "source": "docs/backend/05 \u00a710 (c) >= 70% of coach-mode moves in last 3 games"
+  },
+  "gate.p1.reviewedGamesSinceBaseline": {
+    "value": 10,
+    "source": "docs/backend/05 \u00a710 (d) >= 10 reviewed games since baseline"
+  },
+  "elo.k": {
+    "value": 24,
+    "source": "docs/backend/10 \u00a75.3 Elo-like update K=24 for level estimate"
+  },
+  "wellbeing.consecutiveLossesBreak": {
+    "value": 2,
+    "source": "docs/backend/10 \u00a75.4"
+  },
+  "wellbeing.consecutiveLossesTilt": {
+    "value": 3,
+    "source": "docs/backend/10 \u00a75.4"
+  },
+  "wellbeing.fatigueAccuracyDrop": {
+    "value": 0.3,
+    "source": "docs/backend/10 \u00a75.4 accuracy drops >= 30% vs session's first third"
+  },
+  "planner.lightBlocks": {
+    "value": {
+      "recall": 3,
+      "drills": 7,
+      "test": 5
+    },
+    "source": "docs/backend/05 \u00a75.3 light day: recall (3) + 4 drills (7) + test (5 questions)"
+  },
+  "planner.welcomeBackBlocks": {
+    "value": {
+      "recall": 3,
+      "drills": 5,
+      "test": 2
+    },
+    "source": "docs/backend/05 \u00a78 welcome-back path: a 10-minute re-entry plan"
+  },
+  "planner.drillMix": {
+    "value": {
+      "own": 0.5,
+      "curated": 0.3,
+      "warmup": 0.2
+    },
+    "source": "docs/backend/05 \u00a75.3 drills: 50% Blunder-Box/own-game, 30% curated, 20% mixed warm-ups"
+  },
+  "planner.playLevelStepsBelow": {
+    "value": 1,
+    "source": "docs/backend/05 \u00a75.3 play vs the level one step below the learner's estimated strength"
+  },
+  "puzzle.startElo": {
+    "value": 500,
+    "source": "no spec number: neutral starting puzzle rating below the 400-1400 shard range midpoint; replaced after calibration (docs/backend/05 \u00a75.4 in-app Elo)"
+  },
+  "puzzle.recognitionTargetP": {
+    "value": 0.85,
+    "source": "docs/backend/10 \u00a73 recognition: ratings the learner solves >= 85%"
+  },
+  "puzzle.calcTargetP": {
+    "value": 0.7,
+    "source": "docs/backend/10 \u00a73 calcTargetP ~ 70%"
+  },
+  "puzzle.calcMinThinkMs": {
+    "value": 90000,
+    "source": "docs/backend/10 \u00a73 calcMinThinkMs default 90 s"
+  },
+  "puzzle.speedGateAccuracy": {
+    "value": 0.9,
+    "source": "docs/backend/10 \u00a73 speed targets only after accuracy >= 90% over last 20"
+  },
+  "puzzle.speedGateWindow": {
+    "value": 20,
+    "source": "docs/backend/10 \u00a73"
+  },
+  "puzzle.speedTargetMs": {
+    "value": 15000,
+    "source": "docs/backend/10 \u00a73 soft target 5-15 s each; upper end shown"
+  },
+  "puzzle.recognitionSetSize": {
+    "value": 10,
+    "source": "docs/backend/10 \u00a73 10-20 per set (low end)"
+  },
+  "puzzle.calcSetSize": {
+    "value": 3,
+    "source": "docs/backend/10 \u00a73 2-4 per set"
+  },
+  "puzzle.maxWrongRecognition": {
+    "value": 2,
+    "source": "docs/backend/06 \u00a72.3 retry allowed twice; third reveals"
+  },
+  "puzzle.setCycleAccuracy": {
+    "value": 0.9,
+    "source": "docs/backend/06 \u00a72.4 finish cycle at >= 90% unaided -> next cycle faster"
+  },
+  "puzzle.setCycleRepeatBelow": {
+    "value": 0.8,
+    "source": "docs/backend/06 \u00a72.4 < 80% repeat same cycle with hints on"
+  }
+}

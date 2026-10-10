@@ -1,12 +1,19 @@
 // Composition root: wires the real engine worker, database and services. Views only import from here.
 import { createEngineClient } from './core/engine/engineClient';
 import { workerTransport } from './core/engine/workerTransport';
+import { on } from './data/bus';
 import { db } from './data/db';
-import { repos } from './data/repos';
 import { withPersistentCache } from './data/evalCache';
-import { createReviewService } from './services/ReviewService';
+import { repos } from './data/repos';
+import { createCoachMemoryService } from './services/CoachMemoryService';
+import { createContentService } from './services/ContentService';
 import { createMetricsService } from './services/MetricsService';
+import { createMisconceptionService } from './services/MisconceptionService';
+import { createPlannerService } from './services/PlannerService';
 import { createProfileService } from './services/ProfileService';
+import { createReviewService } from './services/ReviewService';
+import { createSrsService } from './services/SrsService';
+import { createTestService } from './services/TestService';
 import type { EngineClient } from './types/services';
 
 let engine: (EngineClient & { cacheSize(): number }) | undefined;
@@ -19,4 +26,17 @@ export const cachedEngine = withPersistentCache(getEngine(), db);
 export const reviews = createReviewService({ db, engine: getEngine() });
 export const metrics = createMetricsService(db);
 export const profile = createProfileService(db);
+export const srs = createSrsService(db);
+export const content = createContentService(db);
+export const misconceptions = createMisconceptionService(db);
+export const planner = createPlannerService({ db, srs, content, misconceptions });
+export const tests = createTestService(db);
+export const coachMemory = createCoachMemoryService(db);
 export { db };
+
+// After every review: refresh misconception states, and reopen cleared cards whose skill leaked again (transfer check).
+on('review:done', async (gameId) => {
+  await misconceptions.evaluate();
+  for (const m of await store.mistakesForGame(gameId as string))
+    for (const s of m.skillTags) await srs.reopenForSkill(s);
+});

@@ -1,0 +1,61 @@
+{
+  "_source": "docs/backend/05 §8 consequences that teach, as data: {trigger, window, action, message, undo}. Forbidden: loss of ratings/points/progress, public lists, sarcastic copy, countdown guilt timers, pay-to-restore streaks.",
+  "rules": [
+    {
+      "id": "blunder_card",
+      "trigger": "blunder_in_game",
+      "window": "per game",
+      "action": "create_blunder_card",
+      "message": "That position is now in your Blunder Box, so you can meet it again calmly.",
+      "undo": "Suspend the card from the Blunder Box."
+    },
+    {
+      "id": "slow_down_lock",
+      "trigger": "rushed_critical_move_in_coach_mode",
+      "window": "next 3 moves",
+      "action": "require_threat_statement",
+      "message": "For the next three moves, say in one line what their last move threatens before you play. It builds the habit that stops these mistakes.",
+      "undo": "Turn off in Settings."
+    },
+    {
+      "id": "same_motif_focus",
+      "trigger": "same_motif_in_3_mistakes_in_7_days",
+      "window": "next session",
+      "action": "focus_skill_hints_on_critical_play",
+      "message": "The same idea showed up three times this week, so tomorrow is built around it, with hints on.",
+      "undo": "Pick a different focus on the session screen."
+    },
+    {
+      "id": "misconception_minilesson",
+      "trigger": "daily_test_wrong_and_sure",
+      "window": "next day",
+      "action": "three_minute_minilesson",
+      "message": "You were sure about that one, and it is a common belief. Tomorrow starts with a three-minute look at why it fails.",
+      "undo": "Skip the mini-lesson."
+    },
+    {
+      "id": "weekly_exam_stay",
+      "trigger": "weekly_exam_failed",
+      "window": "next week",
+      "action": "stay_on_skill",
+      "message": "We will stay on this skill one more week. The evidence still missing is listed in your letter.",
+      "undo": "Ask for the next skill anyway."
+    },
+    {
+      "id": "welcome_back",
+      "trigger": "missed_2_or_more_days",
+      "window": "next session",
+      "action": "ten_minute_reentry_plan",
+      "message": "Welcome back. Here is a ten-minute plan to ease in. A freeze day covered the gap.",
+      "undo": "Choose the full plan."
+    },
+    {
+      "id": "hint_dependency",
+      "trigger": "hints_per_attempt_over_1_5_for_5_sessions",
+      "window": "next sessions",
+      "action": "lower_difficulty_one_tier",
+      "message": "Let's rebuild confidence with slightly easier positions, then step back up.",
+      "undo": "Raise difficulty in Settings."
+    }
+  ]
+}

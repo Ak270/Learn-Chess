@@ -119,6 +119,8 @@ export interface Card {
     lastAt?: Ms;
     lapses: number;
     cleanStreak: number;
+    /** cleared blunder cards come back once as a retention probe */
+    probe?: 'pending' | 'done';
   };
   state: 'new' | 'learning' | 'review' | 'cleared' | 'suspended';
   createdAt: Ms;
@@ -140,7 +142,23 @@ export interface Attempt {
   confidence?: Confidence;
   threatsStated?: string[];
   skillTags: SkillId[];
+  /** what kind of evidence this attempt is (docs/backend/05 §3.1); defaults from `context` */
+  source?: EvidenceSource;
+  /** days since the card's previous review (retention evidence needs >= 7) */
+  gapDays?: number;
+  /** trap question: the pattern of the day does not apply */
+  trap?: boolean;
 }
+export type EvidenceSource =
+  | 'lesson_check'
+  | 'puzzle_recognition'
+  | 'puzzle_calc'
+  | 'calc_deepdive'
+  | 'critical_drill'
+  | 'card_review'
+  | 'daily_test'
+  | 'think_aloud'
+  | 'rules_check';
 export interface SkillEvidence {
   id: ID;
   at: Ms;
@@ -160,7 +178,11 @@ export interface SkillState {
   transferGap?: number;
   lastSeen: Ms;
   trend: number;
+  status: SkillStatus;
+  nEffTotal: number;
+  solidSince?: Ms;
 }
+export type SkillStatus = 'insufficient' | 'learning' | 'solid' | 'maintenance' | 'decaying';
 export interface PlanItem {
   kind: 'card' | 'puzzle' | 'lesson' | 'game' | 'test';
   ref: string;
@@ -191,6 +213,8 @@ export interface Streak {
   best: number;
   freezeLeft: number;
   lastDay: string;
+  /** completed days since the last freeze was earned */
+  sinceFreeze: number;
 }
 export interface Journal {
   id: ID;

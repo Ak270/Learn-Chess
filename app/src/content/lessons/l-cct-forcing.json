@@ -1,0 +1,52 @@
+{
+  "id": "l-cct-forcing",
+  "title": "A check that does two things",
+  "skills": ["checks_captures_threats"],
+  "phase": 1,
+  "minutes": 5,
+  "prereqs": ["l-cct-order"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Check plus attack",
+      "body": "A check forces a reply, so a second attack goes unanswered. This is the idea behind most forks."
+    },
+    {
+      "type": "interactive",
+      "fen": "2r1k3/8/8/8/2N5/8/8/R3K3 w - - 0 1",
+      "solution": ["c4d6"],
+      "wrong": {
+        "default": "Look for a check that also attacks something."
+      },
+      "onSuccess": "Nd6+ checked the king and attacked the rook on c8, so the rook fell."
+    },
+    {
+      "type": "check",
+      "q": "Why do checks help?",
+      "options": ["The opponent must answer them", "They are always good", "They cannot be captured"],
+      "answer": 0,
+      "why": "A forced reply gives you a free second threat."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "Why do checks help?",
+      "solution": ["The opponent must reply to them."],
+      "why": "A second threat goes unanswered."
+    }
+  ],
+  "drills": {
+    "puzzleQuery": {
+      "skill": "checks_captures_threats",
+      "band": "400-700",
+      "count": 6
+    }
+  }
+}

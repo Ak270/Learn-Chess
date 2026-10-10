@@ -1,0 +1,61 @@
+{
+  "id": "l-br-backrank",
+  "title": "Back-rank mate",
+  "skills": ["tactic_backrank"],
+  "phase": 2,
+  "minutes": 5,
+  "prereqs": ["l-cct-order"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "A king boxed in",
+      "body": "If the king has no flight square because its own pawns block the front, a rook or queen on the back rank gives checkmate. Look for it, and make a gap for your own king."
+    },
+    {
+      "type": "board",
+      "fen": "6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1",
+      "body": "Black's king is boxed in by f7, g7 and h7.",
+      "arrows": [["a1", "a8", "red"]],
+      "verify": {
+        "mate": ["a1a8"]
+      }
+    },
+    {
+      "type": "interactive",
+      "fen": "6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1",
+      "solution": ["a1a8"],
+      "wrong": {
+        "default": "Is there a forcing move on the back rank?"
+      },
+      "onSuccess": "Ra8 is checkmate because the king has no escape."
+    },
+    {
+      "type": "check",
+      "q": "How do you avoid being back-rank mated?",
+      "options": ["Give your king an escape square", "Move the queen", "Trade all pawns"],
+      "answer": 0,
+      "why": "A single pawn move gives the king air."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "What is a back-rank mate?",
+      "solution": ["A rook or queen mate against a king boxed in by its own pawns."],
+      "why": "Make air for your king."
+    }
+  ],
+  "drills": {
+    "puzzleQuery": {
+      "skill": "tactic_backrank",
+      "band": "400-700",
+      "count": 8
+    }
+  }
+}

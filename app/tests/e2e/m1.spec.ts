@@ -1,23 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { readFileSync, readdirSync } from 'node:fs';
-import AxeBuilder from '@axe-core/playwright';
-import type { Page } from '@playwright/test';
-
-async function axeClean(page: Page, label: string) {
-  await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
-  await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished.catch(() => null))));
-  const r = await new AxeBuilder({ page }).analyze();
-  const bad = r.violations.filter((v) => v.impact === 'critical' || v.impact === 'serious');
-  expect(
-    bad.map(
-      (v) =>
-        `${label} ${v.id}: ${v.nodes
-          .map((n) => n.target.join(' '))
-          .slice(0, 4)
-          .join(' | ')}`,
-    ),
-  ).toEqual([]);
-}
+import { axeClean } from './helpers';
 
 // M1 flow: onboarding with a pasted PGN -> background import + review -> baseline report -> Home -> Review.
 const dir = 'tests/fixtures/pgn';

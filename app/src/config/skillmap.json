@@ -62,5 +62,25 @@
   "discovered.check": {
     "value": "tactic_discovered",
     "source": "docs/backend/03 \u00a76.6; skill id finalised in Phase 5 \u00a72"
+  },
+  "hanging.protected": {
+    "value": "piece_safety",
+    "source": "docs/backend/Phase 10 \u00a71.3 M01 belongs to piece safety"
+  },
+  "ignored.threat": {
+    "value": "opponent_threats",
+    "source": "docs/backend/Phase 10 \u00a71.3 M04"
+  },
+  "check.waste": {
+    "value": "checks_captures_threats",
+    "source": "docs/backend/Phase 10 \u00a71.3 M02"
+  },
+  "greedy.capture": {
+    "value": "checks_captures_threats",
+    "source": "docs/backend/Phase 10 \u00a71.3 M03"
+  },
+  "unfavorable.trade": {
+    "value": "material_counting",
+    "source": "docs/backend/Phase 10 \u00a71.3 M05"
   }
 }

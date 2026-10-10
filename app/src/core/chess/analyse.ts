@@ -8,6 +8,7 @@ import { classifyMove, type LearnerPly } from './classify';
 import { flipWinPct, moveAccuracy, winPctLoss, winPctOf } from './eval';
 import { gamePhase, materialFor } from './material';
 import { motifsForPly } from './motifs';
+import { habitMotifs, protectedButHanging } from './habits';
 import { see } from './see';
 
 export interface AnalyseOptions {
@@ -163,7 +164,10 @@ export async function analyseGame(
       });
 
       // Motifs are kept only if the engine's refutation realises them (§6.10), except "missed" ones on real mistakes.
-      const raw: MotifHit[] = isBook ? [] : motifsForPly(fens[i], m.lan, before.bestUci);
+      const afterHabits = isBook
+        ? []
+        : [...habitMotifs(fens[i], m.lan, mover, refute), ...protectedButHanging(fens[i + 1], mover)];
+      const raw: MotifHit[] = isBook ? [] : [...motifsForPly(fens[i], m.lan, before.bestUci), ...afterHabits];
       const realised = dropAfter >= cfg.get('motif.refutationMinGainPawns') || mateAllowed;
       rec.motifs = raw.filter((h) =>
         h.role === 'allowed'

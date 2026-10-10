@@ -7,6 +7,12 @@ import * as settingsView from './views/settings';
 import * as homeView from './views/home';
 import * as reviewView from './views/review';
 import * as onboardingView from './views/onboarding';
+import * as blundersView from './views/blunders';
+import * as puzzlesView from './views/puzzles';
+import * as learnView from './views/learn';
+import * as sessionView from './views/session';
+import * as profileView from './views/profile';
+import * as progressView from './views/progress';
 
 export interface ViewCtx {
   args: string[];
@@ -33,6 +39,12 @@ const routes: Record<string, View> = {
   review: reviewView,
   settings: settingsView,
   onboarding: onboardingView,
+  blunders: blundersView,
+  puzzles: puzzlesView,
+  learn: learnView,
+  session: sessionView,
+  profile: profileView,
+  progress: progressView,
 };
 const placeholder = (label: string): View => ({
   render(root) {

@@ -1,0 +1,61 @@
+{
+  "id": "l-fork-knight",
+  "title": "Knight forks",
+  "skills": ["tactic_fork"],
+  "phase": 2,
+  "minutes": 6,
+  "prereqs": ["l-cct-forcing", "l-ps-safety"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Two targets at once",
+      "body": "A knight jumps, so pieces cannot block it, and it attacks from an unexpected square. When it lands on a square that attacks two valuable pieces, one of them falls."
+    },
+    {
+      "type": "interactive",
+      "fen": "2r1k3/8/8/8/2N5/8/8/R3K3 w - - 0 1",
+      "solution": ["c4d6"],
+      "wrong": {
+        "default": "Find the square where the knight attacks the king and the rook."
+      },
+      "onSuccess": "The knight attacked king and rook, so it won the rook."
+    },
+    {
+      "type": "interactive",
+      "fen": "r3k3/8/8/3N4/8/8/8/4KR2 w - - 0 1",
+      "solution": ["d5c7"],
+      "wrong": {
+        "default": "Look for a knight move that gives check and attacks the rook."
+      },
+      "onSuccess": "Nc7+ forked the king and the rook on a8."
+    },
+    {
+      "type": "check",
+      "q": "Why is the knight good at forks?",
+      "options": ["Nothing can block its jump", "It is the strongest piece", "It moves in a straight line"],
+      "answer": 0,
+      "why": "Its attack cannot be blocked."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "Why do knights fork well?",
+      "solution": ["Their jump cannot be blocked."],
+      "why": "They attack from surprising squares."
+    }
+  ],
+  "drills": {
+    "puzzleQuery": {
+      "skill": "tactic_fork",
+      "band": "400-700",
+      "count": 8
+    }
+  }
+}

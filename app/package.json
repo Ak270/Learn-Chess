@@ -14,7 +14,9 @@
     "copy-engine": "node scripts/copy-engine.mjs",
     "predev": "npm run copy-engine",
     "prebuild": "npm run copy-engine",
-    "pretest": "npm run copy-engine"
+    "pretest": "npm run copy-engine",
+    "validate:content": "tsx tools/validate-content.ts",
+    "build:puzzles": "echo \"usage: zstd -dc lichess_db_puzzle.csv.zst | tsx tools/build-puzzles.ts 150\""
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
@@ -27,6 +29,7 @@
     "jsdom": "^29.1.1",
     "prettier": "^3.9.9",
     "stockfish": "^19.0.0",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.1",
     "vite": "^8.3.4",

@@ -1,0 +1,62 @@
+{
+  "id": "l-ot-lastmove",
+  "title": "What did their last move do?",
+  "skills": ["opponent_threats"],
+  "phase": 1,
+  "minutes": 5,
+  "prereqs": ["l-ps-safety"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Read their move",
+      "body": "After every move they make, ask what it attacks now and what it will attack next. Many losses start with ignoring a quiet move that created a threat."
+    },
+    {
+      "type": "board",
+      "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR b KQkq - 3 3",
+      "body": "White just played Qf3. Black to move. Look at the bishop on c4 and the queen on f3 both aiming at f7.",
+      "arrows": [
+        ["f3", "f7", "red"],
+        ["c4", "f7", "red"]
+      ],
+      "verify": {
+        "nullMoveMate": "f3f7"
+      }
+    },
+    {
+      "type": "check",
+      "q": "What does White threaten?",
+      "options": ["Qxf7, which is checkmate", "Qxc6", "Nothing"],
+      "answer": 0,
+      "why": "Queen and bishop both attack f7, and the king has no escape square."
+    },
+    {
+      "type": "check",
+      "q": "What is the best habit here?",
+      "options": ["Check their last move before my own plan", "Attack first", "Play fast"],
+      "answer": 0,
+      "why": "Their threat comes before your plan."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "What do you ask after their move?",
+      "solution": ["What does it attack now and next?"],
+      "why": "Threats come first."
+    }
+  ],
+  "drills": {
+    "puzzleQuery": {
+      "skill": "opponent_threats",
+      "band": "400-700",
+      "count": 6
+    }
+  }
+}

@@ -3,6 +3,8 @@ import app from './app.json';
 import chessCfg from './chess.json';
 import skillmap from './skillmap.json';
 import diagnosisCfg from './diagnosis.json';
+import learningCfg from './learning.json';
+import copyCfg from './copy.json';
 
 export interface ConfigEntry<T = unknown> {
   value: T;
@@ -45,4 +47,6 @@ export const cfg = createConfig(
   ['chess.json', chessCfg],
   ['skillmap.json', skillmap],
   ['diagnosis.json', diagnosisCfg],
+  ['learning.json', learningCfg],
+  ['copy.json', copyCfg],
 );

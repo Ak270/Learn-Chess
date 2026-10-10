@@ -222,7 +222,7 @@ button {
 }
 .nav-item .pill {
   margin-left: auto;
-  background: var(--bad);
+  background: #c62d1a; /* a11y: white text >= 4.5:1 */
   color: #fff;
   border-radius: 99px;
   font-size: 11px;
@@ -361,7 +361,7 @@ button {
 }
 .chip.red {
   background: rgba(250, 65, 45, 0.16);
-  color: #ff8a7d;
+  color: #ffb3a9; /* a11y */
 }
 .chip.yellow {
   background: rgba(247, 198, 49, 0.16);
@@ -1189,7 +1189,7 @@ svg.chart text {
   animation: pulse 2s infinite;
 }
 .node.locked {
-  opacity: 0.55;
+  filter: grayscale(0.7); /* a11y: no opacity, text keeps its contrast */
 }
 @keyframes pulse {
   50% {
@@ -1211,7 +1211,7 @@ svg.chart text {
   transform: translateX(4px);
 }
 .lesson-row.locked {
-  opacity: 0.5;
+  filter: grayscale(0.7);
   pointer-events: none;
 }
 .ladder {
@@ -1523,7 +1523,15 @@ select {
 }
 
 /* a11y: chip text colours that pass 4.5:1 on light panels */
-:root[data-theme='light'] .chip.green { color: #2f5f12; }
-:root[data-theme='light'] .chip.red { color: #8c1d15; }
-:root[data-theme='light'] .chip.yellow { color: #6b4e00; }
-:root[data-theme='light'] .chip.blue { color: #1f4f7a; }
+:root[data-theme='light'] .chip.green {
+  color: #2f5f12;
+}
+:root[data-theme='light'] .chip.red {
+  color: #8c1d15;
+}
+:root[data-theme='light'] .chip.yellow {
+  color: #6b4e00;
+}
+:root[data-theme='light'] .chip.blue {
+  color: #1f4f7a;
+}

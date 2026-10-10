@@ -68,5 +68,7 @@ export const MOTIF_IDS = [
   'overloaded.defender',
   'trapped.piece',
   'removing.defender',
+  'hanging.protected',
+  'ignored.threat',
 ] as const;
 export type MotifId = (typeof MOTIF_IDS)[number];

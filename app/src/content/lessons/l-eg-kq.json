@@ -1,0 +1,48 @@
+{
+  "id": "l-eg-kq",
+  "title": "King and queen checkmate",
+  "skills": ["eg_basic_mates"],
+  "phase": 1,
+  "minutes": 6,
+  "prereqs": [],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "The first mate to learn",
+      "body": "With a queen and king against a lone king you can always win, but you must avoid stalemate. Corner the king, bring your own king close, then give mate."
+    },
+    {
+      "type": "interactive",
+      "fen": "7k/8/5K2/8/8/8/8/6Q1 w - - 0 1",
+      "solution": ["g1g7"],
+      "wrong": {
+        "default": "The king is in the corner and yours is close. Is there mate?"
+      },
+      "onSuccess": "Qg7 is checkmate: the white king guards the queen."
+    },
+    {
+      "type": "check",
+      "q": "In the same position White plays Qg6. What happens?",
+      "options": ["Stalemate, a draw", "Checkmate", "Black resigns"],
+      "answer": 0,
+      "why": "The black king has no move and is not in check.",
+      "verify": {
+        "stalemate": "g1g6"
+      }
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "What is the big danger with king and queen?",
+      "solution": ["Stalemate."],
+      "why": "If the enemy king has no move and is not in check, it is a draw."
+    }
+  ]
+}

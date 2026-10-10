@@ -1,0 +1,62 @@
+{
+  "id": "l-ps-trades",
+  "title": "Trades and counting attackers",
+  "skills": ["piece_safety"],
+  "phase": 1,
+  "minutes": 6,
+  "prereqs": ["l-ps-safety"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Protected is not always safe",
+      "body": "A piece with a defender can still be lost if the attacker is worth less. A pawn attacking a knight wins the knight for a pawn even when the knight is protected. Count what you win and what you lose."
+    },
+    {
+      "type": "board",
+      "fen": "4k3/8/8/3p4/4N3/3P4/8/4K3 w - - 0 1",
+      "body": "White's knight on e4 is protected by the pawn on d3. The black pawn on d5 attacks it.",
+      "arrows": [["d5", "e4", "red"]]
+    },
+    {
+      "type": "check",
+      "q": "Is the knight on e4 safe?",
+      "options": [
+        "Yes, it is protected",
+        "No, a pawn takes a knight and they only lose a pawn back",
+        "Yes, pawns cannot capture knights"
+      ],
+      "answer": 1,
+      "why": "Pawn (1) for knight (3): they come out two points ahead."
+    },
+    {
+      "type": "check",
+      "q": "Your rook (5) takes a pawn (1) that is protected by a pawn. What happens?",
+      "options": ["You win a pawn", "You lose the rook for a pawn", "Nothing"],
+      "answer": 1,
+      "why": "You gain 1 and lose 5, so you are down 4."
+    },
+    {
+      "type": "board",
+      "fen": "4k3/8/4p3/3p4/8/8/8/3RK3 w - - 0 1",
+      "body": "Here Rxd5 looks tempting, but exd5 follows. Count first.",
+      "arrows": [
+        ["d1", "d5", "red"],
+        ["e6", "d5", "blue"]
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "A piece is protected. Is it always safe?",
+      "solution": ["No, a cheaper attacker still wins it."],
+      "why": "Count value, not just defenders."
+    }
+  ]
+}

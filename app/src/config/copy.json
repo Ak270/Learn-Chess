@@ -1,0 +1,35 @@
+{
+  "copy.bannedWords": {
+    "value": [
+      "stupid",
+      "dumb",
+      "idiot",
+      "pathetic",
+      "lazy",
+      "failure",
+      "loser",
+      "shame",
+      "embarrassing",
+      "you should have known",
+      "obviously",
+      "terrible",
+      "awful",
+      "worthless",
+      "careless fool",
+      "countdown",
+      "overdue",
+      "behind schedule",
+      "you lost your streak",
+      "streak lost",
+      "lose your streak",
+      "points deducted",
+      "penalty",
+      "punish"
+    ],
+    "source": "docs/backend/05 \u00a78 Forbidden: sarcasm, shaming, guilt timers, loss of points/streak; lint greps copy for these words"
+  },
+  "copy.maxWordsPerMessage": {
+    "value": 90,
+    "source": "docs/backend/10 \u00a78 one idea per message, <= 90 words"
+  }
+}

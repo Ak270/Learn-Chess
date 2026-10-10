@@ -1,0 +1,50 @@
+{
+  "id": "l-cct-order",
+  "title": "Checks, captures, threats",
+  "skills": ["checks_captures_threats"],
+  "phase": 1,
+  "minutes": 5,
+  "prereqs": ["l-ps-safety"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Look at forcing moves first",
+      "body": "Before choosing a quiet move, list every check, capture and threat, for you and for them. Forcing moves limit what the opponent can do, so you can calculate them."
+    },
+    {
+      "type": "check",
+      "q": "Which should you look at first?",
+      "options": ["Checks, captures and threats", "Quiet developing moves", "Pawn moves"],
+      "answer": 0,
+      "why": "Forcing moves are easiest to calculate."
+    },
+    {
+      "type": "check",
+      "q": "You can capture a pawn. What should you do before taking?",
+      "options": ["Count what they can take back", "Take at once", "Resign"],
+      "answer": 0,
+      "why": "A capture can lose to a recapture or a trap."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "What are the three forcing ideas?",
+      "solution": ["Checks, captures, threats."],
+      "why": "Look at them for both sides."
+    }
+  ],
+  "drills": {
+    "puzzleQuery": {
+      "skill": "checks_captures_threats",
+      "band": "400-700",
+      "count": 4
+    }
+  }
+}

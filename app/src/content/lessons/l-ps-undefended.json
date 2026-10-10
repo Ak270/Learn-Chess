@@ -1,0 +1,61 @@
+{
+  "id": "l-ps-undefended",
+  "title": "Undefended pieces",
+  "skills": ["piece_safety"],
+  "phase": 1,
+  "minutes": 5,
+  "prereqs": ["l-ps-safety"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Free pieces",
+      "body": "An undefended piece is one that nothing can recapture on. If it is attacked, it is a free gift. Learn to scan for them every move, yours and theirs."
+    },
+    {
+      "type": "interactive",
+      "fen": "4k3/8/8/8/3b4/8/8/3RK3 w - - 0 1",
+      "solution": ["d1d4"],
+      "wrong": {
+        "default": "Which black piece has no defender?"
+      },
+      "onSuccess": "The bishop had no defender, so the rook took it for free."
+    },
+    {
+      "type": "interactive",
+      "fen": "3rk3/8/8/8/3N4/8/8/4K3 b - - 0 1",
+      "solution": ["d8d4"],
+      "wrong": {
+        "default": "Now it is your piece that is attacked. Can you win something instead?"
+      },
+      "onSuccess": "The knight was undefended, so Rxd4 won it."
+    },
+    {
+      "type": "check",
+      "q": "Which piece is easiest to win?",
+      "options": ["One with no defenders", "A pawn", "A piece on the edge"],
+      "answer": 0,
+      "why": "No defender means no recapture."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "What is an undefended piece?",
+      "solution": ["A piece nothing can recapture on."],
+      "why": "Free pieces decide most games."
+    }
+  ],
+  "drills": {
+    "puzzleQuery": {
+      "skill": "piece_safety",
+      "band": "400-700",
+      "count": 8
+    }
+  }
+}

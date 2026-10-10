@@ -1,0 +1,50 @@
+{
+  "id": "l-bc-lastscan",
+  "title": "The last-second scan",
+  "skills": ["blunder_check"],
+  "phase": 1,
+  "minutes": 4,
+  "prereqs": ["l-ps-safety"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Press only after the scan",
+      "body": "Before you let go of a piece, do one last scan: where can their pieces land after my move? Can they capture anything of mine, or give check?"
+    },
+    {
+      "type": "check",
+      "q": "When is the best time to do a blunder check?",
+      "options": ["After choosing the move, before playing it", "Never", "After the game"],
+      "answer": 0,
+      "why": "The scan catches mistakes while you can still fix them."
+    },
+    {
+      "type": "check",
+      "q": "What do you look for in the scan?",
+      "options": ["Pieces they can capture, and checks", "Only my plan", "Only the clock"],
+      "answer": 0,
+      "why": "Their replies decide whether your move works."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "When do you blunder-check?",
+      "solution": ["After choosing, before moving."],
+      "why": "You can still fix it."
+    }
+  ],
+  "drills": {
+    "puzzleQuery": {
+      "skill": "blunder_check",
+      "band": "400-700",
+      "count": 4
+    }
+  }
+}

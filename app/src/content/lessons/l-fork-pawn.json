@@ -1,0 +1,53 @@
+{
+  "id": "l-fork-pawn",
+  "title": "Pawn forks",
+  "skills": ["tactic_fork"],
+  "phase": 2,
+  "minutes": 5,
+  "prereqs": ["l-fork-knight"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "A pawn is cheap",
+      "body": "A pawn that attacks two pieces wins one of them for almost nothing. Look for pawn moves that hit two things at once."
+    },
+    {
+      "type": "board",
+      "fen": "4k3/8/3n1n2/8/4P3/8/8/4K3 w - - 0 1",
+      "body": "The pawn on e4 can step to e5. From e5 it attacks the knights on d6 and f6, and neither knight can capture it.",
+      "arrows": [
+        ["e4", "e5", "green"],
+        ["e5", "d6", "red"],
+        ["e5", "f6", "red"]
+      ]
+    },
+    {
+      "type": "check",
+      "q": "Why is a pawn fork strong?",
+      "options": ["A pawn is worth less than the pieces it attacks", "Pawns cannot be captured", "Pawns move fast"],
+      "answer": 0,
+      "why": "They must lose a piece for a pawn."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "What makes a pawn fork strong?",
+      "solution": ["The pawn is worth less than the targets."],
+      "why": "Cheap attackers win expensive pieces."
+    }
+  ],
+  "drills": {
+    "puzzleQuery": {
+      "skill": "tactic_fork",
+      "band": "400-700",
+      "count": 8
+    }
+  }
+}

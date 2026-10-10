@@ -1,0 +1,16 @@
+{
+  "_provenance": "Authored for Mentor (hint ladder H3 text per skill, docs/backend/05 §7). Own wording; needs owner review.",
+  "ideas": {
+    "piece_safety": "Look for a piece that nothing protects, yours or theirs.",
+    "opponent_threats": "Ask what their last move attacks.",
+    "checks_captures_threats": "List every check, capture and threat before choosing.",
+    "tactic_fork": "One move attacks two things at once.",
+    "tactic_pin": "A piece cannot move without exposing something more valuable.",
+    "tactic_skewer": "Attack the valuable piece so it must move, and take what stands behind it.",
+    "tactic_discovered": "Move one piece to unmask another.",
+    "tactic_backrank": "Their king is boxed in by its own pawns.",
+    "tactic_removing_defender": "Take, chase or distract the piece that guards the target.",
+    "mate_patterns": "Count the king's escape squares.",
+    "default": "Check what is attacked and what is protected."
+  }
+}

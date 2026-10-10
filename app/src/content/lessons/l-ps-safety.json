@@ -1,0 +1,62 @@
+{
+  "id": "l-ps-safety",
+  "title": "The Safety Check",
+  "skills": ["piece_safety"],
+  "phase": 1,
+  "minutes": 5,
+  "prereqs": [],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Why this matters",
+      "body": "Most games at this level are decided by one piece left hanging. Before every move, ask two questions: what can they take, and what can I take? This habit alone wins more games than any opening."
+    },
+    {
+      "type": "board",
+      "fen": "4k3/8/8/3q4/8/8/8/3RK3 w - - 0 1",
+      "body": "Look at the black queen on d5. Is anything protecting it?",
+      "arrows": [["d1", "d5", "red"]]
+    },
+    {
+      "type": "interactive",
+      "fen": "4k3/8/8/3q4/8/8/8/3RK3 w - - 0 1",
+      "solution": ["d1d5"],
+      "wrong": {
+        "default": "Check what is attacked and unprotected. One of your pieces can take something for free."
+      },
+      "onSuccess": "Nothing could recapture, so the queen was free."
+    },
+    {
+      "type": "check",
+      "q": "A piece is \"hanging\" when...",
+      "options": [
+        "it is attacked and can be taken without loss to the attacker",
+        "it is far from the king",
+        "it has moved twice"
+      ],
+      "answer": 0,
+      "why": "Free material decides games. Look for it on both sides."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "What does the Safety Check ask?",
+      "solution": ["What can they take, and what can I take?"],
+      "why": "Looking both ways catches most blunders."
+    }
+  ],
+  "drills": {
+    "puzzleQuery": {
+      "skill": "piece_safety",
+      "band": "400-700",
+      "count": 8
+    }
+  }
+}

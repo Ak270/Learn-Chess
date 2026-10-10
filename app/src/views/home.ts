@@ -1,5 +1,7 @@
 // Home (docs/backend/08 §4). Real data only: no placeholders. Cold-start rules apply (no percentages before 5 reviewed games).
-import { db, metrics, profile, store, reviews } from '../app';
+import { db, metrics, planner, profile, store, reviews } from '../app';
+import { dayString, isRestDay, streakLabel } from '../core/planner/streak';
+import { skillTitle } from '../core/planner/plan';
 import { $$, esc } from '../shell/dom';
 import { countUp, lineChart } from '../shell/ui';
 import { mistakeFacts } from '../core/chess/facts';
@@ -42,6 +44,13 @@ export async function render(root: HTMLElement) {
     }),
   );
   const dueCards = await store.dueCards(Date.now(), 99);
+  const now = Date.now();
+  const rd = await planner.restDay();
+  const rest = isRestDay(dayString(now), rd);
+  const plan = rest ? undefined : await planner.planToday(now).catch(() => undefined);
+  const streak = await planner.getStreak();
+  const blocksDone = plan ? plan.blocks.filter((b) => b.doneAt).length : 0;
+  const pctDone = plan ? Math.round((blocksDone / plan.blocks.length) * 100) : 0;
   const note = (
     await db.journal
       .orderBy('at')
@@ -69,9 +78,12 @@ export async function render(root: HTMLElement) {
     <p class="muted">${games.length} games imported · ${reviewed.length ? 'focus: ' + (await focusLabel()) : 'ready to review'}</p></div></div>
   <div class="grid stagger">
     <section class="hero">
-      <div class="grow"><h2 style="font-size:24px">${unreviewed.length ? `${unreviewed.length} game${unreviewed.length > 1 ? 's' : ''} waiting for review` : dueCards.length ? `${dueCards.length} Blunder Box card${dueCards.length > 1 ? 's' : ''} due` : 'You are up to date'}</h2>
-        <p class="muted" style="color:inherit;opacity:.8">${unreviewed.length ? 'The best time to review is soon after you play.' : 'Daily sessions arrive with the training milestone.'}</p>
-        <a class="btn primary big" href="${unreviewed.length ? '#/review' : dueCards.length ? '#/blunders' : '#/review'}">${unreviewed.length ? 'Review games' : dueCards.length ? 'Open Blunder Box' : 'Open game list'}</a></div>
+      ${plan ? `<div class="ring" style="--p:0" id="ring"><b>${pctDone}%</b></div>` : ''}
+      <div class="grow"><h2 style="font-size:24px">${rest ? 'Rest day' : plan ? "Today's session" : unreviewed.length ? `${unreviewed.length} game${unreviewed.length > 1 ? 's' : ''} waiting for review` : 'You are up to date'}</h2>
+        <p class="muted" style="color:inherit;opacity:.8">${rest ? 'No plan today and your streak is safe.' : plan ? `${blocksDone} of ${plan.blocks.length} blocks done · about ${plan.blocks.filter((b) => !b.doneAt).reduce((a, b) => a + b.targetMin, 0)} minutes left · focus: ${esc(skillTitle(plan.focusSkill))}` : 'The best time to review is soon after you play.'}</p>
+        <a class="btn primary big" href="${plan ? '#/session' : unreviewed.length ? '#/review' : '#/puzzles'}">${plan ? (blocksDone ? 'Continue' : 'Start') : unreviewed.length ? 'Review games' : 'A few puzzles'}</a>
+        ${unreviewed.length && plan ? `<a class="btn ghost" style="margin-left:8px" href="#/review">Review ${unreviewed.length} game${unreviewed.length > 1 ? 's' : ''}</a>` : ''}</div>
+      <div class="row" style="flex-direction:column;align-items:flex-end;gap:6px"><span class="chip yellow">🔥 ${esc(streakLabel(streak, dayString(now), rd))}</span><span class="chip blue">❄️ ${streak.freezeLeft} freeze day${streak.freezeLeft === 1 ? '' : 's'}</span></div>
     </section>
     <div class="grid g4">
       ${
@@ -98,7 +110,11 @@ export async function render(root: HTMLElement) {
         })
         .join('')}</div></section>
   </div>`;
-  requestAnimationFrame(() => $$('[data-n]', root).forEach((e) => countUp(e, +e.dataset.n!, { dec: +e.dataset.d! })));
+  requestAnimationFrame(() => {
+    $$('[data-n]', root).forEach((e) => countUp(e, +e.dataset.n!, { dec: +e.dataset.d! }));
+    const ring = root.querySelector<HTMLElement>('#ring');
+    if (ring) ring.style.setProperty('--p', String(pctDone));
+  });
 }
 
 async function focusLabel(): Promise<string> {

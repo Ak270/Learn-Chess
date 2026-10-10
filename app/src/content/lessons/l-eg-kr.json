@@ -1,0 +1,38 @@
+{
+  "id": "l-eg-kr",
+  "title": "King and rook checkmate",
+  "skills": ["eg_basic_mates"],
+  "phase": 1,
+  "minutes": 6,
+  "prereqs": ["l-eg-kq"],
+  "provenance": {
+    "authoredBy": "Mentor (drafted with AI assistance, positions engine-verified)",
+    "license": "own",
+    "engineVerified": true,
+    "reviewedAt": null,
+    "reviewStatus": "needs owner review"
+  },
+  "steps": [
+    {
+      "type": "text",
+      "title": "Cut off and mate",
+      "body": "With a rook, push the enemy king to an edge, then bring your king opposite theirs and give check along the edge."
+    },
+    {
+      "type": "interactive",
+      "fen": "k7/8/1K6/8/8/8/8/7R w - - 0 1",
+      "solution": ["h1h8"],
+      "wrong": {
+        "default": "Their king is on the edge and yours is opposite it. Look for the final check."
+      },
+      "onSuccess": "Rh8 is checkmate: the king on b6 takes away the escape squares."
+    }
+  ],
+  "cards": [
+    {
+      "prompt": "Where does the rook mate happen?",
+      "solution": ["On the edge, with your king opposite theirs."],
+      "why": "The king covers the escape squares."
+    }
+  ]
+}

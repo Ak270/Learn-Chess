@@ -1,0 +1,20 @@
+{
+  "settings.defaults.dailyMinutes": {
+    "value": 30,
+    "source": "docs/DECISIONS.md: owner left blank, default 30 (2026-10-10)"
+  },
+  "settings.defaults.restDay": { "value": 0, "source": "docs/DECISIONS.md: default Sunday (0 = Sunday)" },
+  "settings.defaults.goalRating": {
+    "value": 1000,
+    "source": "docs/backend/02-data-model.md Profile.goalRating default"
+  },
+  "settings.defaults.groqModel": {
+    "value": "llama-3.3-70b-versatile",
+    "source": "docs/backend/07 §Groq specifics, default production model; VERIFY at build"
+  },
+  "importer.pgnMaxBytes": {
+    "value": 204800,
+    "source": "docs/backend/09 §4 input safety: limit PGN size (e.g. 200 KB)"
+  },
+  "engine.defaultHashMb": { "value": 32, "source": "docs/backend/01 EngineClient.init defaults; tune in Phase 3" }
+}

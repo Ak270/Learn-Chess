@@ -1,0 +1,16 @@
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2025.08.24"]
+[Round "-"]
+[White "FabGFab"]
+[Black "amarkelotra"]
+[Result "0-1"]
+[WhiteElo "684"]
+[BlackElo "659"]
+[TimeControl "900+10"]
+[EndTime "12:35:10 GMT+0000"]
+[Termination "amarkelotra won by checkmate"]
+
+1. d4 d5 2. Bf4 Nc6 3. Nf3 Bf5 4. e3 e6 5. c3 Bd6 6. Ne5 Nge7 7. Bb5 O-O 8. O-O
+f6 9. Nxc6 Nxc6 10. Bxc6 bxc6 11. Bxd6 Qxd6 12. Re1 e5 13. dxe5 fxe5 14. g4 Be4
+15. g5 Rab8 16. h4 Rxb2 17. Qh5 Bg6 18. Qg4 e4 19. h5 Rfxf2 20. hxg6 Qh2# 0-1

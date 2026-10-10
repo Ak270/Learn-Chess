@@ -1,0 +1,17 @@
+[Event "Play vs Coach"]
+[Site "Chess.com"]
+[Date "2026.10.04"]
+[Round "-"]
+[White "amarkelotra"]
+[Black "Coach-David"]
+[Result "1-0"]
+[WhiteElo "642"]
+[BlackElo "600"]
+[TimeControl "-"]
+[EndDate "2026.10.04"]
+[Termination "amarkelotra won by checkmate"]
+
+1. e4 c6 2. Nf3 Qc7 3. Bc4 b6 4. d3 d5 5. exd5 Qe5+ 6. Nxe5 g6 7. dxc6 f5 8. O-O
+Nd7 9. cxd7+ Bxd7 10. Nxd7 Kxd7 11. Bb5+ Kd8 12. Re1 g5 13. Bxg5 Nf6 14. Bxf6
+Rg8 15. Bc4 exf6 16. Bxg8 Bh6 17. Qe2 Bg5 18. Qe8+ Kc7 19. Qxa8 Bh4 20. Re6
+Bxf2+ 21. Kxf2 b5 22. Qc6+ Kd8 23. Re8# 1-0

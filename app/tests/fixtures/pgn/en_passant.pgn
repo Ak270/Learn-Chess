@@ -1,0 +1,6 @@
+[Event "synthetic en passant"]
+[White "a"]
+[Black "b"]
+[Result "1-0"]
+
+1. e4 a6 2. e5 d5 3. exd6 cxd6 4. Nf3 Nc6 1-0

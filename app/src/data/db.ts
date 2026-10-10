@@ -1,12 +1,52 @@
 // Single local database (docs/backend/02 §3). Only code in data/ may touch Dexie.
 import Dexie, { type Table } from 'dexie';
+import type {
+  Attempt,
+  Card,
+  ContentProgress,
+  Game,
+  Journal,
+  KV,
+  Mistake,
+  PlyRecord,
+  Profile,
+  SessionPlan,
+  SkillEvidence,
+  SkillState,
+  Streak,
+} from '../types/model';
 
-export interface KV {
-  key: string;
-  value: unknown;
-}
+export const SCHEMA_VERSION = 1;
+export const TABLES = [
+  'profile',
+  'games',
+  'plies',
+  'mistakes',
+  'cards',
+  'attempts',
+  'evidence',
+  'skills',
+  'plans',
+  'streak',
+  'journal',
+  'progress',
+  'kv',
+] as const;
+export type TableName = (typeof TABLES)[number];
 
 export class MentorDB extends Dexie {
+  profile!: Table<Profile, string>;
+  games!: Table<Game, string>;
+  plies!: Table<PlyRecord, [string, number]>;
+  mistakes!: Table<Mistake, string>;
+  cards!: Table<Card, string>;
+  attempts!: Table<Attempt, string>;
+  evidence!: Table<SkillEvidence, string>;
+  skills!: Table<SkillState, string>;
+  plans!: Table<SessionPlan, string>;
+  streak!: Table<Streak, string>;
+  journal!: Table<Journal, string>;
+  progress!: Table<ContentProgress, string>;
   kv!: Table<KV, string>;
   constructor(name = 'mentor') {
     super(name);

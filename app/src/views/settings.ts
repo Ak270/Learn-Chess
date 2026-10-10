@@ -1,6 +1,7 @@
 import { $, $$, toast, modal, esc } from '../shell/dom';
 import { settings } from '../shell/settings';
 import { db } from '../data/db';
+import { deleteAll, exportAll } from '../data/exportImport';
 
 const BOARDS: [string, string, string][] = [
   ['green', '#ebecd0', '#739552'],
@@ -60,7 +61,15 @@ export function render(root: HTMLElement) {
     settings.set('groqKey', (e.target as HTMLInputElement).value.trim());
   $<HTMLInputElement>('#gm', root).onchange = (e) =>
     settings.set('groqModel', (e.target as HTMLInputElement).value.trim());
-  $('#exp', root).onclick = () => toast('Export arrives with the data layer (Phase 2).');
+  $('#exp', root).onclick = async () => {
+    const file = await exportAll(db);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(file)], { type: 'application/json' }));
+    a.download = `mentor-export-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast('Exported. The Groq key is not included.');
+  };
   $('#del', root).onclick = () =>
     modal(
       `<h2>Delete everything?</h2><p class="muted">This removes your games, answers, settings and the Groq key stored in this browser. It cannot be undone.</p>
@@ -69,8 +78,7 @@ export function render(root: HTMLElement) {
         onMount: (bg, close) => {
           $('#del-no', bg).onclick = close;
           $('#del-yes', bg).onclick = async () => {
-            await db.delete();
-            localStorage.clear();
+            await deleteAll(db);
             location.reload();
           };
         },

@@ -1,0 +1,16 @@
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2025.08.23"]
+[Round "-"]
+[White "LeonidasLop"]
+[Black "amarkelotra"]
+[Result "0-1"]
+[WhiteElo "622"]
+[BlackElo "653"]
+[TimeControl "600"]
+[EndTime "16:11:58 GMT+0000"]
+[Termination "amarkelotra won by checkmate"]
+
+1. e4 e5 2. d4 Nc6 3. dxe5 Nxe5 4. Qd5 d6 5. Bb5+ c6 6. Bxc6+ bxc6 7. Qd2 d5 8.
+exd5 cxd5 9. Qd4 f6 10. Nf3 Bd6 11. Bf4 Qe7 12. Qxd5 Bb7 13. Qb5+ Bc6 14. Qb3
+Nxf3+ 15. Kd1 Bxf4 16. gxf3 Qd6+ 17. Nd2 Qxd2# 0-1

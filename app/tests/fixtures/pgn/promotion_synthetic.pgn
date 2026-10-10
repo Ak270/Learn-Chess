@@ -1,0 +1,6 @@
+[Event "synthetic promotion"]
+[White "a"]
+[Black "b"]
+[Result "1-0"]
+
+1. e4 d5 2. exd5 c6 3. dxc6 Nf6 4. cxb7 Nc6 5. bxa8=Q 1-0

@@ -357,7 +357,7 @@ button {
 }
 .chip.green {
   background: rgba(129, 182, 76, 0.18);
-  color: var(--accent);
+  color: #a9d775; /* a11y: contrast on dark panels */
 }
 .chip.red {
   background: rgba(250, 65, 45, 0.16);
@@ -1521,3 +1521,9 @@ select {
 .blind .eval-bar {
   visibility: hidden;
 }
+
+/* a11y: chip text colours that pass 4.5:1 on light panels */
+:root[data-theme='light'] .chip.green { color: #2f5f12; }
+:root[data-theme='light'] .chip.red { color: #8c1d15; }
+:root[data-theme='light'] .chip.yellow { color: #6b4e00; }
+:root[data-theme='light'] .chip.blue { color: #1f4f7a; }

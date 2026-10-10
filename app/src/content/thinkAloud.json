@@ -1,0 +1,40 @@
+{
+  "_provenance": "Authored for Mentor (Phase 10 §1.2 think-aloud baseline: hanging piece, fork available, opponent threat, quiet position, forced mate-in-1). Positions are original constructions. Batch 1 - needs owner review.",
+  "positions": [
+    {
+      "id": "ta1",
+      "kind": "hanging",
+      "fen": "rnb1kbnr/pppp1ppp/5q2/4p3/4P2N/8/PPPP1PPP/RNBQKB1R w KQkq - 1 4",
+      "prompt": "White to move. Look at the whole board before you choose.",
+      "opponentThreat": true
+    },
+    {
+      "id": "ta2",
+      "kind": "fork",
+      "fen": "2r1k3/8/8/8/2N5/8/8/4K3 w - - 0 1",
+      "prompt": "White to move. Is there a move that does two things at once?",
+      "opponentThreat": false
+    },
+    {
+      "id": "ta3",
+      "kind": "threat",
+      "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR b KQkq - 3 3",
+      "prompt": "Black to move. White has just moved. What did that move threaten?",
+      "opponentThreat": true
+    },
+    {
+      "id": "ta4",
+      "kind": "quiet",
+      "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+      "prompt": "White to move. Nothing is under attack. What would you like to do and why?",
+      "opponentThreat": false
+    },
+    {
+      "id": "ta5",
+      "kind": "mate1",
+      "fen": "6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1",
+      "prompt": "White to move. Is there something forcing?",
+      "opponentThreat": false
+    }
+  ]
+}

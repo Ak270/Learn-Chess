@@ -12,6 +12,8 @@ const CONTEXT_LAYER: Record<AttemptContext, Layer> = {
   weekly_exam: 'transfer',
   game_prompt: 'decision',
   review: 'knowledge',
+  think_aloud: 'decision',
+  rules_check: 'knowledge',
 };
 
 export function evidenceFromAttempt(a: Attempt): Omit<SkillEvidence, 'id' | 'sourceRef'>[] {

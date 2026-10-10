@@ -123,7 +123,8 @@ export interface Card {
   state: 'new' | 'learning' | 'review' | 'cleared' | 'suspended';
   createdAt: Ms;
 }
-export type AttemptContext = 'drill' | 'puzzle' | 'test' | 'recall' | 'weekly_exam' | 'game_prompt' | 'review';
+export type AttemptContext =
+  'drill' | 'puzzle' | 'test' | 'recall' | 'weekly_exam' | 'game_prompt' | 'review' | 'think_aloud' | 'rules_check';
 export type Confidence = 'sure' | 'unsure' | 'guess';
 export interface Attempt {
   id: ID;

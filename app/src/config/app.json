@@ -54,5 +54,17 @@
   "evidence.minEquivalentSeconds": {
     "value": 900,
     "source": "docs/backend/10 \u00a75.2 total >= 15+10-equivalent (base + 40*inc >= 900 -> uses 15 min)"
+  },
+  "review.findFirst.dailyQuota": {
+    "value": 2,
+    "source": "docs/backend/10 \u00a72 'Find-it-first on <= 2 games per day (time)'"
+  },
+  "review.findFirst.closeDelta": {
+    "value": 2,
+    "source": "docs/backend/10 \u00a72 'off by <= 2 plies'"
+  },
+  "evidence.selfAnalysis.weight": {
+    "value": 1.5,
+    "source": "docs/backend/10 \u00a72 says 'high weight' without a number; 1.5 chosen to match the decision-layer weight in docs/backend/05 \u00a73.1 (critical-position drill = 1.5). Calibrate in Phase 9."
   }
 }

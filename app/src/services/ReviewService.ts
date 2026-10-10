@@ -219,8 +219,111 @@ export function createReviewService(deps: {
     yield { gameId, ply: plies.length, total: plies.length, stage: 'done' };
   }
 
+  async function rediagnose(
+    mistakeId: string,
+    selfExplanation: { chip?: 'attack' | 'defend' | 'develop' | 'unsure'; text?: string },
+  ) {
+    const m = await db.mistakes.get(mistakeId);
+    if (!m) return undefined;
+    const game = await db.games.get(m.gameId);
+    const ply = await db.plies.get([m.gameId, m.ply]);
+    if (!game || !ply) return undefined;
+    const times = (await db.plies.where('gameId').equals(m.gameId).toArray())
+      .filter((p) => p.color === game.playerColor && p.timeSpentMs !== undefined)
+      .map((p) => p.timeSpentMs as number)
+      .sort((a, b) => a - b);
+    const diagnosis = diagnose({
+      fenBefore: m.fen,
+      playedUci: m.playedUci,
+      color: ply.color,
+      motifs: m.motifs,
+      winPctLoss: m.winPctLoss,
+      materialDropAfterBestReply: m.winPctLoss >= 15 ? 1 : 0,
+      timeSpentMs: ply.timeSpentMs,
+      medianMoveMs: times.length ? times[Math.floor(times.length / 2)] : undefined,
+      selfExplanation,
+      imported: game.source !== 'mentor',
+    });
+    const text = selfExplanation.text?.trim();
+    await db.mistakes.update(mistakeId, {
+      diagnosis,
+      selfExplanation: { text: [selfExplanation.chip, text].filter(Boolean).join(': '), at: now() },
+    });
+    return diagnosis;
+  }
+
+  async function confirmDiagnosis(
+    mistakeId: string,
+    cause: string,
+    answer: boolean | 'corrected',
+    correctedTo?: string,
+  ) {
+    const m = await db.mistakes.get(mistakeId);
+    if (!m) return;
+    const diagnosis = m.diagnosis.map((h) =>
+      h.cause === cause
+        ? { ...h, confirmedByUser: answer, correctedTo: (correctedTo as typeof h.correctedTo) ?? h.correctedTo }
+        : h,
+    );
+    await db.mistakes.update(mistakeId, { diagnosis });
+    // per-rule counts feed Phase 9 precision tracking
+    const key = `diagnosis.rule:${cause}`;
+    const cur = ((await db.kv.get(key))?.value as { yes: number; no: number } | undefined) ?? { yes: 0, no: 0 };
+    await db.kv.put({ key, value: answer === true ? { ...cur, yes: cur.yes + 1 } : { ...cur, no: cur.no + 1 } });
+  }
+
+  async function recordFindFirst(
+    gameId: string,
+    learnerPickPly: number | null,
+    truthPly: number | null,
+    mode: 'find_first' | 'show_me' = 'find_first',
+  ) {
+    const delta = learnerPickPly !== null && truthPly !== null ? Math.abs(learnerPickPly - truthPly) : null;
+    await db.kv.put({
+      key: `reviewattempt:${ulid(now())}`,
+      value: { gameId, mode, learnerPickPly, truthPly, delta, at: now() },
+    });
+    if (mode === 'find_first') {
+      const close = cfg.get<number>('review.findFirst.closeDelta');
+      const outcome = delta === 0 ? 1 : delta !== null && delta <= close ? 0.5 : 0;
+      await db.evidence.add({
+        id: ulid(now()),
+        at: now(),
+        skill: 'self_analysis',
+        layer: 'decision',
+        outcome,
+        weight: cfg.get<number>('evidence.selfAnalysis.weight'),
+        assisted: false,
+        sourceRef: { gameId },
+      });
+    }
+    return delta;
+  }
+  async function findFirstToday(): Promise<number> {
+    const start = new Date(now());
+    start.setHours(0, 0, 0, 0);
+    const rows = await db.kv.where('key').startsWith('reviewattempt:').toArray();
+    return rows.filter(
+      (r) =>
+        (r.value as { at: number; mode: string }).mode === 'find_first' &&
+        (r.value as { at: number }).at >= start.getTime(),
+    ).length;
+  }
+  async function setCardSuspended(cardId: string, suspended: boolean) {
+    const c = await db.cards.get(cardId);
+    if (!c) return;
+    await db.cards.update(cardId, {
+      state: suspended ? 'suspended' : c.srs.lapses || c.srs.cleanStreak ? 'learning' : 'new',
+    });
+  }
+
   return {
     reviewGame,
+    rediagnose,
+    confirmDiagnosis,
+    recordFindFirst,
+    findFirstToday,
+    setCardSuspended,
     async getReview(gameId: string): Promise<GameReview | undefined> {
       return (await db.kv.get(KEY(gameId)))?.value as GameReview | undefined;
     },

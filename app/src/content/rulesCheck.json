@@ -1,0 +1,85 @@
+{
+  "_provenance": "Authored for Mentor (Phase 10 §1.2/§7 rules check, 8 questions). Standard FIDE Laws of Chess concepts, written in own words. Batch 1 - needs owner review.",
+  "questions": [
+    {
+      "id": "r1",
+      "skill": "rules_fluency",
+      "q": "Which of these stops you from castling?",
+      "options": [
+        "Your king has moved earlier in the game",
+        "Your rook is on its starting square",
+        "Your opponent has a knight developed"
+      ],
+      "answer": 0,
+      "explain": "Once the king has moved, it can never castle, even if it returns. You also cannot castle out of check, through an attacked square, or with pieces in between."
+    },
+    {
+      "id": "r2",
+      "skill": "rules_fluency",
+      "q": "When can you capture en passant?",
+      "options": [
+        "Any time a pawn is next to an enemy pawn",
+        "Right after an enemy pawn moves two squares and lands beside your pawn",
+        "Only with a pawn that is on its starting rank"
+      ],
+      "answer": 1,
+      "explain": "En passant is only possible on the very next move after the two-square pawn advance. If you do not take it immediately, the chance is gone."
+    },
+    {
+      "id": "r3",
+      "skill": "rules_fluency",
+      "q": "A pawn reaches the last rank. What may you do?",
+      "options": [
+        "Only turn it into a queen",
+        "Turn it into a queen, rook, bishop or knight",
+        "Keep it as a pawn and move it sideways"
+      ],
+      "answer": 1,
+      "explain": "You must promote, and you choose the piece. Choosing a knight (under-promotion) is sometimes the only winning or non-stalemating move."
+    },
+    {
+      "id": "r4",
+      "skill": "rules_fluency",
+      "q": "It is your opponent's turn. Their king is not in check and they have no legal move. What is the result?",
+      "options": ["You win by checkmate", "It is a draw by stalemate", "They must pass"],
+      "answer": 1,
+      "explain": "No legal move and no check is stalemate: a draw. This is the classic way to spoil a winning position, so always leave the enemy king a move or give mate."
+    },
+    {
+      "id": "r5",
+      "skill": "rules_fluency",
+      "q": "The same position appears three times, with the same player to move. What can happen?",
+      "options": ["Nothing, repetition is not a rule", "A player can claim a draw", "The player who repeated loses"],
+      "answer": 1,
+      "explain": "Threefold repetition lets a player claim a draw. The positions do not have to follow one another."
+    },
+    {
+      "id": "r6",
+      "skill": "rules_fluency",
+      "q": "Which ending is a draw because neither side can force checkmate?",
+      "options": ["King and rook against king", "King and bishop against king", "King and queen against king"],
+      "answer": 1,
+      "explain": "King and a single minor piece cannot force mate against a lone king. King and rook, or king and queen, can."
+    },
+    {
+      "id": "r7",
+      "skill": "rules_fluency",
+      "q": "Can a king capture a piece that is protected by another enemy piece?",
+      "options": [
+        "Yes, kings can capture anything",
+        "No, a king may not move to an attacked square",
+        "Only if the piece is a pawn"
+      ],
+      "answer": 1,
+      "explain": "A king can never move to a square that an enemy piece attacks, which includes capturing a protected piece."
+    },
+    {
+      "id": "r8",
+      "skill": "material_counting",
+      "q": "You capture a rook (5) with your bishop (3), and they recapture the bishop with a pawn (1). What is the material result for you?",
+      "options": ["You are up 2", "You are up 5", "You are down 3"],
+      "answer": 0,
+      "explain": "You gained 5 and lost 3, so you are up 2. Counting trades like this before you capture is the core of the Safety Check."
+    }
+  ]
+}

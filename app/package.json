@@ -10,7 +10,11 @@
     "test": "vitest run",
     "e2e": "playwright test",
     "lint": "eslint src tests",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "copy-engine": "node scripts/copy-engine.mjs",
+    "predev": "npm run copy-engine",
+    "prebuild": "npm run copy-engine",
+    "pretest": "npm run copy-engine"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
@@ -22,6 +26,7 @@
     "fast-check": "^4.10.2",
     "jsdom": "^29.1.1",
     "prettier": "^3.9.9",
+    "stockfish": "^19.0.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.1",
     "vite": "^8.3.4",

@@ -1,0 +1,59 @@
+{
+  "eval.winPctK": {
+    "value": 0.00368208,
+    "source": "VERIFIED 2026-10-10 against lichess-org/lila ui/lib/src/ceval/winningChances.ts MULTIPLIER (PR 11148)"
+  },
+  "eval.mateCp": { "value": 10000, "source": "docs/backend/03 §2.1: mate maps to +/-10000 cp so winPct saturates" },
+  "accuracy.a": { "value": 103.1668100711649, "source": "VERIFIED 2026-10-10 lila AccuracyPercent.scala" },
+  "accuracy.k": { "value": 0.04354415386753951, "source": "VERIFIED 2026-10-10 lila AccuracyPercent.scala" },
+  "accuracy.b": { "value": -3.166924740191411, "source": "VERIFIED 2026-10-10 lila AccuracyPercent.scala" },
+  "classification.inaccuracyWinPct": {
+    "value": 5,
+    "source": "docs/backend/03 §2.3 starting threshold; calibrate in Phase 9 §2.4"
+  },
+  "classification.mistakeWinPct": { "value": 10, "source": "docs/backend/03 §2.3 starting threshold" },
+  "classification.blunderWinPct": { "value": 15, "source": "docs/backend/03 §2.3 starting threshold" },
+  "classification.meaningfulWinPct": { "value": 10, "source": "docs/backend/03 §2.3 starting threshold" },
+  "classification.alreadyLostBelow": { "value": 8, "source": "docs/backend/03 §2.3" },
+  "classification.alreadyWonAbove": { "value": 92, "source": "docs/backend/03 §2.3" },
+  "classification.alreadyWonStillWinning": {
+    "value": 70,
+    "source": "docs/backend/03 §2.3/§4: only count a loss that drops below 70"
+  },
+  "classification.maxMistakesShown": { "value": 3, "source": "docs/backend/03 §2.3 N=3 further ones" },
+  "classification.bookMaxPly": { "value": 14, "source": "docs/backend/03 §3 item 1" },
+  "classification.greatGapWinPct": { "value": 15, "source": "docs/backend/03 §3 item 3" },
+  "classification.greatFlipFrom": { "value": 40, "source": "docs/backend/03 §3 item 3: before < 40 -> played >= 50" },
+  "classification.greatFlipTo": { "value": 50, "source": "docs/backend/03 §3 item 3" },
+  "classification.brilliantMinBefore": { "value": 40, "source": "docs/backend/03 §3 item 2: not already lost" },
+  "classification.brilliantMaxDrop": { "value": 3, "source": "docs/backend/03 §3 item 2" },
+  "classification.bestEpsilon": { "value": 0.5, "source": "docs/backend/03 §3 item 4: loss <= 0.5 counts as best" },
+  "classification.missOppLossWinPct": { "value": 10, "source": "docs/backend/03 §3 item 5 (oppLoss >= mistake)" },
+  "classification.missPunishGainWinPct": { "value": 10, "source": "docs/backend/03 §3 item 5" },
+  "classification.excellentWinPct": { "value": 2, "source": "docs/backend/03 §3 item 7" },
+  "classification.goodWinPct": { "value": 5, "source": "docs/backend/03 §3 item 7" },
+  "firstMeaningful.materialDropMin": { "value": 1, "source": "docs/backend/03 §4 materialDropAfterBestReply >= 1" },
+  "firstMeaningful.hugeLossFactor": { "value": 2, "source": "docs/backend/03 §4 loss >= 2*meaningful" },
+  "phase.openingMaxPly": { "value": 20, "source": "docs/backend/03 §5" },
+  "phase.openingMinMaterialFrac": { "value": 0.8, "source": "docs/backend/03 §5 non-pawn material >= 80% of start" },
+  "phase.endgameMaterial": { "value": 13, "source": "docs/backend/03 §5 endgameMaterial default" },
+  "phase.endgameQueensOffTotal": { "value": 20, "source": "docs/backend/03 §5 queens off and <= 20 total" },
+  "pieceValue.p": { "value": 1, "source": "docs/backend/03 §6.2" },
+  "pieceValue.n": { "value": 3, "source": "docs/backend/03 §6.2" },
+  "pieceValue.b": { "value": 3, "source": "docs/backend/03 §6.2" },
+  "pieceValue.r": { "value": 5, "source": "docs/backend/03 §6.2" },
+  "pieceValue.q": { "value": 9, "source": "docs/backend/03 §6.2" },
+  "pieceValue.k": { "value": 100, "source": "docs/backend/03 §6.2 K = 100" },
+  "engine.review.depth": { "value": 12, "source": "docs/backend/03 §1.2 review depth 12-14" },
+  "engine.review.multiPv": { "value": 2, "source": "docs/backend/03 §1.2" },
+  "engine.hint.depth": { "value": 10, "source": "docs/backend/03 §1.2 hint/threat depth 10" },
+  "engine.threat.minorBelowPawns": {
+    "value": 1,
+    "source": "docs/backend/03 §6.4 downgrade when engine score < +1.0 pawn"
+  },
+  "engine.cacheMaxEntries": { "value": 20000, "source": "docs/backend/03 §1.1 cap 20k entries" },
+  "motif.refutationMinGainPawns": {
+    "value": 2,
+    "source": "docs/backend/03 §6.10 refutation must realise >= 2 pawns or mate"
+  }
+}

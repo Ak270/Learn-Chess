@@ -24,3 +24,7 @@ Precedence for conflicts: Phase 11 > Phase 10 > numbered phase file > blueprint 
 - T2: Settings are stored in IndexedDB (`kv` table, key `settings.v1`) with a synchronous in-memory cache.
 - T3: Local e2e reuses the pre-installed Chromium via `PW_CHROMIUM`; CI installs its own.
 - T4: Light theme tokens `--accent`, `--bad`, `--muted` were darkened to pass axe color-contrast (prototype failed it).
+- T5 (2026-10-10, Phase 3): D3 resolved to **Stockfish 19** (npm `stockfish@19.0.0`, GPL-3.0, nmrugg/stockfish.js) instead of 17; ships lite single-thread (1.7 MB) as default. Large 99 MB builds not bundled. Engine files are copied to `app/public/engine` at build time (git-ignored).
+- T6: win% constant `0.00368208` and accuracy constants VERIFIED against lichess-org/lila source (2026-10-10). Accuracy uses lila's exact `a=103.1668100711649, k=0.04354415386753951, b=-3.166924740191411` (docs said -3.1669).
+- T7: Phase 3 §10 items NOT done and why: "golden suite >=95% precision / >=85% recall on the owner's first 20 reviewed games" needs the owner's manual labels (tests/labelled/); done only after M1 owner review.
+- T8: Perf measured 2026-10-10 on the dev Mac: 112-ply owner game at depth 12, MultiPV 2 = 3.2 s in Node (budget 90 s).

@@ -1,0 +1,22 @@
+{
+  "fen": "r1bqk2r/ppp2pp1/2np1n1p/2b1p1B1/2B1P3/3P1N2/PPP2PPP/RN1Q1RK1 w kq - 0 7",
+  "lines": [
+    "info depth 1 seldepth 4 multipv 1 score cp -14 nodes 85 nps 85000 hashfull 0 time 1 pv g5e3",
+    "info depth 1 seldepth 3 multipv 2 score cp -20 nodes 85 nps 85000 hashfull 0 time 1 pv g5d2",
+    "info depth 2 seldepth 4 multipv 1 score cp -14 nodes 476 nps 476000 hashfull 0 time 1 pv g5e3 a7a6",
+    "info depth 2 seldepth 4 multipv 2 score cp -34 nodes 476 nps 476000 hashfull 0 time 1 pv g5d2 e8g8",
+    "info depth 3 seldepth 5 multipv 1 score cp -14 nodes 628 nps 628000 hashfull 0 time 1 pv g5e3 a7a6 h2h3",
+    "info depth 3 seldepth 4 multipv 2 score cp -29 nodes 628 nps 628000 hashfull 0 time 1 pv g5d2 e8g8 h2h3",
+    "info depth 4 seldepth 7 multipv 1 score cp -13 nodes 1196 nps 1196000 hashfull 0 time 1 pv g5e3 a7a6 h2h3 g7g5",
+    "info depth 4 seldepth 7 multipv 2 score cp -28 nodes 1196 nps 1196000 hashfull 0 time 1 pv g5d2 a7a6 a2a4",
+    "info depth 5 seldepth 7 multipv 1 score cp -13 nodes 1759 nps 879500 hashfull 0 time 2 pv g5e3 a7a6 h2h3 d8e7",
+    "info depth 5 seldepth 9 multipv 2 score cp -28 nodes 1759 nps 879500 hashfull 0 time 2 pv g5f6 d8f6 b1c3 c8g4 c3d5",
+    "info depth 6 seldepth 9 multipv 1 score cp -14 nodes 2554 nps 1277000 hashfull 0 time 2 pv g5e3 a7a6 h2h3 d8e7 c2c3 c5e3",
+    "info depth 6 seldepth 8 multipv 2 score cp -29 nodes 2554 nps 1277000 hashfull 0 time 2 pv g5d2 a7a6 d2e3 d8e7 h2h3",
+    "info depth 7 seldepth 12 multipv 1 score cp -11 nodes 3965 nps 793000 hashfull 0 time 5 pv g5e3 a7a6 h2h3 e8g8 e3c5 d6c5 a2a4 d8e7",
+    "info depth 7 seldepth 10 multipv 2 score cp -22 nodes 3965 nps 793000 hashfull 0 time 5 pv g5f6 d8f6 b1c3 c8g4 c3d5",
+    "info depth 8 seldepth 9 multipv 1 score cp -11 nodes 7654 nps 850444 hashfull 2 time 9 pv g5e3 a7a6 h2h3 e8g8 e3c5 d6c5 a2a4 d8e7",
+    "info depth 8 seldepth 12 multipv 2 score cp -32 nodes 7654 nps 850444 hashfull 2 time 9 pv g5d2 a7a6 b1c3 c8g4 h2h3 g4h5 a2a4",
+    "bestmove g5e3 ponder a7a6"
+  ]
+}

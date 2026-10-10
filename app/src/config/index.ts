@@ -1,5 +1,7 @@
 // Typed config loader. Every key must carry a `source` note (no magic numbers, docs/backend/01 §4.5).
 import app from './app.json';
+import chessCfg from './chess.json';
+import skillmap from './skillmap.json';
 
 export interface ConfigEntry<T = unknown> {
   value: T;
@@ -36,4 +38,5 @@ export function createConfig(...files: [string, Record<string, unknown>][]) {
   };
 }
 
-export const cfg = createConfig(['app.json', app]);
+export type Config = ReturnType<typeof createConfig>;
+export const cfg = createConfig(['app.json', app], ['chess.json', chessCfg], ['skillmap.json', skillmap]);

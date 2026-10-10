@@ -1,0 +1,22 @@
+{
+  "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+  "lines": [
+    "info depth 1 seldepth 2 multipv 1 score cp 29 nodes 39 nps 7800 hashfull 0 time 5 pv e2e4",
+    "info depth 1 seldepth 2 multipv 2 score cp 6 nodes 39 nps 7800 hashfull 0 time 5 pv e2e3",
+    "info depth 2 seldepth 3 multipv 1 score cp 40 nodes 90 nps 18000 hashfull 0 time 5 pv e2e4",
+    "info depth 2 seldepth 3 multipv 2 score cp 18 nodes 90 nps 18000 hashfull 0 time 5 pv e2e3",
+    "info depth 3 seldepth 8 multipv 1 score cp 28 nodes 1333 nps 166625 hashfull 0 time 8 pv d2d4 d7d5",
+    "info depth 3 seldepth 7 multipv 2 score cp 18 nodes 1333 nps 166625 hashfull 0 time 8 pv b1c3 d7d5 e2e3",
+    "info depth 4 seldepth 5 multipv 1 score cp 26 nodes 1655 nps 165500 hashfull 0 time 10 pv d2d4 g8f6 e2e3 e7e6",
+    "info depth 4 seldepth 6 multipv 2 score cp 17 nodes 1655 nps 165500 hashfull 0 time 10 pv e2e4 e7e5 g1f3",
+    "info depth 5 seldepth 8 multipv 1 score cp 26 nodes 1848 nps 184800 hashfull 0 time 10 pv d2d4 g8f6 e2e3 d7d5 c2c4",
+    "info depth 5 seldepth 9 multipv 2 score cp 17 nodes 1848 nps 184800 hashfull 0 time 10 pv e2e4 e7e5 g1f3 b8c6 d2d4 e5d4 f3d4",
+    "info depth 6 seldepth 15 multipv 1 score cp 23 nodes 4236 nps 249176 hashfull 1 time 17 pv e2e4 e7e5 g1f3 b8c6 b1c3 g8f6 d2d4 e5d4 f3d4 f8c5",
+    "info depth 6 seldepth 13 multipv 2 score cp 20 nodes 4236 nps 249176 hashfull 1 time 17 pv d2d4 d7d5 c2c4 e7e6 g1f3 c7c5 c4d5 e6d5",
+    "info depth 7 seldepth 10 multipv 1 score cp 23 nodes 4623 nps 271941 hashfull 1 time 17 pv e2e4 e7e5 g1f3 b8c6 b1c3 g8f6 d2d4",
+    "info depth 7 seldepth 11 multipv 2 score cp 19 nodes 4623 nps 256833 hashfull 1 time 18 pv d2d4 d7d5 c2c4 d5c4 g1f3 g8f6",
+    "info depth 8 seldepth 10 multipv 1 score cp 23 nodes 6418 nps 305619 hashfull 2 time 21 pv e2e4 e7e5 g1f3 b8c6 b1c3 g8f6 d2d4 e5d4",
+    "info depth 8 seldepth 13 multipv 2 score cp 21 nodes 6418 nps 305619 hashfull 2 time 21 pv d2d4 g8f6 c2c4 e7e6 b1c3 d7d5 e2e3",
+    "bestmove e2e4 ponder e7e5"
+  ]
+}

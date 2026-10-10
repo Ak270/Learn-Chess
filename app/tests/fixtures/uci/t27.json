@@ -1,0 +1,22 @@
+{
+  "fen": "6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1",
+  "lines": [
+    "info depth 1 seldepth 2 multipv 1 score mate 1 nodes 56 nps 56000 hashfull 0 time 1 pv a1a8",
+    "info depth 1 seldepth 3 multipv 2 score cp 700 nodes 56 nps 56000 hashfull 0 time 1 pv f2f3 h7h5",
+    "info depth 2 seldepth 2 multipv 1 score mate 1 nodes 103 nps 103000 hashfull 0 time 1 pv a1a8",
+    "info depth 2 seldepth 3 multipv 2 score cp 700 nodes 103 nps 103000 hashfull 0 time 1 pv f2f3 h7h5",
+    "info depth 3 seldepth 2 multipv 1 score mate 1 nodes 483 nps 483000 hashfull 0 time 1 pv a1a8",
+    "info depth 3 seldepth 6 multipv 2 score cp 642 nodes 483 nps 483000 hashfull 0 time 1 pv a1a5 f7f6",
+    "info depth 4 seldepth 2 multipv 1 score mate 1 nodes 616 nps 616000 hashfull 0 time 1 pv a1a8",
+    "info depth 4 seldepth 7 multipv 2 score cp 640 nodes 616 nps 616000 hashfull 0 time 1 pv a1b1",
+    "info depth 5 seldepth 2 multipv 1 score mate 1 nodes 949 nps 949000 hashfull 0 time 1 pv a1a8",
+    "info depth 5 seldepth 7 multipv 2 score cp 728 nodes 949 nps 949000 hashfull 0 time 1 pv a1d1 f7f6 d1b1 h7h6",
+    "info depth 6 seldepth 2 multipv 1 score mate 1 nodes 1329 nps 1329000 hashfull 0 time 1 pv a1a8",
+    "info depth 6 seldepth 7 multipv 2 score cp 653 nodes 1329 nps 1329000 hashfull 0 time 1 pv a1e1 f7f6 e1d1",
+    "info depth 7 seldepth 2 multipv 1 score mate 1 nodes 1656 nps 1656000 hashfull 0 time 1 pv a1a8",
+    "info depth 7 seldepth 8 multipv 2 score cp 643 nodes 1656 nps 1656000 hashfull 0 time 1 pv a1d1",
+    "info depth 8 seldepth 2 multipv 1 score mate 1 nodes 2098 nps 2098000 hashfull 0 time 1 pv a1a8",
+    "info depth 8 seldepth 10 multipv 2 score cp 606 nodes 2098 nps 2098000 hashfull 0 time 1 pv a1b1 h7h5 b1b5 h5h4 b5b8 g8h7",
+    "bestmove a1a8"
+  ]
+}

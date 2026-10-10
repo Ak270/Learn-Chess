@@ -1,0 +1,22 @@
+{
+  "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2",
+  "lines": [
+    "info depth 1 seldepth 6 multipv 1 score cp -32 nodes 79 nps 79000 hashfull 0 time 1 pv b8c6",
+    "info depth 1 seldepth 4 multipv 2 score cp -34 nodes 79 nps 79000 hashfull 0 time 1 pv g8f6",
+    "info depth 2 seldepth 7 multipv 1 score cp -30 nodes 183 nps 183000 hashfull 0 time 1 pv g8f6 b1c3",
+    "info depth 2 seldepth 3 multipv 2 score cp -32 nodes 183 nps 183000 hashfull 0 time 1 pv b8c6 b1c3",
+    "info depth 3 seldepth 7 multipv 1 score cp -29 nodes 343 nps 343000 hashfull 0 time 1 pv b8c6 b1c3",
+    "info depth 3 seldepth 4 multipv 2 score cp -40 nodes 343 nps 343000 hashfull 0 time 1 pv g8f6 f3e5 f6e4",
+    "info depth 4 seldepth 8 multipv 1 score cp -32 nodes 665 nps 665000 hashfull 0 time 1 pv b8c6 b1c3 g8f6 d2d4 e5d4 f3d4",
+    "info depth 4 seldepth 7 multipv 2 score cp -45 nodes 665 nps 665000 hashfull 0 time 1 pv g8f6 f3e5 f6e4 b1c3 e4c3 d2c3",
+    "info depth 5 seldepth 9 multipv 1 score cp -28 nodes 1113 nps 1113000 hashfull 0 time 1 pv b8c6 b1c3 g8f6 d2d4 e5d4 f3d4",
+    "info depth 5 seldepth 7 multipv 2 score cp -45 nodes 1113 nps 1113000 hashfull 0 time 1 pv g8f6 f3e5 f6e4 b1c3 e4c3 d2c3",
+    "info depth 6 seldepth 8 multipv 1 score cp -28 nodes 3498 nps 1166000 hashfull 0 time 3 pv b8c6 b1c3 g8f6 d2d4 e5d4 f3d4",
+    "info depth 6 seldepth 8 multipv 2 score cp -60 nodes 3498 nps 1166000 hashfull 0 time 3 pv g8f6 f3e5 f8d6 d2d4 f6e4",
+    "info depth 7 seldepth 11 multipv 1 score cp -37 nodes 6506 nps 1084333 hashfull 2 time 6 pv b8c6 b1c3 g8f6 d2d4 e5d4 f3d4 f8c5",
+    "info depth 7 seldepth 11 multipv 2 score cp -53 nodes 6506 nps 1084333 hashfull 2 time 6 pv g8f6 f3e5 f6e4 d1e2 d7d5 b1c3 e4c3 d2c3",
+    "info depth 8 seldepth 15 multipv 1 score cp -39 nodes 8774 nps 1096750 hashfull 2 time 8 pv b8c6 b1c3 g8f6 d2d4 e5d4 f3d4 f8c5 d4c6 d7c6 d1d8 e8d8",
+    "info depth 8 seldepth 10 multipv 2 score cp -49 nodes 8774 nps 1096750 hashfull 2 time 8 pv g8f6 f3e5 f6e4 d1e2 d7d5 b1c3 e4c3 b2c3",
+    "bestmove b8c6 ponder b1c3"
+  ]
+}

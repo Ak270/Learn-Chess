@@ -1,0 +1,264 @@
+{
+  "_note": "Phase 3 §8 golden motif suite. 'expect' = ids that must be present; 'absent' = ids that must NOT be present. FENs verified by running the detectors; labels reasoned from the position, not copied from output.",
+  "cases": [
+    {
+      "name": "queen hangs to rook",
+      "fn": "hanging",
+      "fen": "4k3/8/8/3q4/8/8/8/3RK3 b - - 0 1",
+      "owner": "b",
+      "expect": ["hanging.piece"]
+    },
+    {
+      "name": "knight h4 hangs to queen f6 (prototype 11.Nh4)",
+      "fn": "hanging",
+      "fen": "rnb1kbnr/pppp1ppp/5q2/4p3/4P2N/8/PPPP1PPP/RNBQKB1R w KQkq - 1 4",
+      "owner": "w",
+      "expect": ["hanging.piece"]
+    },
+    {
+      "name": "rook a3 hangs to bishop b4",
+      "fn": "hanging",
+      "fen": "4k3/8/8/8/1b6/R7/8/4K3 w - - 0 1",
+      "owner": "w",
+      "expect": ["hanging.piece"]
+    },
+    {
+      "name": "knight attacked by pawn loses even if defended",
+      "fn": "hanging",
+      "fen": "4k3/8/8/3p4/4N3/3P4/8/4K3 w - - 0 1",
+      "owner": "w",
+      "expect": ["hanging.piece"]
+    },
+    {
+      "name": "bishop c5 hangs to pawn d4",
+      "fn": "hanging",
+      "fen": "4k3/8/8/2b5/3P4/8/8/4K3 b - - 0 1",
+      "owner": "b",
+      "expect": ["hanging.piece"]
+    },
+    {
+      "name": "start position white",
+      "fn": "hanging",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "owner": "w",
+      "absent": ["hanging.piece"]
+    },
+    {
+      "name": "start position black",
+      "fn": "hanging",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "owner": "b",
+      "absent": ["hanging.piece"]
+    },
+    {
+      "name": "defended knight trade is even (white)",
+      "fn": "hanging",
+      "fen": "4k3/8/1p6/2n5/4N3/5P2/8/4K3 w - - 0 1",
+      "owner": "w",
+      "absent": ["hanging.piece"]
+    },
+    {
+      "name": "defended knight trade is even (black)",
+      "fn": "hanging",
+      "fen": "4k3/8/1p6/2n5/4N3/5P2/8/4K3 w - - 0 1",
+      "owner": "b",
+      "absent": ["hanging.piece"]
+    },
+    {
+      "name": "lone kings",
+      "fn": "hanging",
+      "fen": "4k3/8/8/8/8/8/8/4K3 w - - 0 1",
+      "owner": "w",
+      "absent": ["hanging.piece"]
+    },
+
+    {
+      "name": "Nd6+ forks king and rook",
+      "fn": "forkMoves",
+      "fen": "2r1k3/8/8/8/2N5/8/8/4K3 w - - 0 1",
+      "color": "w",
+      "expectMove": "c4d6",
+      "expect": ["fork.knight"]
+    },
+    {
+      "name": "Nc7+ forks king and a8 rook",
+      "fn": "forkMoves",
+      "fen": "r3k3/8/8/3N4/8/8/8/4K3 w - - 0 1",
+      "color": "w",
+      "expectMove": "d5c7",
+      "expect": ["fork.knight"]
+    },
+    {
+      "name": "d4 pawn forks knight and rook",
+      "fn": "forkMoves",
+      "fen": "4k3/8/8/2n1r3/8/3P4/8/5K2 w - - 0 1",
+      "color": "w",
+      "expectMove": "d3d4",
+      "expect": ["fork.pawn"]
+    },
+    {
+      "name": "pawn fork refuted by bishop capture",
+      "fn": "forkMoves",
+      "fen": "4k3/8/8/2n1b3/8/3P4/8/4K3 w - - 0 1",
+      "color": "w",
+      "noMove": "d3d4"
+    },
+    {
+      "name": "start position has no forks",
+      "fn": "forkMoves",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "color": "w",
+      "noMoves": true
+    },
+    {
+      "name": "lone knight, nothing to fork",
+      "fn": "forkMoves",
+      "fen": "4k3/8/8/8/2N5/8/8/4K3 w - - 0 1",
+      "color": "w",
+      "noMoves": true
+    },
+
+    {
+      "name": "rook pins knight to king",
+      "fn": "rays",
+      "fen": "4k3/4n3/8/8/8/8/8/4R1K1 w - - 0 1",
+      "attacker": "w",
+      "expect": ["pin.absolute"]
+    },
+    {
+      "name": "bishop pins knight to king",
+      "fn": "rays",
+      "fen": "4k3/8/8/8/1b6/8/3N4/4K3 b - - 0 1",
+      "attacker": "b",
+      "expect": ["pin.absolute"]
+    },
+    {
+      "name": "rook pins knight to queen (relative)",
+      "fn": "rays",
+      "fen": "3kq3/4n3/8/8/8/8/8/4R1K1 w - - 0 1",
+      "attacker": "w",
+      "expect": ["pin.relative"]
+    },
+    {
+      "name": "rook skewers queen against rook",
+      "fn": "rays",
+      "fen": "7k/4r3/8/8/4q3/8/8/4R1K1 w - - 0 1",
+      "attacker": "w",
+      "expect": ["skewer"]
+    },
+    {
+      "name": "no rays in start position",
+      "fn": "rays",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "attacker": "w",
+      "absent": ["pin.absolute", "pin.relative", "skewer"]
+    },
+    {
+      "name": "lone rook, no pin",
+      "fn": "rays",
+      "fen": "4k3/8/8/8/8/8/8/4R1K1 w - - 0 1",
+      "attacker": "w",
+      "absent": ["pin.absolute", "pin.relative", "skewer"]
+    },
+
+    {
+      "name": "white back rank threatened by Ra1#",
+      "fn": "backRank",
+      "fen": "r5k1/8/8/8/8/8/5PPP/6K1 w - - 0 1",
+      "victim": "w",
+      "expect": ["backrank.threat"]
+    },
+    {
+      "name": "black back rank threatened by Ra8#",
+      "fn": "backRank",
+      "fen": "6k1/5ppp/8/8/8/8/8/R5K1 b - - 0 1",
+      "victim": "b",
+      "expect": ["backrank.threat"]
+    },
+    {
+      "name": "luft on h2 means no back-rank threat",
+      "fn": "backRank",
+      "fen": "r5k1/8/8/8/8/8/5P1P/6K1 w - - 0 1",
+      "victim": "w",
+      "absent": ["backrank.threat"]
+    },
+    {
+      "name": "no heavy piece, no threat",
+      "fn": "backRank",
+      "fen": "6k1/8/8/8/8/8/5PPP/6K1 w - - 0 1",
+      "victim": "w",
+      "absent": ["backrank.threat"]
+    },
+
+    {
+      "name": "missed back-rank mate",
+      "fn": "missed",
+      "fen": "6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1",
+      "played": "h2h3",
+      "best": "a1a8",
+      "expect": ["backrank.mate"]
+    },
+    {
+      "name": "played the mate, nothing missed",
+      "fn": "missed",
+      "fen": "6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1",
+      "played": "a1a8",
+      "best": "a1a8",
+      "absent": ["backrank.mate", "missed.mate"]
+    },
+    {
+      "name": "missed queen capture",
+      "fn": "missed",
+      "fen": "4k3/8/8/3q4/8/8/8/3RK3 w - - 0 1",
+      "played": "e1e2",
+      "best": "d1d5",
+      "expect": ["missed.capture"]
+    },
+    {
+      "name": "missed check",
+      "fn": "missed",
+      "fen": "4k3/8/8/8/8/8/8/4K2R w - - 0 1",
+      "played": "e1e2",
+      "best": "h1h8",
+      "expect": ["missed.check"]
+    },
+    {
+      "name": "missed knight fork",
+      "fn": "missed",
+      "fen": "2r1k3/8/8/8/2N5/8/8/4K3 w - - 0 1",
+      "played": "e1e2",
+      "best": "c4d6",
+      "expect": ["fork.knight"]
+    },
+    {
+      "name": "best move is a quiet developing move",
+      "fn": "missed",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "played": "e2e4",
+      "best": "g1f3",
+      "absent": ["missed.capture", "missed.check", "missed.mate"]
+    },
+
+    {
+      "name": "bishop move uncovers rook check",
+      "fn": "discovered",
+      "fen": "4k3/8/8/8/8/8/4B3/4R1K1 w - - 0 1",
+      "played": "e2d3",
+      "expect": ["discovered.check"]
+    },
+    {
+      "name": "king move uncovers nothing",
+      "fn": "discovered",
+      "fen": "4k3/8/8/8/8/8/4B3/4R1K1 w - - 0 1",
+      "played": "g1f1",
+      "absent": ["discovered.check", "discovered.attack"]
+    },
+    {
+      "name": "plain developing move",
+      "fn": "discovered",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "played": "e2e4",
+      "absent": ["discovered.check", "discovered.attack"]
+    }
+  ]
+}

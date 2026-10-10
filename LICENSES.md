@@ -7,5 +7,5 @@
 | ts-fsrs | MIT | spaced repetition (Phase 5) | VERIFY API at use |
 | Vite, Vitest, TypeScript, ESLint, Prettier | MIT / Apache-2.0 | tooling | dev only |
 | Playwright, @axe-core/playwright | Apache-2.0 / MPL-2.0 | tests | dev only |
-| Stockfish (Phase 3) | GPLv3 | engine | NOT yet added. Private use only; repo stays private |
+| stockfish (npm 19.0.0, Stockfish.js by nmrugg, Chess.com) | GPLv3 | engine | ADDED Phase 3. Private use only; repo stays private; do not distribute |
 | Piece glyphs | Unicode text glyphs, no artwork | board | no third-party art |

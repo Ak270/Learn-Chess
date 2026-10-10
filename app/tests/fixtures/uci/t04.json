@@ -1,0 +1,22 @@
+{
+  "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+  "lines": [
+    "info depth 1 seldepth 11 multipv 1 score cp 39 nodes 104 nps 104000 hashfull 0 time 1 pv b1c3",
+    "info depth 1 seldepth 5 multipv 2 score cp 29 nodes 104 nps 104000 hashfull 0 time 1 pv f1c4",
+    "info depth 2 seldepth 3 multipv 1 score cp 37 nodes 266 nps 266000 hashfull 0 time 1 pv f1c4",
+    "info depth 2 seldepth 3 multipv 2 score cp 33 nodes 266 nps 266000 hashfull 0 time 1 pv b1c3 g8f6",
+    "info depth 3 seldepth 6 multipv 1 score cp 38 nodes 388 nps 388000 hashfull 0 time 1 pv b1c3 g8f6",
+    "info depth 3 seldepth 4 multipv 2 score cp 38 nodes 388 nps 388000 hashfull 0 time 1 pv f1c4 g8f6 b1c3",
+    "info depth 4 seldepth 7 multipv 1 score cp 39 nodes 765 nps 765000 hashfull 0 time 1 pv b1c3 g8f6 d2d4 e5d4 f3d4",
+    "info depth 4 seldepth 7 multipv 2 score cp 23 nodes 765 nps 765000 hashfull 0 time 1 pv f1c4 g8f6 b1c3 f8c5",
+    "info depth 5 seldepth 7 multipv 1 score cp 39 nodes 1135 nps 1135000 hashfull 0 time 1 pv b1c3 g8f6 d2d4 e5d4 f3d4",
+    "info depth 5 seldepth 9 multipv 2 score cp 25 nodes 1135 nps 1135000 hashfull 0 time 1 pv d2d4 e5d4 f3d4 g8f6",
+    "info depth 6 seldepth 11 multipv 1 score cp 39 nodes 1302 nps 1302000 hashfull 0 time 1 pv b1c3 g8f6 d2d4 e5d4 f3d4 f8c5 d4c6 d7c6",
+    "info depth 6 seldepth 11 multipv 2 score cp 29 nodes 1302 nps 1302000 hashfull 0 time 1 pv d2d4 e5d4 f3d4 g8f6 b1c3 f8c5 d4c6 d7c6 d1d8 e8d8",
+    "info depth 7 seldepth 11 multipv 1 score cp 47 nodes 1812 nps 906000 hashfull 0 time 2 pv b1c3 g8f6 d2d4 e5d4 f3d4",
+    "info depth 7 seldepth 11 multipv 2 score cp 32 nodes 1812 nps 906000 hashfull 0 time 2 pv d2d4 e5d4 f3d4 g8f6 b1c3 f8c5",
+    "info depth 8 seldepth 12 multipv 1 score cp 44 nodes 4098 nps 1024500 hashfull 0 time 4 pv b1c3 g8f6 d2d4 e5d4 f3d4 f8c5 c1e3",
+    "info depth 8 seldepth 11 multipv 2 score cp 41 nodes 4098 nps 1024500 hashfull 0 time 4 pv d2d4 e5d4 f3d4 g8f6 b1c3 f8c5 c1e3",
+    "bestmove b1c3 ponder g8f6"
+  ]
+}

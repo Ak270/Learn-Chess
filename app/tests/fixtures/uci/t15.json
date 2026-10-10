@@ -1,0 +1,22 @@
+{
+  "fen": "r1b1k2r/ppp2pp1/2np1q1p/2b1p3/2B1P3/2NP1N2/PPP2PPP/R2Q1RK1 b kq - 1 8",
+  "lines": [
+    "info depth 1 seldepth 3 multipv 1 score cp 35 nodes 90 nps 90000 hashfull 0 time 1 pv c8g4",
+    "info depth 1 seldepth 2 multipv 2 score cp 33 nodes 90 nps 90000 hashfull 0 time 1 pv c6e7",
+    "info depth 2 seldepth 3 multipv 1 score cp 32 nodes 785 nps 785000 hashfull 0 time 1 pv c6e7",
+    "info depth 2 seldepth 4 multipv 2 score cp 10 nodes 785 nps 785000 hashfull 0 time 1 pv c6d4 f3d4 c5d4",
+    "info depth 3 seldepth 5 multipv 1 score cp 33 nodes 1506 nps 1506000 hashfull 0 time 1 pv c6e7 c3b5 c5b6 a2a4",
+    "info depth 3 seldepth 6 multipv 2 score cp 0 nodes 1506 nps 1506000 hashfull 0 time 1 pv a7a6 c3d5 f6d8 c2c3 c5a7",
+    "info depth 4 seldepth 5 multipv 1 score cp 33 nodes 1627 nps 1627000 hashfull 0 time 1 pv c6e7 c3b5 c5b6 a2a4",
+    "info depth 4 seldepth 5 multipv 2 score cp 0 nodes 1627 nps 1627000 hashfull 0 time 1 pv a7a6 c3d5 f6d8 c2c3",
+    "info depth 5 seldepth 6 multipv 1 score cp 38 nodes 1899 nps 1899000 hashfull 0 time 1 pv c6e7 c3b5 c5b6",
+    "info depth 5 seldepth 6 multipv 2 score cp 0 nodes 1899 nps 1899000 hashfull 0 time 1 pv a7a6 c3d5 f6d8 d5c3",
+    "info depth 6 seldepth 14 multipv 1 score cp 32 nodes 3615 nps 1205000 hashfull 1 time 3 pv c6e7 c3b5 c5b6 a2a4 a7a6 a4a5 a6b5 a5b6 a8a1",
+    "info depth 6 seldepth 8 multipv 2 score cp 10 nodes 3615 nps 1205000 hashfull 1 time 3 pv c6b4 d1d2",
+    "info depth 7 seldepth 13 multipv 1 score cp 36 nodes 9749 nps 1083222 hashfull 3 time 9 pv c6e7 d3d4 e5d4 c3b5 c5b6 b5d4 c8g4 c2c3",
+    "info depth 7 seldepth 14 multipv 2 score cp 5 nodes 9749 nps 1083222 hashfull 3 time 9 pv e8g8 c3d5 f6d8 a2a4 c6e7 d5e7 d8e7 c2c3 c7c6",
+    "info depth 8 seldepth 13 multipv 1 score cp 42 nodes 15863 nps 1057533 hashfull 5 time 15 pv c6e7 d3d4 e5d4 c3a4",
+    "info depth 8 seldepth 13 multipv 2 score cp 11 nodes 15863 nps 1057533 hashfull 5 time 15 pv e8g8 c3d5 f6d8 c2c3 c6e7 d3d4 e7d5 c4d5",
+    "bestmove c6e7 ponder d3d4"
+  ]
+}

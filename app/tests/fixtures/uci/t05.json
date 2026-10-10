@@ -1,0 +1,22 @@
+{
+  "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+  "lines": [
+    "info depth 1 seldepth 7 multipv 1 score cp -32 nodes 72 nps 72000 hashfull 0 time 1 pv g8f6",
+    "info depth 1 seldepth 2 multipv 2 score cp -37 nodes 72 nps 72000 hashfull 0 time 1 pv a7a6",
+    "info depth 2 seldepth 3 multipv 1 score cp -41 nodes 985 nps 492500 hashfull 0 time 2 pv a7a6",
+    "info depth 2 seldepth 3 multipv 2 score cp -44 nodes 985 nps 492500 hashfull 0 time 2 pv g8f6 b1c3",
+    "info depth 3 seldepth 7 multipv 1 score cp -38 nodes 1145 nps 572500 hashfull 0 time 2 pv g8f6",
+    "info depth 3 seldepth 4 multipv 2 score cp -38 nodes 1145 nps 572500 hashfull 0 time 2 pv a7a6 e1g1 g8f6",
+    "info depth 4 seldepth 5 multipv 1 score cp -31 nodes 1352 nps 676000 hashfull 0 time 2 pv g8f6 b1c3 f8c5",
+    "info depth 4 seldepth 7 multipv 2 score cp -34 nodes 1352 nps 676000 hashfull 0 time 2 pv a7a6",
+    "info depth 5 seldepth 6 multipv 1 score cp -19 nodes 1642 nps 821000 hashfull 0 time 2 pv a7a6 e1g1",
+    "info depth 5 seldepth 6 multipv 2 score cp -23 nodes 1642 nps 547333 hashfull 0 time 3 pv g8f6 b1c3 f8c5 e1g1",
+    "info depth 6 seldepth 10 multipv 1 score cp -19 nodes 3573 nps 893250 hashfull 0 time 4 pv g8f6 b1c3 f8c5 e1g1",
+    "info depth 6 seldepth 9 multipv 2 score cp -40 nodes 3573 nps 893250 hashfull 0 time 4 pv g7g6 d2d4 e5d4 f3d4 f8g7 d4c6 b7c6",
+    "info depth 7 seldepth 17 multipv 1 score cp -16 nodes 5018 nps 836333 hashfull 0 time 6 pv g8f6 d2d4 e5d4 c1g5 f8e7 e1g1 f6e4",
+    "info depth 7 seldepth 8 multipv 2 score cp -40 nodes 5018 nps 836333 hashfull 0 time 6 pv g7g6 d2d4 e5d4 f3d4 f8g7 d4c6 b7c6",
+    "info depth 8 seldepth 15 multipv 1 score cp -19 nodes 14893 nps 709190 hashfull 2 time 21 pv g8f6 d2d3 f8e7 b1c3 e8g8 e1g1 d7d6",
+    "info depth 8 seldepth 11 multipv 2 score cp -36 nodes 14893 nps 709190 hashfull 2 time 21 pv d7d6 d2d4 c8g4 d4d5 c6a5",
+    "bestmove g8f6 ponder d2d3"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+  "lines": [
+    "info depth 1 seldepth 2 multipv 1 score cp 56 nodes 76 nps 76000 hashfull 0 time 1 pv e1g1",
+    "info depth 1 seldepth 3 multipv 2 score cp 42 nodes 76 nps 76000 hashfull 0 time 1 pv b1c3",
+    "info depth 2 seldepth 6 multipv 1 score cp 51 nodes 584 nps 584000 hashfull 0 time 1 pv c2c3 c5b6",
+    "info depth 2 seldepth 3 multipv 2 score cp 29 nodes 584 nps 584000 hashfull 0 time 1 pv e1g1 g8f6",
+    "info depth 3 seldepth 5 multipv 1 score cp 51 nodes 918 nps 918000 hashfull 0 time 1 pv c2c3 c5b6 d2d4",
+    "info depth 3 seldepth 5 multipv 2 score cp 32 nodes 918 nps 918000 hashfull 0 time 1 pv e1g1 d7d6",
+    "info depth 4 seldepth 5 multipv 1 score cp 54 nodes 1589 nps 1589000 hashfull 0 time 1 pv c2c3 c5b6 d2d4",
+    "info depth 4 seldepth 8 multipv 2 score cp 32 nodes 1589 nps 1589000 hashfull 0 time 1 pv e1g1 d7d6",
+    "info depth 5 seldepth 8 multipv 1 score cp 52 nodes 2295 nps 1147500 hashfull 0 time 2 pv c2c3 d8e7 e1g1 g8f6",
+    "info depth 5 seldepth 10 multipv 2 score cp 31 nodes 2295 nps 1147500 hashfull 0 time 2 pv e1g1 d7d6 c2c3 c5b6",
+    "info depth 6 seldepth 11 multipv 1 score cp 63 nodes 5236 nps 1309000 hashfull 1 time 4 pv c2c3 g8f6 e1g1 c5b6",
+    "info depth 6 seldepth 10 multipv 2 score cp 24 nodes 5236 nps 1309000 hashfull 1 time 4 pv e1g1 d7d6 c2c3 c8g4 d2d4 c5b6",
+    "info depth 7 seldepth 11 multipv 1 score cp 61 nodes 7065 nps 1177500 hashfull 1 time 6 pv c2c3 g8f6 d2d4 e5d4 c3d4 c5b4 b1c3 f6e4",
+    "info depth 7 seldepth 10 multipv 2 score cp 27 nodes 7065 nps 1177500 hashfull 1 time 6 pv d2d3 g8f6 c1g5 c5e7 b1c3",
+    "info depth 8 seldepth 14 multipv 1 score cp 50 nodes 16466 nps 823300 hashfull 4 time 20 pv c2c3 g8f6 d2d4 e5d4 c3d4 c5b4 b1c3 f6e4 e1g1 b4c3 b2c3",
+    "info depth 8 seldepth 12 multipv 2 score cp 17 nodes 16466 nps 823300 hashfull 4 time 20 pv d2d3 g8f6 c1g5 c5e7 e1g1 e8g8 f1e1 d7d6 c2c3 c8g4",
+    "bestmove c2c3 ponder g8f6"
+  ]
+}

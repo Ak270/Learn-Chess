@@ -66,5 +66,9 @@
   "evidence.selfAnalysis.weight": {
     "value": 1.5,
     "source": "docs/backend/10 \u00a72 says 'high weight' without a number; 1.5 chosen to match the decision-layer weight in docs/backend/05 \u00a73.1 (critical-position drill = 1.5). Calibrate in Phase 9."
+  },
+  "engine.requestTimeoutMs": {
+    "value": 20000,
+    "source": "an analysis request that never answers is treated as a crashed worker: recreate once, retry once, then ENGINE_DOWN (docs/backend/03 \u00a71.1)"
   }
 }

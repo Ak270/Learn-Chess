@@ -61,7 +61,7 @@ export async function render(root: HTMLElement, ctx: { args: string[] }) {
   <div class="grid g2" style="align-items:start">
     <section class="road stagger">${nodes
       .map(
-        (n) => `<div class="node ${n.state}"><div class="dotn">${n.state === 'locked' ? '🔒' : n.ph || '•'}</div>
+        (n) => `<div class="node ${n.state}"><div class="dotn">${n.state === 'locked' ? '' : n.ph || '•'}</div>
         <div class="card"><div class="row"><h3 class="grow" style="margin:0">${esc(PHASES[n.ph] ?? `Phase ${n.ph}`)}</h3>${n.state === 'current' ? '<span class="chip green">In progress</span>' : n.state === 'next' ? '<span class="chip blue">Up next</span>' : ''}</div>
         <div class="bar" style="margin:10px 0"><i style="width:${n.pct}%"></i></div>
         <div class="row" style="flex-wrap:wrap;gap:6px">${n.defs.map((d) => `<span class="chip" title="${esc(statusText(states[d.id]?.status))}">${esc(d.title)}</span>`).join('')}</div></div></div>`,
@@ -71,13 +71,13 @@ export async function render(root: HTMLElement, ctx: { args: string[] }) {
       ${LESSONS.map((l) => {
         const isDone = done.has(l.id);
         const locked = l.prereqs.some((p) => !done.has(p));
-        return `<div class="lesson-row ${isDone ? 'done' : ''}" data-id="${l.id}" tabindex="0" role="button" aria-disabled="${locked}"><span class="avatar" style="background:${isDone ? 'var(--accent)' : 'var(--panel2)'};color:${isDone ? 'var(--accent-ink)' : 'inherit'}">${isDone ? '✓' : locked ? '🔒' : '▶'}</span>
+        return `<div class="lesson-row ${isDone ? 'done' : ''}" data-id="${l.id}" tabindex="0" role="button" aria-disabled="${locked}"><span class="avatar" style="background:${isDone ? 'var(--accent)' : 'var(--panel2)'};color:${isDone ? 'var(--accent-ink)' : 'inherit'}">${isDone ? '✓' : locked ? '' : '▶'}</span>
         <div class="grow"><b>${esc(l.title)}</b><div class="small muted">Phase ${l.phase} · ${l.minutes} min${locked ? ' · finish the earlier lesson first' : ''}</div></div>${!isDone && !locked ? '<span class="chip yellow">New</span>' : ''}</div>`;
       }).join('')}
       <h2 style="margin-top:20px">Think like a stronger player</h2>${listModelGames()
         .map(
           (g) =>
-            `<div class="lesson-row"><span class="avatar">♔</span><div class="grow"><a href="#/learn/game/${g.id}" style="color:inherit"><b>${esc(g.title)}</b></a><div class="small muted">${esc(g.sub)}</div></div></div>`,
+            `<div class="lesson-row"><span class="avatar"></span><div class="grow"><a href="#/learn/game/${g.id}" style="color:inherit"><b>${esc(g.title)}</b></a><div class="small muted">${esc(g.sub)}</div></div></div>`,
         )
         .join('')}
       <p class="small muted" style="margin-top:12px">Lessons are written for a 600 to 1000 learner, and every position is checked with the engine. Each lesson is marked "needs owner review" until you have read it.</p>

@@ -183,5 +183,9 @@
   "ai.groq.defaultModel": {
     "value": "llama-3.3-70b-versatile",
     "source": "docs/backend/07 \u00a73.5 default production model on Groq (re-verified at build, see DECISIONS)"
+  },
+  "opponent.timeoutMs": {
+    "value": 8000,
+    "source": "a stalled engine must never freeze a game: after this long the opponent plays a simple fallback move (found as a bug in owner use, 2026-10-10)"
   }
 }

@@ -8,7 +8,7 @@ import { $, $$, esc } from '../shell/dom';
 import type { SkillId } from '../types/ids';
 
 const GLYPH: Record<string, string> = {
-  wk: '♔',
+  wk: '',
   wq: '♕',
   wr: '♖',
   wb: '♗',

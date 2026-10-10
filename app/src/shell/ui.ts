@@ -3,6 +3,8 @@ import type { MoveClass } from '../types/model';
 import { settings } from './settings';
 
 let ac: AudioContext | undefined;
+let noise: AudioBuffer | undefined;
+/** Wood-and-felt style board sounds synthesised on the fly (no sound files, no licence to track). */
 export function sound(kind: 'move' | 'capture' | 'check' | 'bad' | 'good' = 'move') {
   if (!settings.get('sound')) return;
   try {
@@ -11,17 +13,60 @@ export function sound(kind: 'move' | 'capture' | 'check' | 'bad' | 'good' = 'mov
       new (
         window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
       )();
-    const o = ac.createOscillator();
-    const g = ac.createGain();
-    const f = { move: 520, capture: 340, check: 780, bad: 160, good: 880 }[kind] || 500;
-    o.frequency.value = f;
-    o.type = kind === 'capture' ? 'square' : 'triangle';
-    g.gain.setValueAtTime(0.0001, ac.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.12, ac.currentTime + 0.01);
-    g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.14);
-    o.connect(g).connect(ac.destination);
-    o.start();
-    o.stop(ac.currentTime + 0.15);
+    const t0 = ac.currentTime;
+    if (!noise) {
+      noise = ac.createBuffer(1, ac.sampleRate * 0.2, ac.sampleRate);
+      const d = noise.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+    const out = ac.createGain();
+    out.connect(ac.destination);
+    const knock = (freq: number, dur: number, vol: number, bandHz: number) => {
+      // short band-limited noise click (the "tap") plus a falling low thump (the wood)
+      const n = ac!.createBufferSource();
+      n.buffer = noise!;
+      const f = ac!.createBiquadFilter();
+      f.type = 'bandpass';
+      f.frequency.value = bandHz;
+      f.Q.value = 0.9;
+      const g = ac!.createGain();
+      g.gain.setValueAtTime(vol, t0);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur * 0.5);
+      n.connect(f).connect(g).connect(out);
+      n.start(t0);
+      n.stop(t0 + dur);
+      const o = ac!.createOscillator();
+      o.type = 'sine';
+      o.frequency.setValueAtTime(freq, t0);
+      o.frequency.exponentialRampToValueAtTime(freq * 0.55, t0 + dur);
+      const og = ac!.createGain();
+      og.gain.setValueAtTime(vol * 1.1, t0);
+      og.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.connect(og).connect(out);
+      o.start(t0);
+      o.stop(t0 + dur);
+    };
+    if (kind === 'move') knock(190, 0.09, 0.35, 1500);
+    else if (kind === 'capture') {
+      knock(150, 0.14, 0.55, 2200);
+      setTimeout(() => ac && knock(260, 0.06, 0.2, 3000), 35);
+    } else if (kind === 'check') {
+      knock(190, 0.09, 0.35, 1500);
+      const o = ac.createOscillator();
+      o.type = 'sine';
+      o.frequency.value = 880;
+      const g = ac.createGain();
+      g.gain.setValueAtTime(0.0001, t0 + 0.05);
+      g.gain.exponentialRampToValueAtTime(0.12, t0 + 0.07);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.3);
+      o.connect(g).connect(out);
+      o.start(t0 + 0.05);
+      o.stop(t0 + 0.32);
+    } else if (kind === 'bad') knock(120, 0.2, 0.3, 700);
+    else {
+      knock(220, 0.08, 0.2, 1800);
+      setTimeout(() => ac && knock(330, 0.1, 0.15, 2200), 90);
+    }
   } catch {
     /* audio unavailable */
   }

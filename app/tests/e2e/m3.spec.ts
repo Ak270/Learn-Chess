@@ -18,6 +18,11 @@ test('M3: normal game vs the sparring partner, coach take-back with a question, 
   await expect(page.locator('#bd')).toBeVisible();
   await playMove(page, '#bd', 'e2e4', 'w');
   await expect(page.locator('#pane .m')).toHaveCount(2, { timeout: 40_000 });
+  // regression: the opponent must keep answering after the opening book runs out (engine path), not only on move one
+  for (const [i, uci] of ['g1f3', 'b1c3', 'f1c4', 'd2d3'].entries()) {
+    await playMove(page, '#bd', uci, 'w');
+    await expect(page.locator('#pane .m')).toHaveCount(4 + i * 2, { timeout: 40_000 });
+  }
   await axeClean(page, 'play-game');
   const games = await dbRead<{ source: string; pgn: string }>(page, 'games');
   expect(games.some((g) => g.source === 'mentor' && g.pgn.includes('1. e4'))).toBe(true);

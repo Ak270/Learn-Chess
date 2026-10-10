@@ -15,7 +15,8 @@ Verified 2026-10-10 from each package's npm metadata unless stated.
 | Generated endgame drills | own | `public/content/puzzles/eg_basic_mates` | `tools/build-endgames.ts` |
 | Lessons, templates, repertoires, rules check, think-aloud, hints, habits, misconceptions | own (AI-assisted drafting, engine-verified) | `app/src/content` | each file carries `provenance`; marked "needs owner review" until you sign them off |
 | Historic model games (Opera Game, Légal, Réti) | public domain (games); commentary own | `modelGames.json` | |
-| Piece art | none: Unicode chess glyphs from system fonts | board | no third-party artwork |
+| Piece art: cburnett set (12 SVGs, `app/public/pieces`) | GPL-2.0-or-later (Colin M.L. Burnett; the Lichess default set) | board and captured pieces | downloaded 2026-10-10 from lichess-org/lila `public/piece/cburnett` with the owner's approval. Private use only, same rule as Stockfish |
+| Board sounds | own (synthesised in the browser with WebAudio) | moves, captures, checks | no sound files |
 | Fonts | system font stack | UI | |
 | Groq API | provider terms and free-tier limits apply | optional wording | key stays in this browser; never exported unless ticked |
 | Lichess API, Chess.com Published-Data API | provider terms apply | game import | serial access, ETag cache, 429 back-off |

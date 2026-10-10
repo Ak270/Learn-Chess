@@ -1535,3 +1535,132 @@ select {
 :root[data-theme='light'] .chip.blue {
   color: #1f4f7a;
 }
+
+/* Real piece set (cburnett, GPL-2.0-or-later, see LICENSES.md) instead of Unicode glyphs */
+.piece {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  font-size: 0;
+}
+.piece.w,
+.piece.b {
+  color: inherit;
+  text-shadow: none;
+  -webkit-text-stroke: 0;
+}
+.piece.w.t-k {
+  background-image: url('/pieces/wK.svg');
+}
+.piece.w.t-q {
+  background-image: url('/pieces/wQ.svg');
+}
+.piece.w.t-r {
+  background-image: url('/pieces/wR.svg');
+}
+.piece.w.t-b {
+  background-image: url('/pieces/wB.svg');
+}
+.piece.w.t-n {
+  background-image: url('/pieces/wN.svg');
+}
+.piece.w.t-p {
+  background-image: url('/pieces/wP.svg');
+}
+.piece.b.t-k {
+  background-image: url('/pieces/bK.svg');
+}
+.piece.b.t-q {
+  background-image: url('/pieces/bQ.svg');
+}
+.piece.b.t-r {
+  background-image: url('/pieces/bR.svg');
+}
+.piece.b.t-b {
+  background-image: url('/pieces/bB.svg');
+}
+.piece.b.t-n {
+  background-image: url('/pieces/bN.svg');
+}
+.piece.b.t-p {
+  background-image: url('/pieces/bP.svg');
+}
+
+.piece.dragging {
+  filter: drop-shadow(0 6px 5px rgba(0, 0, 0, 0.35));
+}
+.cp {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+.cp.wk {
+  background-image: url('/pieces/wK.svg');
+}
+.cp.wq {
+  background-image: url('/pieces/wQ.svg');
+}
+.cp.wr {
+  background-image: url('/pieces/wR.svg');
+}
+.cp.wb {
+  background-image: url('/pieces/wB.svg');
+}
+.cp.wn {
+  background-image: url('/pieces/wN.svg');
+}
+.cp.wp {
+  background-image: url('/pieces/wP.svg');
+}
+.cp.bk {
+  background-image: url('/pieces/bK.svg');
+}
+.cp.bq {
+  background-image: url('/pieces/bQ.svg');
+}
+.cp.br {
+  background-image: url('/pieces/bR.svg');
+}
+.cp.bb {
+  background-image: url('/pieces/bB.svg');
+}
+.cp.bn {
+  background-image: url('/pieces/bN.svg');
+}
+.cp.bp {
+  background-image: url('/pieces/bP.svg');
+}
+.ic-svg {
+  vertical-align: -3px;
+}
+.nav-item .ic {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+}
+#teacher-fab .fabic::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: -3px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M4 5h16v11H9l-5 4z'/%3E%3C/svg%3E")
+    center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M4 5h16v11H9l-5 4z'/%3E%3C/svg%3E")
+    center/contain no-repeat;
+  margin-right: 6px;
+}
+
+.linkbtn {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--info);
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+}

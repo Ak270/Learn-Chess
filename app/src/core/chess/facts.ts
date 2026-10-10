@@ -20,6 +20,8 @@ export interface MistakeFacts {
   summary: string;
   reply?: { san: string; sentence: string };
   turn: string;
+  /** the engine's better move in plain SAN, when known */
+  better?: string;
 }
 
 export function mistakeFacts(m: Mistake, p: PlyRecord): MistakeFacts {
@@ -48,16 +50,29 @@ export function mistakeFacts(m: Mistake, p: PlyRecord): MistakeFacts {
       /* stored move no longer legal: no reply sentence */
     }
   }
+  let better: string | undefined;
+  if (m.bestUci) {
+    try {
+      better = new Chess(m.fen).move({
+        from: m.bestUci.slice(0, 2),
+        to: m.bestUci.slice(2, 4),
+        promotion: m.bestUci[4],
+      }).san;
+    } catch {
+      better = undefined;
+    }
+  }
   const before = Math.round(p.winPctBefore ?? 50);
   const after = Math.round(p.winPctAfter ?? 50);
   const evidence = m.motifs.find((x) => x.role === 'allowed')?.evidence ?? m.motifs[0]?.evidence;
   const summary = evidence
     ? `${headline}: ${evidence.charAt(0).toUpperCase()}${evidence.slice(1)}.`
-    : `${headline} gave up a lot compared with ${m.bestUci ? 'the best move' : 'the alternatives'}.`;
+    : `${headline} gave up a lot of your chances.`;
   return {
     headline,
     summary,
     reply,
+    better,
     turn: `The game turned here: ${side}'s chance to win went from about ${before}% to ${after}%.`,
   };
 }

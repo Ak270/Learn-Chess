@@ -63,7 +63,7 @@ export async function render(root: HTMLElement) {
       <div class="setting"><div><label for="mins"><b>Daily time</b></label></div><select id="mins" style="width:110px">${[15, 20, 30, 40, 60].map((m) => `<option ${prof.dailyMinutes === m ? 'selected' : ''}>${m}</option>`).join('')}</select></div>
       <div class="setting"><div><label for="rest"><b>Rest day</b></label></div><select id="rest" style="width:130px">${DAYS.map((d, i) => `<option value="${i}" ${prof.restDay === i ? 'selected' : ''}>${d}</option>`).join('')}</select></div>
       <div class="setting"><div><label for="time"><b>Best time of day</b></label><div class="small muted">Used for the calendar reminder</div></div><input id="time" type="time" value="${esc(ext.bestTime)}"></div>
-      <div class="row" style="margin-top:14px;flex-wrap:wrap"><button class="btn" id="ics">📅 Add daily reminder (.ics)</button><button class="btn" id="rep">📄 Coach report</button></div>
+      <div class="row" style="margin-top:14px;flex-wrap:wrap"><button class="btn" id="ics">Add daily reminder (.ics)</button><button class="btn" id="rep">Coach report</button></div>
     </section>
     <div class="grid" style="align-content:start">
       <section class="card"><h2>What Mentor knows about you</h2><p class="small muted">Each note needs at least 3 pieces of evidence. Dismiss anything that is wrong and it will never be used.</p>

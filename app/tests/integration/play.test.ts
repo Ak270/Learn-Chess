@@ -308,3 +308,30 @@ describe('adaptive matchmaking (docs/backend/10 §5.3)', () => {
     expect(e.estimate).toBeGreaterThan(400);
   });
 });
+
+describe('a stalled or failing opponent never freezes the game', () => {
+  it('plays a fallback legal move and marks the game degraded', async () => {
+    const db = new MentorDB(`play${n++}`);
+    const broken = () => ({
+      level: { id: 1, name: 'Pawn Pete', elo: 400 },
+      choose: async (): Promise<OpponentResult> => {
+        throw new Error('worker gone');
+      },
+    });
+    const svc = createPlayService({
+      db,
+      analysis: engine,
+      makeOpponent: broken,
+      now: () => T0,
+      sleep: async () => {},
+      rng: () => 0.5,
+    });
+    const s = await svc.start(cfg({ levelId: 1 }));
+    await s.userMove({ from: 'e2', to: 'e4' });
+    await settle();
+    expect(s.moves).toHaveLength(2);
+    expect(s.moves[1].by).toBe('bot');
+    expect(s.meta.degraded).toBe(true);
+    expect(s.canInteract).toBe(true);
+  });
+});

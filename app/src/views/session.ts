@@ -18,7 +18,7 @@ const META: Record<PlanBlock['id'], { icon: string; title: string }> = {
   drills: { icon: '🎯', title: 'Guided drills' },
   play: { icon: '♟️', title: 'Play block' },
   test: { icon: '📝', title: 'Daily test' },
-  note: { icon: '💬', title: 'Teacher note' },
+  note: { icon: '', title: 'Teacher note' },
 };
 
 export async function render(root: HTMLElement) {
@@ -359,7 +359,7 @@ export async function render(root: HTMLElement) {
       const lines = qs
         .map(
           (qq, k) =>
-            `<div class="small" style="margin:4px 0">${k + 1}. ${res.verdicts[qq.id] === 'right_sure' ? '✅ Right and sure' : res.verdicts[qq.id] === 'right_unsure' ? '🟡 Right, but unsure' : res.verdicts[qq.id] === 'wrong_sure' ? '🔶 Sure, but missed' : '⚪ Missed (you were unsure)'} <span class="muted">${esc(qq.why)}</span></div>`,
+            `<div class="small" style="margin:4px 0">${k + 1}. ${res.verdicts[qq.id] === 'right_sure' ? 'Right and sure' : res.verdicts[qq.id] === 'right_unsure' ? 'Right, but unsure' : res.verdicts[qq.id] === 'wrong_sure' ? 'Sure, but missed' : 'Missed (you were unsure)'} <span class="muted">${esc(qq.why)}</span></div>`,
         )
         .join('');
       frame(

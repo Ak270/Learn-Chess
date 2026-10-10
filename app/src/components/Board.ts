@@ -99,7 +99,6 @@ export class Board {
     e.className = `piece ${p.color} t-${p.type}`;
     e.dataset.type = p.type;
     e.dataset.color = p.color;
-    e.textContent = GLYPH[p.type] + '︎';
     return e;
   }
 
@@ -154,7 +153,6 @@ export class Board {
     if (m.promotion) {
       setTimeout(
         () => {
-          moving.textContent = GLYPH[m.promotion] + '︎';
           moving.className = `piece ${m.color} t-${m.promotion} promoted`;
         },
         animate ? 150 : 0,
@@ -344,7 +342,7 @@ export class Board {
     const down = this.xy(to)[1] === 0; // promotion at top edge => list goes downward
     this.$promo.hidden = false;
     this.$promo.innerHTML = ['q', 'n', 'r', 'b']
-      .map((t) => `<button data-p="${t}" class="piece ${color}" style="left:${x * 12.5}%">${GLYPH[t]}\uFE0E</button>`)
+      .map((t) => `<button data-p="${t}" class="piece ${color} t-${t}" style="left:${x * 12.5}%"></button>`)
       .join('');
     // vertical stack from edge
     [...this.$promo.children].forEach((b, i) => {

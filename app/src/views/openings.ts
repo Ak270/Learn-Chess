@@ -129,7 +129,7 @@ async function drill(root: HTMLElement, repId: string, all: Card[]) {
           done = true;
           sound('good');
           $('#fb', root).innerHTML =
-            `<div class="coach-card"><h4>✅ ${esc(m.san)}</h4><div class="small">${esc(st.node.why)}</div></div>`;
+            `<div class="coach-card"><h4>${esc(m.san)}</h4><div class="small">${esc(st.node.why)}</div></div>`;
           $('#grade', root).innerHTML =
             `<p class="small muted" style="margin-top:8px">How did that feel?</p><div class="row" role="group" aria-label="Grade"><button class="btn" data-g="hard">Hard</button><button class="btn" data-g="good">Good</button><button class="btn" data-g="easy">Easy</button></div>`;
           $$('[data-g]', root).forEach(

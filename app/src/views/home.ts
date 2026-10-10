@@ -86,7 +86,7 @@ export async function render(root: HTMLElement) {
         <p class="muted" style="color:inherit;opacity:.8">${rest ? 'No plan today and your streak is safe.' : plan ? `${blocksDone} of ${plan.blocks.length} blocks done · about ${plan.blocks.filter((b) => !b.doneAt).reduce((a, b) => a + b.targetMin, 0)} minutes left · focus: ${esc(skillTitle(plan.focusSkill))}` : 'The best time to review is soon after you play.'}</p>
         <a class="btn primary big" href="${plan ? '#/session' : unreviewed.length ? '#/review' : '#/puzzles'}">${plan ? (blocksDone ? 'Continue' : 'Start') : unreviewed.length ? 'Review games' : 'A few puzzles'}</a>
         ${unreviewed.length && plan ? `<a class="btn ghost" style="margin-left:8px" href="#/review">Review ${unreviewed.length} game${unreviewed.length > 1 ? 's' : ''}</a>` : ''}</div>
-      <div class="row" style="flex-direction:column;align-items:flex-end;gap:6px"><span class="chip yellow">🔥 ${esc(streakLabel(streak, dayString(now), rd))}</span><span class="chip blue">❄️ ${streak.freezeLeft} freeze day${streak.freezeLeft === 1 ? '' : 's'}</span></div>
+      <div class="row" style="flex-direction:column;align-items:flex-end;gap:6px"><span class="chip yellow">${esc(streakLabel(streak, dayString(now), rd))}</span><span class="chip blue">${streak.freezeLeft} freeze day${streak.freezeLeft === 1 ? '' : 's'}</span></div>
     </section>
     <div class="grid g4">
       ${
@@ -100,7 +100,7 @@ export async function render(root: HTMLElement) {
     <div class="grid g2">
       <section class="card"><div class="row"><h2 class="grow">Rating from your games</h2></div>
         ${ratings.length >= 3 ? `${lineChart(ratings, { h: 120, ariaLabel: 'Your rating over your imported games' })}<div class="small muted" style="margin-top:4px">Rating is an outcome, not the goal. Behaviour metrics matter more.</div>` : '<p class="muted small">Needs a few more imported games with ratings.</p>'}</section>
-      <section class="card" style="border-left:4px solid var(--accent)"><h3>💬 Note from Mentor</h3>${note ? `<p class="small">${esc(note)}</p>` : '<p class="small muted">Your first note appears after your first training day.</p>'}</section>
+      <section class="card" style="border-left:4px solid var(--accent)"><h3> Note from Mentor</h3>${note ? `<p class="small">${esc(note)}</p>` : '<p class="small muted">Your first note appears after your first training day.</p>'}</section>
     </div>
     <section class="card"><div class="row"><h2 class="grow">Recent games & first meaningful mistake</h2><a class="btn small ghost" href="#/review">All games</a></div>
       <div class="glist">${recent

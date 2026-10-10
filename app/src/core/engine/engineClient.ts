@@ -73,7 +73,16 @@ export function createEngineClient(
       return parseBestmove(l) !== null;
     });
     t.send(o.movetimeMs ? `go movetime ${o.movetimeMs}` : `go depth ${o.depth ?? cfg.get('engine.review.depth')}`);
-    await done;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const timeout = new Promise<never>((_, rej) => {
+      timer = setTimeout(() => rej(new Error('engine timeout')), cfg.get<number>('engine.requestTimeoutMs'));
+    });
+    try {
+      await Promise.race([done, timeout]);
+    } finally {
+      clearTimeout(timer);
+      waiter = null;
+    }
     return col.result(fen);
   }
 

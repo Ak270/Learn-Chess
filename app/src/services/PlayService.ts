@@ -66,6 +66,8 @@ interface Meta {
   intentState: { forkUsed: number; lastThreatPly: number; log: { ply: number; skill: string; kind: string }[] };
   evals: number[];
   status: 'live' | 'ended';
+  /** true when the opponent engine stalled and a fallback move was played */
+  degraded?: boolean;
   result: Game['result'];
   termination?: string;
   gameId: string;
@@ -271,7 +273,7 @@ export class GameSession {
       state: this.meta.intentState,
     };
     const t0 = this.now();
-    const r = await this.opp.choose(fen, history, ctx);
+    const r = await this.chooseWithWatchdog(fen, history, ctx);
     if (r.evalCp !== undefined) this.meta.evals.push(r.evalCp);
     const legal = this.chess.moves({ verbose: true });
     const delay = thinkMs({
@@ -292,6 +294,28 @@ export class GameSession {
     await this.record(m, 'bot', this.now() - t0, { cp: r.evalCp, source: r.source });
     if (r.intent) this.meta.intents.push({ ply: history.length + 1, ...r.intent });
     this.emit('state');
+  }
+
+  /** The opponent must never freeze a game: on a stall or an error it plays a simple fallback move and says so. */
+  private async chooseWithWatchdog(fen: string, history: string[], ctx: OpponentCtx): Promise<OpponentResult> {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    try {
+      return await Promise.race([
+        this.opp.choose(fen, history, ctx),
+        new Promise<never>((_, rej) => {
+          timer = setTimeout(() => rej(new Error('opponent timeout')), cfg.get<number>('opponent.timeoutMs'));
+        }),
+      ]);
+    } catch {
+      const legal = new Chess(fen).moves({ verbose: true });
+      const caps = legal.filter((m) => m.captured).sort((a, b) => b.captured!.length - a.captured!.length);
+      const pick = caps[0] ?? legal[Math.floor((this.deps.rng ?? Math.random)() * legal.length)];
+      this.meta.degraded = true;
+      this.emit('state');
+      return { uci: pick.lan, source: 'engine' };
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
   // ---------- coach: blunder interception (docs/backend/07 §2.2) ----------

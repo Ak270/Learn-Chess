@@ -1,6 +1,7 @@
 import './styles/app.css';
 import { $, esc } from './shell/dom';
 import { loadSettings } from './shell/settings';
+import { icon } from './shell/icons';
 import { activeJobs, latestJob, onJobUpdate } from './services/JobService';
 import { store } from './app';
 
@@ -12,17 +13,17 @@ type View = { render(root: HTMLElement, ctx: ViewCtx): void | (() => void) | Pro
 
 // Screens are migrated from ui/ one by one (docs/backend/08 §9). Unmigrated ones show a placeholder.
 const NAV: [string, string, string][] = [
-  ['home', '🏠', 'Home'],
-  ['session', '📅', "Today's Session"],
-  ['play', '♟️', 'Play'],
-  ['puzzles', '🧩', 'Puzzles'],
-  ['learn', '📚', 'Learn'],
-  ['openings', '📖', 'Openings'],
-  ['blunders', '📦', 'Blunder Box'],
-  ['review', '🔍', 'Game Review'],
-  ['progress', '📈', 'Progress'],
-  ['profile', '🧑', 'My Profile'],
-  ['settings', '⚙️', 'Settings'],
+  ['home', 'home', 'Home'],
+  ['session', 'calendar', "Today's Session"],
+  ['play', 'play', 'Play'],
+  ['puzzles', 'puzzle', 'Puzzles'],
+  ['learn', 'learn', 'Learn'],
+  ['openings', 'book', 'Openings'],
+  ['blunders', 'box', 'Blunder Box'],
+  ['review', 'search', 'Game Review'],
+  ['progress', 'chart', 'Progress'],
+  ['profile', 'user', 'My Profile'],
+  ['settings', 'gear', 'Settings'],
 ];
 const routes: Record<string, () => Promise<View>> = {
   home: () => import('./views/home'),
@@ -50,14 +51,15 @@ async function renderNav(active: string) {
   const due = (await store.dueCards(Date.now(), 99)).length;
   const j = latestJob();
   const running = activeJobs().length > 0;
-  $('#nav').innerHTML = `<a class="logo" href="#/home"><i>♞</i>Mentor</a>${NAV.map(
-    ([id, ic, label], i) =>
-      `${i === 2 || i === 6 ? '<div class="nav-sep"></div>' : ''}<a class="nav-item ${id === active ? 'active' : ''}" href="#/${id}" ${id === active ? 'aria-current="page"' : ''}><span class="ic">${ic}</span><span class="lbl">${label}</span>${id === 'blunders' && due ? `<span class="pill">${due}</span>` : ''}</a>`,
-  ).join('')}${
-    j
-      ? `<a class="nav-item" href="${j.link ?? '#/home'}" aria-live="polite"><span class="ic">${running ? '⏳' : '✔'}</span><span class="lbl small">${esc(j.stage)}</span></a>`
-      : ''
-  }`;
+  $('#nav').innerHTML =
+    `<a class="logo" href="#/home"><i class="cp wn" style="width:28px;height:28px;margin:0"></i>Mentor</a>${NAV.map(
+      ([id, ic, label], i) =>
+        `${i === 2 || i === 6 ? '<div class="nav-sep"></div>' : ''}<a class="nav-item ${id === active ? 'active' : ''}" href="#/${id}" ${id === active ? 'aria-current="page"' : ''}><span class="ic">${icon(ic, 20)}</span><span class="lbl">${label}</span>${id === 'blunders' && due ? `<span class="pill">${due}</span>` : ''}</a>`,
+    ).join('')}${
+      j
+        ? `<a class="nav-item" href="${j.link ?? '#/home'}" aria-live="polite"><span class="ic">${icon(running ? 'clock' : 'check', 20)}</span><span class="lbl small">${esc(j.stage)}</span></a>`
+        : ''
+    }`;
 }
 
 async function route() {

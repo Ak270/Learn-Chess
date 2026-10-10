@@ -22,7 +22,6 @@ const CAUSE_TITLE: Record<string, string> = {
   tilt: 'Possible tilt',
   unknown: 'No clear pattern yet',
 };
-const CONF_CHIP: Record<string, string> = { high: 'yellow', medium: '', low: '' };
 const GOOD: MoveClass[] = ['book', 'good', 'best', 'excellent', 'great', 'brilliant'];
 
 const badge = (c?: MoveClass) =>
@@ -142,10 +141,10 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
   chess.reset();
   let ply = 0;
 
-  const lost = (game.result === '1-0' && learner === 'b') || (game.result === '0-1' && learner === 'w');
   const doneToday = await reviews.findFirstToday();
   const quotaOk = doneToday < cfg.get<number>('review.findFirst.dailyQuota');
-  const useBlind = lost && quotaOk && !!truthPly;
+  const wantsFind = new URLSearchParams(location.hash.split('?')[1] ?? '').get('find') === '1';
+  const useBlind = wantsFind && quotaOk && !!truthPly;
   let blindDone = !useBlind;
 
   const counts = review.counts;
@@ -153,12 +152,12 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
 
   root.innerHTML = `
   <div class="page-h"><div><h1>Game Review</h1><p class="muted">${esc(me)} vs ${esc(opp)} · ${esc(game.result)}${game.timeControl && /^\d/.test(game.timeControl) ? ` · ${esc(game.timeControl)}` : ''}${review.evidenceEligible ? '' : ' · quick game (not used for training decisions)'}</p></div>
-    <div class="row"><button class="btn small ghost" id="rerev">Re-review at higher depth</button></div></div>
+    <div class="row">${truthPly && !useBlind && quotaOk ? `<a class="btn small ghost" href="#/review/${game.id}?find=1">Try finding it yourself first</a>` : ''}<button class="btn small ghost" id="rerev">Re-review deeper</button></div></div>
   <div class="game">
     <div class="game-main">
       <div class="playerbar"><div class="avatar">♜</div><span class="nm">${esc(opp)}</span></div>
       <div class="board-wrap"><div class="eval-bar spoil" id="evb" role="img" aria-label="Evaluation"></div><div id="bd" role="application" aria-label="Chess board"></div></div>
-      <div class="playerbar"><div class="avatar">🧑</div><span class="nm">${esc(me)}</span>
+      <div class="playerbar"><div class="avatar"></div><span class="nm">${esc(me)}</span>
         <span class="grow"></span><button class="btn small" id="p-start" aria-label="First move">⏮</button><button class="btn small" id="p-prev" aria-label="Previous move">◀</button><button class="btn small" id="p-play">▶ Play</button><button class="btn small" id="p-next" aria-label="Next move">▶</button><button class="btn small" id="p-end" aria-label="Last move">⏭</button><button class="btn small" id="p-flip" aria-label="Flip board">⇅</button></div>
       <div class="sr-only" aria-live="polite" id="live" style="position:absolute;left:-9999px"></div>
     </div>
@@ -166,12 +165,10 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
       <div class="body">
         ${
           useBlind
-            ? `<div class="coach-card info blindcard" id="blindcard"><h4>🔎 Find it yourself first</h4>
+            ? `<div class="coach-card info blindcard" id="blindcard"><h4>Find it yourself first</h4>
           <div class="small">Eval, badges and best moves are hidden. Step through the game (◀ ▶ or click a move) and stop at the move you think was <b>your first big mistake</b>.</div>
           <div class="row" style="margin-top:8px;flex-wrap:wrap"><button class="btn small primary" id="pick">That was it — this move</button><button class="btn small ghost" id="nopick">I don't see one</button><button class="btn small ghost" id="showme">Skip: show me</button></div></div>`
-            : lost && !quotaOk
-              ? `<p class="small muted">You already did ${doneToday} find-it-first reviews today; this one is show-me to keep it light.</p>`
-              : ''
+            : ''
         }
         <div id="mistbox"></div>
         <div class="spoil"><h3 style="margin-top:14px">Accuracy</h3>
@@ -182,7 +179,7 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
         <h3 style="margin-top:14px">Chance to win</h3><div id="graph"></div></div>
         <h3 style="margin-top:14px">Moves</h3><div class="moves" id="mv" role="list"></div>
       </div>
-      <div class="ctrls"><button class="btn" id="pgnx">⬇ Annotated PGN</button>${first?.cardId ? `<button class="btn ${cardOn ? 'primary' : ''}" id="boxbtn">${cardOn ? '📦 In your Blunder Box' : '📦 Add to Blunder Box'}</button>` : ''}${first ? `<a class="btn" href="#/play?fen=${encodeURIComponent(first.fen)}&mode=critical">Play this position</a>` : ''}</div>
+      <div class="ctrls"><button class="btn" id="pgnx">Annotated PGN</button>${first?.cardId ? `<button class="btn ${cardOn ? 'primary' : ''}" id="boxbtn">${cardOn ? 'In your Blunder Box' : 'Add to Blunder Box'}</button>` : ''}${first ? `<a class="btn" href="#/play?fen=${encodeURIComponent(first.fen)}&mode=critical">Play this position</a>` : ''}</div>
     </aside>
   </div>`;
 
@@ -257,42 +254,54 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
         : {},
     );
     const mAt = p && mistakes.find((m) => m.ply === n);
-    board.setArrows(
-      blindDone && mAt?.refutationUci ? [[mAt.refutationUci.slice(0, 2), mAt.refutationUci.slice(2, 4), 'red']] : [],
-    );
+    const arrows: [string, string, string][] = [];
+    if (blindDone && mAt?.bestUci) arrows.push([mAt.bestUci.slice(0, 2), mAt.bestUci.slice(2, 4), 'green']);
+    if (blindDone && mAt?.refutationUci)
+      arrows.push([mAt.refutationUci.slice(0, 2), mAt.refutationUci.slice(2, 4), 'red']);
+    board.setArrows(arrows);
     if (blindDone && p?.cls === 'blunder') sound('bad');
     paintEval();
     paintMoves();
     $('#live', root).textContent = p ? `${moveLabel(n, p.san)}` : 'Start position';
   };
 
-  // ----- mistakes panel -----
+  // ----- mistakes panel (kept short: one card, one likely reason, optional extras tucked away) -----
+  const diagBlock = (m: Mistake) => {
+    const top = m.diagnosis[0];
+    if (!top || top.cause === 'unknown') return '';
+    const rest = m.diagnosis.slice(1);
+    if (!top) return '';
+    const confirmed = top.confirmedByUser;
+    return `<div class="small" style="margin-top:8px"><b>Most likely:</b> ${esc(CAUSE_TITLE[top.cause])}. <span class="muted">${esc(top.signals[0] ?? '')}</span>
+      ${confirmed === undefined ? ` <button class="linkbtn" data-not="${m.id}">Not right?</button>` : confirmed === true ? ' <span class="muted">Thanks, noted.</span>' : ` <span class="muted">You said: ${esc(CAUSE_TITLE[top.correctedTo ?? 'unknown'])}.</span>`}</div>
+      <div data-fix="${m.id}"></div>
+      ${rest.length ? `<details class="small" style="margin-top:6px"><summary class="muted">Other possibilities</summary>${rest.map((h) => `<div style="margin-top:4px"><b>${esc(CAUSE_TITLE[h.cause])}</b> <span class="muted">${esc(h.signals[0] ?? '')}</span></div>`).join('')}</details>` : ''}`;
+  };
+  const mistakeCard = (m: Mistake) => {
+    const p = plies.find((q) => q.ply === m.ply)!;
+    const f = mistakeFacts(m, p);
+    const isFirst = m.isFirstMeaningful;
+    return `<div class="coach-card ${isFirst ? 'bad' : 'warn'} spoil" data-m="${m.id}">
+      <h4>${isFirst ? 'First mistake that mattered' : 'Also worth a look'} · move ${Math.ceil(m.ply / 2)}</h4>
+      <div class="small">${esc(f.summary)} ${esc(f.reply?.sentence ?? '')}${f.better ? ` <b>A better move was ${esc(f.better)}.</b>` : ''} <span class="muted">${esc(f.turn)}</span></div>
+      <div class="row" style="margin-top:8px"><button class="btn small primary" data-jump="${m.ply}">Show position</button><button class="btn small" data-explain="${m.id}">Explain simply</button></div>
+      <div class="small" data-explain-out="${m.id}" style="margin-top:8px" aria-live="polite"></div>
+      <div data-diag="${m.id}">${diagBlock(m)}</div>
+      ${isFirst ? `<details class="small" style="margin-top:8px"><summary class="muted">Tell Mentor what you were aiming for (optional)</summary><textarea rows="2" id="why-${m.id}" aria-label="What were you aiming for?" placeholder="e.g. I wanted to attack the bishop on g6" style="margin-top:6px">${esc(m.selfExplanation?.text ?? '')}</textarea><button class="btn small" data-save="${m.id}" style="margin-top:6px">Save</button></details>` : ''}
+      ${m.cardId ? '<div class="small muted" style="margin-top:8px">Added to your Blunder Box. It comes back tomorrow.</div>' : ''}</div>`;
+  };
   const renderMistakes = () => {
     const box = $('#mistbox', root);
     if (!mistakes.length) {
-      box.innerHTML = `<div class="coach-card good spoil"><h4>✅ No big mistake stood out</h4><div class="small">Nothing in this game crossed the "meaningful mistake" line. Look through the moves for small inaccuracies if you like.</div></div>`;
+      box.innerHTML = `<div class="coach-card good spoil"><h4>No big mistake stood out</h4><div class="small">Nothing crossed the "meaningful mistake" line. Look through the moves for small slips if you like.</div></div>`;
       return;
     }
-    box.innerHTML = mistakes
-      .map((m) => {
-        const p = plies.find((q) => q.ply === m.ply)!;
-        const f = mistakeFacts(m, p);
-        const isFirst = m.isFirstMeaningful;
-        return `<div class="coach-card ${isFirst ? 'bad' : 'warn'} spoil" data-m="${m.id}">
-          <h4>${isFirst ? '🎯 First meaningful mistake' : '⚠️ Also worth learning from'} · move ${Math.ceil(m.ply / 2)}</h4>
-          <div class="small">${esc(f.summary)} ${esc(f.reply?.sentence ?? '')} <span class="muted">${esc(f.turn)}</span></div>
-          <div class="row" style="margin-top:8px"><button class="btn small primary" data-jump="${m.ply}">Show me the position</button><button class="btn small" data-explain="${m.id}">✨ Explain in plain words</button></div><div class="small" data-explain-out="${m.id}" style="margin-top:8px" aria-live="polite"></div>
-          ${
-            isFirst
-              ? `<div class="coach-card info" style="margin-top:10px"><h4>❓ Your turn, before I explain</h4><div class="small" style="margin-bottom:8px">What were you aiming for with ${esc(p.san)}?</div>
-              <div class="row" style="flex-wrap:wrap;gap:6px;margin-bottom:6px" role="group" aria-label="Quick answer">${['attack|Attack something', 'defend|Defend something', 'develop|Develop', 'unsure|Not sure'].map((c) => `<button class="btn small ghost chipbtn" data-chip="${c.split('|')[0]}" aria-pressed="false">${c.split('|')[1]}</button>`).join('')}</div>
-              <textarea rows="2" id="why-${m.id}" aria-label="What were you aiming for?" placeholder="e.g. I wanted to attack the bishop on g6">${esc(m.selfExplanation?.text?.replace(/^[a-z]+: ?/, '') ?? '')}</textarea>
-              <button class="btn small" data-save="${m.id}" style="margin-top:8px">Save and reveal diagnosis</button></div>`
-              : ''
-          }
-          <div data-diag="${m.id}">${m.selfExplanation || !isFirst ? diagHtml(m) : ''}</div></div>`;
-      })
-      .join('');
+    const [first, ...more] = [...mistakes].sort((a, b) => Number(b.isFirstMeaningful) - Number(a.isFirstMeaningful));
+    box.innerHTML =
+      mistakeCard(first) +
+      (more.length
+        ? `<details class="spoil" style="margin-top:8px"><summary class="small muted">${more.length} more worth a look</summary>${more.map(mistakeCard).join('')}</details>`
+        : '');
     $$('[data-jump]', box).forEach((b) => (b.onclick = () => go(+b.dataset.jump!, true)));
     $$('[data-explain]', box).forEach(
       (b) =>
@@ -301,21 +310,10 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
           const p = plies.find((q) => q.ply === m.ply)!;
           const out = $(`[data-explain-out="${m.id}"]`, box);
           const r = await ai.explain(packageFromStored(m, p));
-          out.innerHTML = `${esc(r.now.text)}<div class="small muted" style="margin-top:4px">${r.now.source === 'ai' ? '✨ Reworded by Groq; every move, square and number was checked against the facts.' : 'Built from the verified facts. Add a Groq key in Settings for friendlier wording.'}</div>`;
+          out.innerHTML = `${esc(r.now.text)}<div class="small muted" style="margin-top:4px">${r.now.source === 'ai' ? 'Reworded by Groq and checked against the facts.' : 'Built from the verified facts. A Groq key in Settings gives friendlier wording.'}</div>`;
           void r.upgrade.then((u) => {
             if (u)
-              out.innerHTML = `${esc(u.text)}<div class="small muted" style="margin-top:4px">✨ Reworded by Groq; every move, square and number was checked against the facts.</div>`;
-          });
-        }),
-    );
-    let chip: 'attack' | 'defend' | 'develop' | 'unsure' | undefined;
-    $$('.chipbtn', box).forEach(
-      (b) =>
-        (b.onclick = () => {
-          chip = b.dataset.chip as typeof chip;
-          $$('.chipbtn', box).forEach((x) => {
-            x.classList.toggle('primary', x === b);
-            x.setAttribute('aria-pressed', String(x === b));
+              out.innerHTML = `${esc(u.text)}<div class="small muted" style="margin-top:4px">Reworded by Groq and checked against the facts.</div>`;
           });
         }),
     );
@@ -324,54 +322,46 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
         (b.onclick = async () => {
           const id = b.dataset.save!;
           const text = ($(`#why-${id}`, box) as HTMLTextAreaElement).value;
-          const diag = await reviews.rediagnose(id, { chip, text });
+          const diag = await reviews.rediagnose(id, { text });
           const m = mistakes.find((x) => x.id === id)!;
           if (diag) m.diagnosis = diag;
-          m.selfExplanation = { text: [chip, text].filter(Boolean).join(': '), at: Date.now() };
-          toast('Saved. Your own words are kept with this position.');
-          $(`[data-diag="${id}"]`, box).innerHTML = diagHtml(m);
+          m.selfExplanation = { text, at: Date.now() };
+          toast('Saved with this position.');
+          $(`[data-diag="${id}"]`, box).innerHTML = diagBlock(m);
           wireDiag(box);
         }),
     );
     wireDiag(box);
   };
-  const diagHtml = (m: Mistake) =>
-    `<h3 style="margin-top:12px">Why it probably happened</h3>` +
-    m.diagnosis
-      .map(
-        (
-          h,
-        ) => `<div class="coach-card ${h.confidence === 'high' ? 'warn' : 'info'}"><h4>${CAUSE_TITLE[h.cause]} <span class="chip ${CONF_CHIP[h.confidence]}">${h.confidence} confidence</span></h4>
-        <ul class="small" style="margin:4px 0 0 18px">${h.signals.map((s) => `<li>${esc(s)}</li>`).join('')}</ul>
-        <div class="small muted" style="margin-top:6px">${h.confirmedByUser === undefined ? `Is this right? <button class="btn small ghost" data-yes="${m.id}|${h.cause}">Yes</button> <button class="btn small ghost" data-no="${m.id}|${h.cause}">No, it was…</button>` : h.confirmedByUser === true ? 'Thanks, you confirmed this.' : `Thanks. You said it was: ${esc(CAUSE_TITLE[h.correctedTo ?? 'unknown'])}.`}</div></div>`,
-      )
-      .join('') +
-    `<div class="coach-card"><h4>🏋 Training from this</h4><div class="small">${m.cardId ? 'A Blunder Box card was made from this position. It comes back tomorrow.' : 'No card was made for this one.'} Focus skill: <b>${esc(m.skillTags[0].replace(/_/g, ' '))}</b>.</div></div>`;
   const wireDiag = (box: HTMLElement) => {
-    $$('[data-yes]', box).forEach(
+    $$('[data-not]', box).forEach(
       (b) =>
-        (b.onclick = async () => {
-          const [id, cause] = b.dataset.yes!.split('|');
-          await reviews.confirmDiagnosis(id, cause, true);
+        (b.onclick = () => {
+          const id = b.dataset.not!;
           const m = mistakes.find((x) => x.id === id)!;
-          m.diagnosis = (await db.mistakes.get(id))!.diagnosis;
-          $(`[data-diag="${id}"]`, box).innerHTML = diagHtml(m);
-          wireDiag(box);
-        }),
-    );
-    $$('[data-no]', box).forEach(
-      (b) =>
-        (b.onclick = async () => {
-          const [id, cause] = b.dataset.no!.split('|');
-          const options = Object.entries(CAUSE_TITLE).filter(([k]) => k !== cause);
-          const pick = prompt(`What was it? Type a number:\n${options.map(([, t], i) => `${i + 1}. ${t}`).join('\n')}`);
-          const chosen = options[Number(pick) - 1];
-          if (!chosen) return;
-          await reviews.confirmDiagnosis(id, cause, 'corrected', chosen[0]);
-          const m = mistakes.find((x) => x.id === id)!;
-          m.diagnosis = (await db.mistakes.get(id))!.diagnosis;
-          $(`[data-diag="${id}"]`, box).innerHTML = diagHtml(m);
-          wireDiag(box);
+          const cause = m.diagnosis[0].cause;
+          const host = $(`[data-fix="${id}"]`, box);
+          host.innerHTML = `<div class="row" style="margin-top:6px"><label class="small muted" for="fx-${id}">It was more like:</label><select id="fx-${id}">${Object.entries(
+            CAUSE_TITLE,
+          )
+            .filter(([k]) => k !== cause)
+            .map(([k, t]) => `<option value="${k}">${esc(t)}</option>`)
+            .join(
+              '',
+            )}</select><button class="btn small" data-fixgo="${id}">Save</button><button class="btn small ghost" data-yes="${id}">It is right</button></div>`;
+          $(`[data-fixgo="${id}"]`, host).onclick = async () => {
+            const to = ($(`#fx-${id}`, host) as HTMLSelectElement).value;
+            await reviews.confirmDiagnosis(id, cause, 'corrected', to);
+            m.diagnosis = (await db.mistakes.get(id))!.diagnosis;
+            $(`[data-diag="${id}"]`, box).innerHTML = diagBlock(m);
+            wireDiag(box);
+          };
+          $(`[data-yes="${id}"]`, host).onclick = async () => {
+            await reviews.confirmDiagnosis(id, cause, true);
+            m.diagnosis = (await db.mistakes.get(id))!.diagnosis;
+            $(`[data-diag="${id}"]`, box).innerHTML = diagBlock(m);
+            wireDiag(box);
+          };
         }),
     );
   };
@@ -450,7 +440,7 @@ async function renderGame(root: HTMLElement, game: Game, review: GameReview, sta
     boxbtn.onclick = async () => {
       on = !on;
       await reviews.setCardSuspended(first.cardId!, !on);
-      boxbtn.textContent = on ? '📦 In your Blunder Box' : '📦 Add to Blunder Box';
+      boxbtn.textContent = on ? 'In your Blunder Box' : 'Add to Blunder Box';
       boxbtn.classList.toggle('primary', on);
     };
   }

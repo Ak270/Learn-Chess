@@ -22,7 +22,7 @@ export function initTeacher() {
     { who: 'mentor', html: 'Hi! Ask me about your last game, what to practise, or a concept like forks.' },
   ];
   const label = (v: boolean) =>
-    `<div class="small muted" style="margin-top:4px">${v ? '✔ Verified by engine and rules' : 'Unverified general answer'}</div>`;
+    `<div class="small muted" style="margin-top:4px">${v ? 'Verified by engine and rules' : 'Unverified general answer'}</div>`;
 
   async function answer(q: string): Promise<Msg> {
     const route = routeIntent(q, { positionOnScreen: !!ctx.fen });
@@ -51,11 +51,11 @@ export function initTeacher() {
           void r.upgrade.then((u) => {
             const el = document.getElementById(id);
             if (u && el)
-              el.innerHTML = `${esc(u.text)}<div class="small muted" style="margin-top:4px">✨ Reworded by Groq; every move, square and number was checked against the facts.</div>`;
+              el.innerHTML = `${esc(u.text)}<div class="small muted" style="margin-top:4px">Reworded by Groq; every move, square and number was checked against the facts.</div>`;
           });
           return {
             who: 'mentor',
-            html: `<span id="${id}">${esc(r.now.text)}${r.now.source === 'ai' ? '<div class="small muted" style="margin-top:4px">✨ Reworded by Groq (checked).</div>' : ''}</span><br><a href="#/review/${g.id}?ply=${m.ply}">Open that position</a>${label(true)}`,
+            html: `<span id="${id}">${esc(r.now.text)}${r.now.source === 'ai' ? '<div class="small muted" style="margin-top:4px">Reworded by Groq (checked).</div>' : ''}</span><br><a href="#/review/${g.id}?ply=${m.ply}">Open that position</a>${label(true)}`,
           };
         }
       }
@@ -118,7 +118,7 @@ export function initTeacher() {
 
   const open = () => {
     t.hidden = false;
-    t.innerHTML = `<header><div class="avatar" style="background:var(--accent);color:var(--accent-ink)">♞</div><div class="grow"><b>Mentor</b><div class="small muted">Answers come from your games and the engine</div></div><button class="btn small ghost" id="t-close" aria-label="Close">✕</button></header>
+    t.innerHTML = `<header><div class="avatar"><i class="cp wn" style="width:26px;height:26px;margin:0"></i></div><div class="grow"><b>Mentor</b><div class="small muted">Answers come from your games and the engine</div></div><button class="btn small ghost" id="t-close" aria-label="Close">✕</button></header>
       <div class="msgs" id="t-msgs" aria-live="polite"></div>
       <footer><button class="btn small ghost" data-q="Why did I lose?">Why did I lose?</button><button class="btn small ghost" data-q="What should I practise?">What should I practise?</button><button class="btn small ghost" data-q="Explain forks">Explain forks</button>
       <form id="t-form" class="row" style="width:100%"><label for="t-in" class="sr-only" style="position:absolute;left:-9999px">Ask Mentor</label><input type="text" id="t-in" placeholder="Ask Mentor…" autocomplete="off"><button class="btn primary small">Send</button></form></footer>`;
@@ -128,7 +128,7 @@ export function initTeacher() {
         .map((m) =>
           m.who === 'me'
             ? `<div class="mentor-bubble"><div class="bubble me">${m.html}</div></div>`
-            : `<div class="mentor-bubble"><div class="avatar">♞</div><div class="bubble">${m.html}</div></div>`,
+            : `<div class="mentor-bubble"><div class="avatar"><i class="cp wn" style="width:26px;height:26px;margin:0"></i></div><div class="bubble">${m.html}</div></div>`,
         )
         .join('');
       box.scrollTop = 1e6;
@@ -139,7 +139,7 @@ export function initTeacher() {
       paint();
       box.insertAdjacentHTML(
         'beforeend',
-        '<div class="mentor-bubble"><div class="avatar">♞</div><div class="bubble typing"><i></i><i></i><i></i></div></div>',
+        '<div class="mentor-bubble"><div class="avatar"><i class="cp wn" style="width:26px;height:26px;margin:0"></i></div><div class="bubble typing"><i></i><i></i><i></i></div></div>',
       );
       msgs.push(await answer(q));
       paint();

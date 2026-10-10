@@ -10,14 +10,15 @@ import { pieceValue } from '../core/chess/material';
 import { startJob } from '../services/JobService';
 import { GameSession, type PlayMode, type GameConfig } from '../services/PlayService';
 import { $, $$, esc, modal, toast } from '../shell/dom';
+import { icon } from '../shell/icons';
 import { settings } from '../shell/settings';
 import { confetti, sound } from '../shell/ui';
 import { setChatContext } from '../shell/teacher';
 import { assessAfterGame } from '../core/play/wellbeing';
 import type { SkillId } from '../types/ids';
 
-const ICONS = ['♟', '♞', '♝', '♜', '♛'];
-const GLYPH: Record<string, string> = { p: '♟', n: '♞', b: '♝', r: '♜', q: '♛' };
+const BOT_PIECE = ['p', 'n', 'b', 'r', 'q'];
+const avatarImg = (lvl: number) => `<i class="cp b${BOT_PIECE[lvl - 1]}" style="width:30px;height:30px;margin:0"></i>`;
 
 export async function render(root: HTMLElement, ctx: { args: string[]; query: URLSearchParams }) {
   let cleanup: (() => void) | undefined;
@@ -53,15 +54,15 @@ export async function render(root: HTMLElement, ctx: { args: string[]; query: UR
       <section><h3>1 · Choose your sparring partner</h3>${est.performance ? `<p class="small muted">${esc(est.performance)}</p>` : ''}<div class="bot-grid stagger">${LEVELS()
         .map(
           (l) => `
-        <button class="bot ${l.id === c.levelId ? 'sel' : ''}" data-lv="${l.id}" aria-pressed="${l.id === c.levelId}"><div class="avatar">${ICONS[l.id - 1]}</div><b>${esc(l.name)}</b> <span class="chip">${l.elo}</span>${l.id === est.recommendation.level.id ? `<span class="chip green" style="margin-left:4px">${est.recommendation.challenge ? 'Challenge' : 'Good match'}</span>` : ''}<div class="small muted" style="margin-top:6px">${esc(l.blurb)}</div></button>`,
+        <button class="bot ${l.id === c.levelId ? 'sel' : ''}" data-lv="${l.id}" aria-pressed="${l.id === c.levelId}"><div class="avatar">${avatarImg(l.id)}</div><b>${esc(l.name)}</b> <span class="chip">${l.elo}</span>${l.id === est.recommendation.level.id ? `<span class="chip green" style="margin-left:4px">${est.recommendation.challenge ? 'Challenge' : 'Good match'}</span>` : ''}<div class="small muted" style="margin-top:6px">${esc(l.blurb)}</div></button>`,
         )
         .join('')}</div>
         <p class="small muted" style="margin-top:6px">Level numbers are labels until Mentor has seen how you score against them. Realism is weakest below about 1100.</p></section>
       <div class="grid g3">
         <section class="card"><h3>2 · Time</h3><div class="seg" id="tcs" role="group" aria-label="Time control">${tcs.map((t, i) => `<button class="${i === c.tcIndex ? 'on' : ''}" data-tc="${i}">${t[0]}</button>`).join('')}</div><p class="small muted" style="margin-top:8px">Training default is 15+10 or slower. Faster games are for fun and do not drive your plan.</p></section>
-        <section class="card"><h3>3 · Mode</h3><div class="seg" id="modes" role="group" aria-label="Mode"><button class="${c.mode === 'coach' ? 'on' : ''}" data-m="coach">🎓 Coach</button><button class="${c.mode === 'normal' ? 'on' : ''}" data-m="normal">♟ Normal</button><button class="${c.mode === 'training' ? 'on' : ''}" data-m="training">🎯 Training</button></div>
+        <section class="card"><h3>3 · Mode</h3><div class="seg" id="modes" role="group" aria-label="Mode"><button class="${c.mode === 'coach' ? 'on' : ''}" data-m="coach">Coach</button><button class="${c.mode === 'normal' ? 'on' : ''}" data-m="normal">Normal</button><button class="${c.mode === 'training' ? 'on' : ''}" data-m="training">Training</button></div>
           <p class="small muted" style="margin-top:8px" id="mode-d"></p></section>
-        <section class="card"><h3>4 · Colour</h3><div class="seg" id="cols" role="group" aria-label="Colour"><button class="on" data-c="w">⬜ White</button><button data-c="b">⬛ Black</button><button data-c="r">🎲 Random</button></div></section>
+        <section class="card"><h3>4 · Colour</h3><div class="seg" id="cols" role="group" aria-label="Colour"><button class="on" data-c="w">White</button><button data-c="b">Black</button><button data-c="r">Random</button></div></section>
       </div>
       <div><button class="btn primary big" id="start">Start game</button></div>
     </div>`;
@@ -138,11 +139,11 @@ function game(root: HTMLElement, s: GameSession): () => void {
       <div id="live" aria-live="polite" style="position:absolute;left:-9999px"></div>
     </div>
     <aside class="side">
-      <div class="tabs" style="padding:6px 8px 0;margin:0" role="tablist"><button class="tab active" data-t="moves" role="tab">Moves</button><button class="tab" data-t="coach" role="tab">${s.coaching ? '🎓 Coach' : 'Notes'}</button><button class="tab" data-t="info" role="tab">Game</button></div>
+      <div class="tabs" style="padding:6px 8px 0;margin:0" role="tablist"><button class="tab active" data-t="moves" role="tab">Moves</button><button class="tab" data-t="coach" role="tab">${s.coaching ? 'Coach' : 'Notes'}</button><button class="tab" data-t="info" role="tab">Game</button></div>
       <div class="body" id="pane"></div>
       <div class="ctrls">
-        <button class="btn" id="b-hint" ${s.coaching ? '' : 'disabled'}>💡 Hint</button><button class="btn" id="b-back" ${s.coaching ? '' : 'disabled'}>↩ Take back</button>
-        <button class="btn" id="b-flip" aria-label="Flip board (F)">⇅ Flip</button><button class="btn" id="b-draw">½ Draw</button><button class="btn danger" id="b-res">🏳 Resign</button>
+        <button class="btn" id="b-hint" ${s.coaching ? '' : 'disabled'}>${icon('bulb', 16)} Hint</button><button class="btn" id="b-back" ${s.coaching ? '' : 'disabled'}>${icon('undo', 16)} Take back</button>
+        <button class="btn" id="b-flip" aria-label="Flip board (F)">${icon('flip', 16)} Flip</button><button class="btn" id="b-draw">½ Draw</button><button class="btn danger" id="b-res">${icon('flag', 16)} Resign</button>
       </div>
     </aside>
   </div>`;
@@ -162,7 +163,7 @@ function game(root: HTMLElement, s: GameSession): () => void {
         if (res.ok && res.move) {
           board.applyMove(res.move);
           Object.keys(checklist).forEach((k) => ((checklist as Record<string, boolean>)[k] = false));
-          if (s.coaching && ticks === 3) toast('Safety Check complete. 👏');
+          if (s.coaching && ticks === 3) toast('Safety Check complete. ');
           else if (
             s.coaching &&
             s.meta.moves.length > 8 &&
@@ -184,8 +185,8 @@ function game(root: HTMLElement, s: GameSession): () => void {
   const bar = (side: 'w' | 'b', who: string, icon: string) =>
     `<div class="avatar">${icon}</div><div><span class="nm">${esc(who)}</span><div class="row" style="gap:4px"><span class="caps" id="caps-${side}"></span><span class="adv" id="adv-${side}"></span></div></div><div class="clock" id="clk-${side}" role="timer" aria-label="${side === 'w' ? 'White' : 'Black'} clock">--:--</div>`;
   const opp = me === 'w' ? 'b' : 'w';
-  $('#top', root).innerHTML = bar(opp, names.bot, ICONS[lv.id - 1]);
-  $('#bot', root).innerHTML = bar(me, names.me, '🧑');
+  $('#top', root).innerHTML = bar(opp, names.bot, avatarImg(lv.id));
+  $('#bot', root).innerHTML = bar(me, names.me, icon('user', 22));
 
   const paintClocks = () =>
     (['w', 'b'] as const).forEach((c) => {
@@ -200,9 +201,9 @@ function game(root: HTMLElement, s: GameSession): () => void {
     const got: Record<'w' | 'b', string[]> = { w: [], b: [] };
     for (const m of s.chess.history({ verbose: true })) if (m.captured) got[m.color].push(m.captured);
     (['w', 'b'] as const).forEach((c) => {
-      $(`#caps-${c}`, root).textContent = got[c]
+      $(`#caps-${c}`, root).innerHTML = got[c]
         .sort((a, b) => pieceValue(b as 'p') - pieceValue(a as 'p'))
-        .map((t) => GLYPH[t])
+        .map((t) => `<i class="cp ${c === 'w' ? 'b' : 'w'}${t}"></i>`)
         .join('');
       const diff =
         got[c].reduce((a, t) => a + pieceValue(t as 'p'), 0) -
@@ -213,7 +214,7 @@ function game(root: HTMLElement, s: GameSession): () => void {
 
   const say = (k: string, h: string, t: string, act = '') => {
     msgs.push({ k, h, t, act });
-    if (tab !== 'coach') $$('.tab', root)[1].textContent = (s.coaching ? '🎓 Coach' : 'Notes') + ' •';
+    if (tab !== 'coach') $$('.tab', root)[1].textContent = (s.coaching ? 'Coach' : 'Notes') + ' •';
     paintPane();
   };
   const goto = (ply: number) => {
@@ -238,7 +239,7 @@ function game(root: HTMLElement, s: GameSession): () => void {
     if (!o) return '';
     return `<div class="coach-card bad"><h4>Wait, look at that move</h4><div class="small">Your piece on <b>${esc(o.hanging[0].square)}</b> can now be taken. You may take it back, but first: <b>what does the opponent threaten?</b></div>
       <div class="check-list" role="radiogroup" aria-label="What does the opponent threaten?">${o.options.map((op, i) => `<label><input type="radio" name="tb" value="${i}"> ${esc(op.text)}</label>`).join('')}</div>
-      <div class="row" style="margin-top:8px"><button class="btn small primary" id="tb-ok">Answer</button>${o.hintsShown >= 3 ? '<button class="btn small" id="tb-assist">↩ Take it back (with help)</button>' : ''}<button class="btn small ghost" id="tb-keep">Keep my move</button></div></div>`;
+      <div class="row" style="margin-top:8px"><button class="btn small primary" id="tb-ok">Answer</button>${o.hintsShown >= 3 ? '<button class="btn small" id="tb-assist">Take it back (with help)</button>' : ''}<button class="btn small ghost" id="tb-keep">Keep my move</button></div></div>`;
   };
   const lockUi = () => {
     if (!s.coaching || s.lockRemaining <= 0 || s.offer) return '';
@@ -274,7 +275,7 @@ function game(root: HTMLElement, s: GameSession): () => void {
     } else if (tab === 'coach') {
       pane.innerHTML =
         (s.coaching
-          ? `<div class="coach-card"><h4>🛡 Safety Check</h4><div class="check-list">
+          ? `<div class="coach-card"><h4>Safety Check</h4><div class="check-list">
           <label><input type="checkbox" data-k="a" ${checklist.a ? 'checked' : ''}> What did their last move do?</label>
           <label><input type="checkbox" data-k="b" ${checklist.b ? 'checked' : ''}> Checks, captures, threats: theirs, then mine</label>
           <label><input type="checkbox" data-k="c" ${checklist.c ? 'checked' : ''}> Where can their best reply land? Is anything hanging?</label></div>

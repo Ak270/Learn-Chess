@@ -8,11 +8,11 @@ You are a senior full-stack engineer and chess-teaching product builder. Build t
 1. `docs/README.md` (map)
 2. `docs/backend/00-INDEX.md` (rules, phase map, decision log D1–D18, verified facts)
 3. `docs/COVERAGE.md` and `docs/research-notes.md` (why the design is what it is; evidence is weak, so treat pedagogy as hypotheses to measure)
-4. `docs/backend/01` … `10` (one phase per file; **file 10 patches phases 3–9**)
+4. `docs/backend/01` … `11` (one phase per file; **file 10 patches phases 3–9; file 11 records the personal-use decision and all limits**)
 5. `docs/blueprint-v2-teacher-system.md` (teacher routine) and `docs/blueprint-v1-original.md` (philosophy)
 6. `ui/` (clickable prototype = the visual and interaction spec; `ui/README.md` explains run + real vs dummy)
 
-If two documents conflict: Phase 10 > the numbered phase file > blueprint v2 > blueprint v1. Record any conflict you resolve in `docs/DECISIONS.md`.
+If two documents conflict: Phase 11 > Phase 10 > the numbered phase file > blueprint v2 > blueprint v1. Record any conflict you resolve in `docs/DECISIONS.md`.
 
 ## 2. Non-negotiable rules
 - Chess truth comes from chess.js + Stockfish + rule-based detectors. An LLM may only reword verified facts, and its output must pass the deterministic verifier (Phase 7 §3.4); template fallback always exists.
@@ -20,7 +20,9 @@ If two documents conflict: Phase 10 > the numbered phase file > blueprint v2 > b
 - Every threshold is configuration with a `source` note; no magic numbers.
 - Never shame the learner; consequences must be actions that make them stronger (Phase 5 §8, copy lint).
 - Every UI screen must match the prototype's look and animations (Phase 8), keyboard accessible, reduced-motion aware.
-- **Do not assume.** Anything marked **OWNER** or **VERIFY** in the docs must be asked or tested, not guessed. Before Phase 1, ask the owner these (one batch): hosting preference (D8); personal-only vs public (D10, Stockfish is GPLv3); product name (D12); platform + username(s) for game import (D13); opening preferences (D15); daily minutes and rest day. Proceed with documented defaults for anything unanswered and log it in `docs/DECISIONS.md`.
+- **Personal use only (D10 resolved).** Keep the app, its URL and the GitHub repo private (Stockfish is GPLv3; a public site would be distribution). Default hosting = local (Phase 11 §2). Do not add accounts, analytics or a hosted proxy. Respect every limit listed in `docs/backend/11-personal-use-limits.md`.
+- **AI explanations use Groq** (OpenAI-compatible API; key and model id are settings; production model ids and limits must be re-read from Groq's docs before use). AI only rewords facts produced by code (see `ui/js/facts.js`, `ui/js/groq.js` for the working prototype of line facts + verifier); always keep the template fallback.
+- **Do not assume.** Anything marked **OWNER** or **VERIFY** in the docs must be asked or tested, not guessed. Before Phase 1, ask the owner these (one batch): platform + username(s) for game import (D13); opening preferences (D15); product name (D12); daily minutes and rest day; confirm the GitHub repo is private (D20). Proceed with documented defaults for anything unanswered and log it in `docs/DECISIONS.md`.
 - Never copy third-party branding, art, text or code. Track every dependency and asset licence in `LICENSES.md`.
 
 ## 3. How to work
@@ -39,7 +41,7 @@ Do not start the next phase until the current phase's acceptance tests pass. Do 
 - **M2 "Train daily"**: Phase 5 + minimum Phase 6 + Profile, Session, Blunder Box, Puzzles (recognition and calculation modes), Learn; misconceptions M01–M05; wellbeing rules; `.ics` export.
 - **M3 "Play the teacher"**: Phase 7 + Play UI (opponent levels, Safety Check, take-back-with-a-question, hint ladder, grounded AI wording with verifier and templates).
 - **M4 "Openings, endgames, depth"**: rest of Phase 6 and Phase 10.
-- **M5**: public-readiness only if the owner chose public (GPL compliance, proxy, audits).
+- **M5 is dropped** (personal use). Keep only the sharing checklist in Phase 11 §8 for a future decision.
 Stop after each milestone and ask the owner to use it with their own games before continuing. Use their feedback to calibrate thresholds (Phase 9 §2.4) and record results in `docs/eval-log.md`.
 
 ## 5. Quality bar ("advanced")

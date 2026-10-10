@@ -97,4 +97,4 @@ Method: list what a human chess teacher does for a ~600-rated adult (from the te
 3. **Opponent realism below 1100** has no off-the-shelf human-like model; our error model must be calibrated on the owner's games.
 4. **Diagnosis precision** for imported games is limited (no Safety-Check data) — mitigated by the self-explanation prompt, but accuracy is unproven until labelled data exists.
 5. **Several external facts are VERIFY items** (CORS, explorer auth, Maia, Stockfish package version, ts-fsrs API, licences).
-6. **Owner decisions pending** (D8, D10, D12, D13, D15).
+6. **Owner decisions pending** (D12 name, D13 platform/username, D15 openings). D10 is resolved: personal use only (`backend/11-personal-use-limits.md`).

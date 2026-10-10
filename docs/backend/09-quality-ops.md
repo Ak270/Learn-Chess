@@ -62,7 +62,7 @@ Also track: self-analysis agreement rate (learner's pick vs algorithm, Phase 10 
 | Item | Licence (as found) | Obligation / action | Status |
 |---|---|---|---|
 | chess.js 1.4.0 | BSD-2-Clause (npm metadata; text in `ui/vendor/chess.js.LICENSE`) | keep notice | ✅ |
-| Stockfish (WASM builds, e.g. stockfish.js) | **GPL-3.0** | personal use: keep source link; **public distribution: app must be GPL-3-compatible and offer corresponding source** | OWNER decision D10 |
+| Stockfish (WASM builds, e.g. stockfish.js) | **GPL-3.0** | personal use: keep source link; **public distribution: app must be GPL-3-compatible and offer corresponding source** | **Personal use only (D10 resolved): no obligations while private; do not distribute** — Phase 11 §1 |
 | Lichess puzzle & game & eval DBs | CC0 (database.lichess.org) | none; credit as courtesy | ✅ |
 | lichess-org/chess-openings (names) | believed CC0 | **VERIFY** before bundling | open |
 | Dexie | Apache-2.0 | notice | to confirm at install |
@@ -109,7 +109,7 @@ Sign-off:
 Deliverables: 3 repertoires with why-cards, left-book detection, endgame ladder (6 rungs), 10 model games, lessons to ~40.
 Sign-off: content validator green; owner can recall repertoire moves ≥ 85 % after 14 days (retention metric).
 
-### M5 — Public-readiness (optional, only if D10 = public)
+### M5 — Public-readiness (DROPPED: D10 = personal use; kept only as a checklist in Phase 11 §8)
 GPL compliance (source offer), privacy notice, proxy hardening, content licensing review, load test, accessibility audit.
 
 ## 8. Risk register

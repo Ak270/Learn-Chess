@@ -18,7 +18,7 @@
 - `GET https://lichess.org/api/games/user/{username}` with query `max`, `since`, `until`, `rated`, `perfType=rapid,classical,blitz`, `clocks=true`, `evals=false` (we run our own), `opening=true`, `pgnInJson=true`; header `Accept: application/x-ndjson`. Read as a **stream** and parse line by line; stop at `max`.
 - Games arrive newest-first. Dedupe on `(source='lichess', sourceId=<game id>)`.
 - Learner colour: compare `players.white.user.name` / `players.black.user.name` (case-insensitive) with the username.
-- **VERIFY**: CORS for browser `fetch`. If blocked, implement `proxyFetch()` (Cloudflare Worker, 20 lines) with a strict allow-list of `lichess.org` and `api.chess.com` and no logging.
+- **VERIFY**: CORS for browser `fetch`. (Personal use: prefer manual PGN upload or a *local* proxy over a hosted one — Phase 11 §5.) If blocked, implement `proxyFetch()` (Cloudflare Worker, 20 lines) with a strict allow-list of `lichess.org` and `api.chess.com` and no logging.
 
 ### 2.2 Chess.com
 - List months: `GET https://api.chess.com/pub/player/{u}/games/archives` → array of month URLs. Fetch **newest first, serially** (parallel can return 429). Honour `ETag`/`Last-Modified`; cache raw responses in `kv` keyed by URL.

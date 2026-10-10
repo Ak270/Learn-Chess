@@ -30,6 +30,7 @@ A website that teaches a ~600-Elo player to reach **1000+** by acting like a hum
 | 7 | `07-teacher-ai-opponent.md` | Sparring opponent, coach mode logic, grounded AI wording, verifier, fallbacks | 3, 5 |
 | 8 | `08-ui-wiring.md` | Screen-by-screen map from the prototype to real modules; replacing every dummy | 2–7 |
 | 9 | `09-quality-ops.md` | Tests, evaluation of whether the coach works, performance, a11y, licensing ledger, deploy, milestones | all |
+| 11 | `11-personal-use-limits.md` | **Personal-use decision**: licensing line, private hosting, every free-tier/device limit, backup, what is simplified | all |
 | 10 | `10-addendum-teacher-gaps.md` | Added after research: learner model, misconceptions, analyse-first review, recognition vs calculation, wellbeing, expectations, reminders (**read with Phases 3–8; it patches them**) | 3–8 |
 
 Suggested milestones (each shippable to the owner for real use):
@@ -50,13 +51,13 @@ Status: **OWNER** = needs the owner's answer; **PROPOSED** = default chosen, cha
 | D5 | Sparring opponent | Stockfish with skill limit + human-error model first; evaluate Maia later | Licence/browser support of Maia unverified (see Phase 7) | Maia (GPL-3.0 per repo metadata; browser ONNX conversions exist only third-party) | PROPOSED, VERIFY licence |
 | D6 | AI wording | Provider interface; Gemini/Groq/OpenRouter free tiers; **template fallback always on** | Free-tier limits change | Local small model (WebLLM) | PROPOSED, VERIFY quotas at build |
 | D7 | Spaced repetition | FSRS via `ts-fsrs` (MIT) for opening/concept/blunder cards; fixed ladder 1-3-7-21 days for the first Blunder Box version | FSRS is open and well-evidenced; ladder is simple to explain to the learner | SM-2 | PROPOSED, VERIFY ts-fsrs API |
-| D8 | Hosting | Static (Cloudflare Pages or any static host) | No server cost | GitHub Pages | OWNER (preference) |
+| D8 | Hosting | **Local first** (Phase 11 §2); private access-controlled static host only if phone use away from home is wanted | No server cost | GitHub Pages | OWNER (preference) |
 | D9 | Accounts/cloud sync | None in v1 | Privacy, scope | Supabase later (opt-in) | PROPOSED |
-| D10 | Licence posture | Personal use first. Stockfish is **GPLv3**; if the site is ever distributed publicly, the whole app must be GPL-compatible and source offered | Avoid legal surprise | Server-side engine (still GPL obligations for distribution of the binary) | **OWNER**: personal only or public? |
+| D10 | **RESOLVED: personal use only** — see `11-personal-use-limits.md`. (Original note:) Personal use first. Stockfish is **GPLv3**; if the site is ever distributed publicly, the whole app must be GPL-compatible and source offered | Avoid legal surprise | Server-side engine (still GPL obligations for distribution of the binary) | **RESOLVED** |
 | D11 | Piece set / assets | Unicode glyphs in prototype; real build uses an open-licensed set with licence recorded in `LICENSES.md` | Avoid copying proprietary art | — | VERIFY licence of chosen set |
 | D12 | Product name/branding | "Mentor" is a placeholder | No third-party marks used | — | OWNER |
 | D13 | Where games live | Lichess and/or Chess.com username import | Owner's accounts unknown | PGN paste | **OWNER**: which platform? |
-| D14 | Chess.com/Lichess from browser | Direct fetch if CORS allows, else a tiny proxy function | CORS not confirmed for either | Manual PGN upload | VERIFY |
+| D14 | Chess.com/Lichess from browser | Direct fetch if CORS allows, else manual PGN upload; local proxy only if needed (no hosted proxy) | CORS not confirmed for either | Manual PGN upload | VERIFY |
 | D16 | Evidence stance | All pedagogy is treated as hypotheses; see `../research-notes.md` for source quality | Avoid false certainty | — | PROPOSED |
 | D17 | Reminders | `.ics` calendar export + in-app banner; no push server | Keeps local-first/privacy | Push via server later | PROPOSED |
 | D18 | Ask-before-tell default | On, with "Just tell me" toggle | Teacher guidance; some adults dislike Socratic style | Off by default | PROPOSED |

@@ -138,6 +138,8 @@ Not an open-ended LLM chat. **Intent router** (rules, no LLM) → answer sources
 | anything else | polite scope message + suggestions; if AI available and question is general chess → answer **with a visible "unverified" label** and never about a specific position without engine facts |
 The prototype's canned replies map directly to the first three rows.
 
+**Ask-before-tell and modality switching** are specified in Phase 10 §8 and apply to every template and prompt.
+
 ## 5. Tone guide (applies to templates, lessons, AI prompts)
 | Do | Don't |
 |---|---|

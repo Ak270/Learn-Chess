@@ -9,13 +9,14 @@ import * as blunders from './views/blunders.js';
 import * as progress from './views/progress.js';
 import * as session from './views/session.js';
 import * as settingsView from './views/settings.js';
+import * as profile from './views/profile.js';
 import { user, blunderCards } from './data.js';
 
-const routes = { home, play, review, puzzles, learn, openings, blunders, progress, session, settings: settingsView };
+const routes = { home, play, review, puzzles, learn, openings, blunders, progress, session, profile, settings: settingsView };
 const NAV = [
   ['home', '🏠', 'Home'], ['session', '📅', "Today's Session"], ['play', '♟️', 'Play'], ['puzzles', '🧩', 'Puzzles'],
   ['learn', '📚', 'Learn'], ['openings', '📖', 'Openings'], ['blunders', '📦', 'Blunder Box'], ['review', '🔍', 'Game Review'],
-  ['progress', '📈', 'Progress'], ['settings', '⚙️', 'Settings'],
+  ['progress', '📈', 'Progress'], ['profile', '🧑', 'My Profile'], ['settings', '⚙️', 'Settings'],
 ];
 let cleanup = null;
 

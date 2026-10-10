@@ -140,3 +140,18 @@ export const teacherNotes = [
   'Your knight moves are risky when the queen sees the target square.',
   'Tomorrow: 8 hanging-piece drills, then one slow game.',
 ];
+
+export const profileExt = {
+  motivation: 'understand', goal: 'Reach 1000', pace: 'steady', askBeforeTell: true, ownBoard: true,
+  availability: 'Weekdays 40 min · best time: evening',
+};
+export const memories = [
+  { id: 'm1', text: 'You play faster after losing a piece (3 of your last 5 games).', ev: 5, since: '3 weeks ago' },
+  { id: 'm2', text: 'Your first big mistake is usually between moves 10 and 14.', ev: 6, since: '2 weeks ago' },
+  { id: 'm3', text: 'Hanging-piece errors dropped from 40% to 22% in 6 weeks.', ev: 12, since: 'this week' },
+];
+export const misconceptions = [
+  { id: 'M01', title: 'A protected piece is safe', truth: 'A protected piece can still be lost if the attacker is worth less.', status: 'active', hits: 3 },
+  { id: 'M04', title: 'I can ignore their last move if my plan is faster', truth: 'Their threat usually arrives first. Check it before your own idea.', status: 'active', hits: 4 },
+  { id: 'M03', title: 'Always capture when you can', truth: 'Some captures lose to a recapture or a trap.', status: 'watching', hits: 1 },
+];

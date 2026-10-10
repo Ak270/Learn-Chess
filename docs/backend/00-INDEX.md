@@ -2,6 +2,7 @@
 
 > Audience: whoever builds this (a developer or an AI coding agent) with **no prior context**.
 > Each file is self-contained. Do the phases **in order**; each phase ends with acceptance tests that must pass before the next begins.
+> Also read `../research-notes.md` (evidence behind the design) and `../COVERAGE.md` (what a teacher does vs where we cover it).
 > Product intent lives in `../blueprint-v1-original.md` (philosophy) and `../blueprint-v2-teacher-system.md` (teacher routine). The clickable prototype is in `../../ui/`.
 
 ## 0. The one-paragraph product
@@ -29,6 +30,7 @@ A website that teaches a ~600-Elo player to reach **1000+** by acting like a hum
 | 7 | `07-teacher-ai-opponent.md` | Sparring opponent, coach mode logic, grounded AI wording, verifier, fallbacks | 3, 5 |
 | 8 | `08-ui-wiring.md` | Screen-by-screen map from the prototype to real modules; replacing every dummy | 2–7 |
 | 9 | `09-quality-ops.md` | Tests, evaluation of whether the coach works, performance, a11y, licensing ledger, deploy, milestones | all |
+| 10 | `10-addendum-teacher-gaps.md` | Added after research: learner model, misconceptions, analyse-first review, recognition vs calculation, wellbeing, expectations, reminders (**read with Phases 3–8; it patches them**) | 3–8 |
 
 Suggested milestones (each shippable to the owner for real use):
 - **M1 "Review my games"** = Phases 1–4 (import + first meaningful mistake + Blunder Box cards created).
@@ -55,6 +57,9 @@ Status: **OWNER** = needs the owner's answer; **PROPOSED** = default chosen, cha
 | D12 | Product name/branding | "Mentor" is a placeholder | No third-party marks used | — | OWNER |
 | D13 | Where games live | Lichess and/or Chess.com username import | Owner's accounts unknown | PGN paste | **OWNER**: which platform? |
 | D14 | Chess.com/Lichess from browser | Direct fetch if CORS allows, else a tiny proxy function | CORS not confirmed for either | Manual PGN upload | VERIFY |
+| D16 | Evidence stance | All pedagogy is treated as hypotheses; see `../research-notes.md` for source quality | Avoid false certainty | — | PROPOSED |
+| D17 | Reminders | `.ics` calendar export + in-app banner; no push server | Keeps local-first/privacy | Push via server later | PROPOSED |
+| D18 | Ask-before-tell default | On, with "Just tell me" toggle | Teacher guidance; some adults dislike Socratic style | Off by default | PROPOSED |
 | D15 | Opening repertoire | Owner chooses 1 White setup + 1 vs 1.e4 + 1 vs 1.d4 | Personal taste matters for retention | We propose, owner picks | **OWNER** |
 
 ## 4. Facts verified while writing these docs (8 Oct 2026) — with how to re-verify

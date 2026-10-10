@@ -26,7 +26,7 @@ Before any coaching: ≥ 10 reviewed games (Phase 4 onboarding). Record per game
 1. **Blunders per 40 moves** (target: −35 % vs baseline in 8 weeks; the value is a *hypothesis to test*, not a promise).
 2. **Missed-threat rate** (Phase 5 §10 definition).
 3. **Transfer**: proportion of drilled motifs that still appear as real-game mistakes in the following 10 games.
-Secondary: rating trend (platform-reported, 8-week slope), Blunder Box clear rate, retention (cards ≥ 7-day gap), calibration of confidence, session adherence (days/week).
+Also track: self-analysis agreement rate (learner's pick vs algorithm, Phase 10 §2), misconception resolution time, mood check-in adherence. Secondary: rating trend (platform-reported, 8-week slope), Blunder Box clear rate, retention (cards ≥ 7-day gap), calibration of confidence, session adherence (days/week).
 
 ### 2.3 Method
 - Log everything locally; show trends with **confidence bands** (bootstrap over games) and explicitly say "not enough games yet" until n ≥ 10 per window.

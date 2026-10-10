@@ -127,7 +127,7 @@ Side's king on back rank, all squares in front blocked by own pieces/pawns, enem
 Compare engine best move with the played one: if best is a **check**/**capture**/**mate-in-n** and played is not → `missed.check` / `missed.capture` / `missed.mate`. These map to the "Missed X" tags in the UI and to Blunder Box themes.
 
 ### 6.9 Motif ids (starting list)
-`hanging.piece, loose.piece, fork.knight, fork.pawn, fork.queen, fork.other, pin.absolute, pin.relative, skewer, discovered.attack, discovered.check, backrank.threat, backrank.mate, missed.capture, missed.check, missed.mate, overloaded.defender (v2), trapped.piece (v2), removing.defender (v2)`.
+`check.waste, greedy.capture, unfavorable.trade, early.queen, opening.repeat_piece, king.center, stalemate.risk, no.luft, unsound.sacrifice` (added by Phase 10 §1.3), `hanging.piece, loose.piece, fork.knight, fork.pawn, fork.queen, fork.other, pin.absolute, pin.relative, skewer, discovered.attack, discovered.check, backrank.threat, backrank.mate, missed.capture, missed.check, missed.mate, overloaded.defender (v2), trapped.piece (v2), removing.defender (v2)`.
 Each detector returns `MotifHit[]` with `role`, `squares`, `severity` (1 minor … 3 decisive), and a human-checkable `evidence` string used by Phase 7 grounding (e.g. "Qf6 attacks Nh4; Nh4 has 0 defenders; SEE +3").
 
 ### 6.10 False-positive control (important)

@@ -10,6 +10,8 @@
 3. When ≥ 5 reviewed games exist, generate the **Baseline Report** (Phase 5 §9): blunders/game, missed-threat rate, motif histogram, phase of first mistake, time-use pattern. This seeds `SkillState` and the first focus skill.
 4. If < 5 games: run the **Calibration set** (20 puzzles of increasing difficulty with confidence ratings + 2 short play games vs Pawn Pete/Knight Nora) and seed skills from those.
 
+**Added by Phase 10:** also run an 8-question **rules check** (castling, en passant, promotion, stalemate vs mate, draws) and the **think-aloud baseline** (Phase 10 §1.2), and offer the **Find-it-first** review mode (Phase 10 §2).
+
 ## 2. Importers (`Importer` interface from Phase 1)
 
 ### 2.1 Lichess

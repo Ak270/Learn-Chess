@@ -23,6 +23,7 @@ Keep this list in `config/skills.json` with `{id, title, phase, prereqs[], layer
 | 5 Middlegame | `mg_targets`, `mg_worst_piece`, `mg_pawn_breaks`, `mg_trades`, `king_safety` |
 | 6 Endgames | `eg_basic_mates`, `eg_opposition`, `eg_pawn_races`, `eg_rook_basics`, `conversion`, `defence` |
 | Cross-cutting | `time_management`, `self_analysis` |
+| Foundations (Phase 10 §7) | `rules_fluency`, `material_counting` (Phase 0/1) |
 Prereq examples: `tactic_fork ← piece_safety, checks_captures_threats`; `calculation_2ply ← blunder_check`; `mg_* ← piece_safety, candidate_moves`. Prereqs gate **introduction**, never block **remedial** work for a skill the games prove is leaking.
 
 ## 3. Evidence → skill state
@@ -92,6 +93,7 @@ score(s) = 0.35 * leakRate(s)          # share of last 10 games' *meaningful* mi
          + 0.20 * (1 - mastery(s))     # mastery = mean of knowledge/recognition/decision/transfer means (known layers only)
          + 0.15 * decayRisk(s)         # 1 if status=decaying; else days_since_seen/45 capped
          + 0.10 * leverage(s)          # prerequisite for many locked skills
+         + 0.10 * misconceptionActive(s) # Phase 10 §1.3: linked misconception currently active
          − 0.30 * recentlyFocused(s)   # was focus in the last 2 weeks and status now solid
 eligible = prereqs(s) all solid  OR  leakRate(s) ≥ 0.2  (remedial override)
 focus = argmax score over eligible

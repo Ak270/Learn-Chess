@@ -10,7 +10,7 @@ cd ui && python3 -m http.server 8765      # then open http://localhost:8765/
 (ES modules need http://, not file://.)
 
 ## Screens (hash routes)
-`#/home` `#/session` `#/play` `#/puzzles` `#/learn` `#/learn/l2` `#/openings` `#/blunders` `#/review` `#/progress` `#/settings` + global "Ask Mentor" drawer.
+`#/home` `#/session` `#/play` `#/puzzles` `#/learn` `#/learn/l2` `#/openings` `#/blunders` `#/review` `#/progress` `#/profile` `#/settings` + global "Ask Mentor" drawer.
 
 ## What is real vs dummy
 | Real in the prototype | Dummy |

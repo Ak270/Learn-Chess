@@ -86,6 +86,12 @@ Persist through `Profile`/`kv`. Add: platform accounts, AI keys (Phase 7 §3.5),
 ### Onboarding (new)
 Steps: welcome → platform/username → time budget → import & review progress → Baseline Report → first plan. Skippable with PGN paste.
 
+### Profile (new, `#/profile`)
+`LearnerProfileExt` form, "What Mentor knows about you" (`CoachMemory` list with dismiss/correct), active misconceptions, expectations card, goals, `.ics` export, Coach Report export. Prototype: `ui/js/views/profile.js`.
+
+### Review modes (Phase 10 §2)
+Prototype toggle "Find it first / Show me" in `views/review.js`: hides eval bar, graph and badges until the learner picks the move they think was their first big mistake.
+
 ### Ask Mentor drawer
 Intent router (Phase 7 §4). Quick-reply chips remain. Show "Verified by engine" label on chess claims, "Unverified" on general answers.
 

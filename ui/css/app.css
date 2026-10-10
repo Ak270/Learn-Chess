@@ -191,3 +191,7 @@ input[type='text'], textarea, select { background: var(--bg2); border: 1px solid
   #view { padding: 14px 14px 90px; } .board { --bs: calc(100vw - 28px); } .g2, .g3, .g4 { grid-template-columns: 1fr; } .skillrow { grid-template-columns: 110px 1fr 36px; } .eval-bar { display: none; }
   #teacher-fab { bottom: 74px; } #teacher-fab span { display: none; } .hero { flex-direction: column; align-items: flex-start; }
 }
+
+/* review: find-it-first hides spoilers */
+.blind .spoil, .blind .cl, .blind .badge, .blind .b-arrows { display: none !important; }
+.blind .eval-bar { visibility: hidden; }

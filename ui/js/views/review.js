@@ -25,18 +25,21 @@ export function render(root) {
     </div>
     <aside class="side" style="max-height:none">
       <div class="body">
-        <div class="coach-card bad" id="mist"><h4>🎯 First meaningful mistake · move ${Math.ceil(firstMistakePly / 2)}</h4>
+        <div class="coach-card info blindcard" id="blindcard"><h4>🔎 Find it yourself first</h4>
+          <div class="small">Eval, badges and best moves are hidden. Step through the game (◀ ▶ or click a move) and stop at the move you think was <b>your first big mistake</b>.</div>
+          <div class="row" style="margin-top:8px;flex-wrap:wrap"><button class="btn small primary" id="pick">That was it — this move</button><button class="btn small ghost" id="nopick">I don't see one</button><button class="btn small ghost" id="showme">Skip: show me</button></div><div id="pickres"></div></div>
+        <div class="coach-card bad spoil" id="mist"><h4>🎯 First meaningful mistake · move ${Math.ceil(firstMistakePly / 2)}</h4>
           <div class="small"><b>11. Nh4??</b> left the knight on h4 attacked by the queen on f6 and unprotected. The game turned here: evaluation went from <b>−0.2</b> to <b>−3.4</b>.</div>
           <div class="row" style="margin-top:8px"><button class="btn small primary" id="jump">Show me the position</button></div></div>
-        <div class="coach-card info"><h4>❓ Your turn, before I explain</h4><div class="small" style="margin-bottom:8px">What were you aiming for with Nh4?</div>
+        <div class="coach-card info spoil"><h4>❓ Your turn, before I explain</h4><div class="small" style="margin-bottom:8px">What were you aiming for with Nh4?</div>
           <textarea id="why" rows="2" placeholder="e.g. I wanted to attack the bishop on g6"></textarea>
           <button class="btn small" id="save-why" style="margin-top:8px">Save and reveal diagnosis</button></div>
-        <div id="diag"></div>
-        <h3 style="margin-top:14px">Accuracy</h3>
+        <div id="diag" class="spoil"></div>
+        <div class="spoil"><h3 style="margin-top:14px">Accuracy</h3>
         <div class="grid g3" style="gap:8px"><div class="card flat"><div class="small muted">You</div><div style="font-size:26px;font-weight:800">61%</div></div><div class="card flat"><div class="small muted">Opening</div><b class="chip green">Solid</b></div><div class="card flat"><div class="small muted">Middlegame</div><b class="chip red">Costly</b></div></div>
         <h3 style="margin-top:14px">Move quality</h3>
         <div class="row" style="flex-wrap:wrap;gap:6px">${Object.entries(counts).map(([c, n]) => `<span class="chip" style="background:${classMeta[c].color}33">${classMeta[c].sym} ${classMeta[c].label} ${n}</span>`).join('')}</div>
-        <h3 style="margin-top:14px">Evaluation</h3><div id="graph"></div>
+        <h3 style="margin-top:14px">Evaluation</h3><div id="graph"></div></div>
         <h3 style="margin-top:14px">Moves</h3><div class="moves" id="mv"></div>
       </div>
       <div class="ctrls"><a class="btn primary" href="#/blunders">📦 Add to Blunder Box</a><a class="btn" href="#/play">Play this position</a></div>
@@ -71,6 +74,17 @@ export function render(root) {
     if (c === 'blunder') sound('bad');
     paintEval(); paintMoves();
   };
+  const setBlind = (on) => { root.classList.toggle('blind', on); $('#blindcard', root).style.display = on ? '' : 'none'; };
+  setBlind(true);
+  const reveal = (pickedPly) => {
+    const truth = firstMistakePly; setBlind(false);
+    const d = pickedPly == null ? null : Math.abs(pickedPly - truth);
+    const msg = pickedPly == null ? `You did not spot one. The first big mistake was move ${Math.ceil(truth / 2)} (${g.moves[truth - 1]}). That is useful to know — we will practise finding these.`
+      : d === 0 ? 'Exactly right. You found the first big mistake yourself.' : d <= 2 ? `Very close — you picked ply ${pickedPly}, it was ply ${truth} (${g.moves[truth - 1]}). The damage started one move earlier.`
+      : `You picked move ${Math.ceil(pickedPly / 2)}; the first big mistake was move ${Math.ceil(truth / 2)} (${g.moves[truth - 1]}). Let us look at why it was hard to see.`;
+    toast(msg, d === 0 ? '' : 'warn', 6000); go(truth, true); paintMoves();
+  };
+  $('#pick', root).onclick = () => reveal(ply || 1); $('#nopick', root).onclick = () => reveal(null); $('#showme', root).onclick = () => setBlind(false);
   paintGraph(); go(0, true);
   $('#p-next', root).onclick = () => go(ply + 1); $('#p-prev', root).onclick = () => go(ply - 1, true);
   $('#p-start', root).onclick = () => go(0, true); $('#p-end', root).onclick = () => go(g.moves.length, true);

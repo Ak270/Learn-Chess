@@ -108,6 +108,8 @@ Draft (human or AI) → validator → **human review** (owner reads each lesson 
 | time_management, self_analysis | 2 → 3 | Spending time on critical moves · Review your own mistake |
 **Counts: v1 ≈ 40 lessons, v2 ≈ 80.** (Written in batches of 6–8 per milestone, each validated and reviewed.)
 
+**Reorder (Phase 10 §7):** rungs 1–2 (KQ-K and KR-K mates) are taught in Phase 1–2, because research says "learn basic checkmates" is the most common advice below 1000 and they prevent stalemate disasters. Visualization exercises: Phase 10 §4.
+
 ## 6. Endgame ladder (Phase 6 skills)
 Each rung = lesson + 8–12 drills (positions authored/generated + engine-verified win/draw) + a **pass test** (play the position out vs the engine from the starting FEN; success = reach the stated outcome within N moves without engine intervention).
 1. **KQ vs K mate** · 2. **KR vs K mate** · 3. **K+P vs K: opposition & key squares** · 4. **Square of the pawn / pawn races** · 5. **Rook endings basics (Lucena/Philidor ideas; cut-off)** · 6. **Convert an extra piece safely (trade down, keep pawns)**.

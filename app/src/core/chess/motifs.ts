@@ -2,6 +2,7 @@
 // (Phase 4) additionally requires the engine's refutation line to realise a motif before it is taught (§6.10).
 import { Chess, type Color, type Move, type PieceSymbol, type Square } from 'chess.js';
 import type { MotifHit } from '../../types/model';
+import type { MotifId } from '../../types/ids';
 import { pieceValue } from './material';
 import { loosePieces, see } from './see';
 
@@ -81,7 +82,7 @@ function attacksFrom(c: Chess, from: Square): Square[] {
 }
 
 const hit = (
-  id: string,
+  id: MotifId,
   role: MotifHit['role'],
   squares: string[],
   severity: 1 | 2 | 3,

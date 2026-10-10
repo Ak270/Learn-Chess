@@ -1,5 +1,72 @@
 export type ID = string;
 export type Ms = number;
-// Full unions are filled in with Phase 3 (MotifId) and Phase 5 (SkillId); kept as string until then.
-export type SkillId = string;
-export type MotifId = string;
+
+/** Skill taxonomy: docs/backend/05 §2 (data lives in content/skills.json). */
+export const SKILL_IDS = [
+  'rules_fluency',
+  'material_counting',
+  'piece_safety',
+  'opponent_threats',
+  'checks_captures_threats',
+  'blunder_check',
+  'tactic_fork',
+  'tactic_pin',
+  'tactic_skewer',
+  'tactic_discovered',
+  'tactic_backrank',
+  'tactic_removing_defender',
+  'mate_patterns',
+  'candidate_moves',
+  'calculation_2ply',
+  'calculation_3ply',
+  'visualization',
+  'opening_principles',
+  'opening_repertoire_recall',
+  'mg_targets',
+  'mg_worst_piece',
+  'mg_pawn_breaks',
+  'mg_trades',
+  'king_safety',
+  'eg_basic_mates',
+  'eg_opposition',
+  'eg_pawn_races',
+  'eg_rook_basics',
+  'conversion',
+  'defence',
+  'time_management',
+  'self_analysis',
+] as const;
+export type SkillId = (typeof SKILL_IDS)[number];
+
+/** Motif ids: docs/backend/03 §6.9 plus Phase 10 §1.3 additions. */
+export const MOTIF_IDS = [
+  'hanging.piece',
+  'loose.piece',
+  'fork.knight',
+  'fork.pawn',
+  'fork.queen',
+  'fork.other',
+  'pin.absolute',
+  'pin.relative',
+  'skewer',
+  'discovered.attack',
+  'discovered.check',
+  'backrank.threat',
+  'backrank.mate',
+  'missed.capture',
+  'missed.check',
+  'missed.mate',
+  'check.waste',
+  'greedy.capture',
+  'unfavorable.trade',
+  'early.queen',
+  'opening.repeat_piece',
+  'king.center',
+  'stalemate.risk',
+  'no.luft',
+  'unsound.sacrifice',
+  'overloaded.defender',
+  'trapped.piece',
+  'removing.defender',
+] as const;
+export type MotifId = (typeof MOTIF_IDS)[number];

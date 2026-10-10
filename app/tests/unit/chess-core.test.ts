@@ -134,7 +134,7 @@ describe('first meaningful mistake (docs/backend/03 §4)', () => {
   it('a winning position that stays winning is never the *first meaningful* mistake (only the flagged fallback)', () => {
     expect(firstMeaningfulMistake([p(3, 97, 80, 3)])?.isFirstMeaningful).toBe(false);
   });
-  it('shows first + 3 more, preferring different skill tags', () => {
+  it('shows the first + 2 more (<= 3 per game, DECISIONS T9), preferring different skill tags', () => {
     const all = [
       { ply: 5, winPctLoss: 30, skillTag: 'a' },
       { ply: 9, winPctLoss: 25, skillTag: 'a' },
@@ -143,7 +143,7 @@ describe('first meaningful mistake (docs/backend/03 §4)', () => {
       { ply: 21, winPctLoss: 12, skillTag: 'd' },
     ];
     const out = pickMistakesToShow(all, 5);
-    expect(out.map((m) => m.ply)).toEqual([5, 13, 17, 21]);
+    expect(out.map((m) => m.ply)).toEqual([5, 13, 17]);
   });
 });
 

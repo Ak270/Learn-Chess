@@ -209,3 +209,20 @@ export interface KV {
   key: string;
   value: unknown;
 }
+
+export interface GameReview {
+  gameId: ID;
+  reviewedAt: Ms;
+  engine: { name: string; depth: number };
+  learnerColor: 'w' | 'b';
+  accuracy: number;
+  counts: Partial<Record<MoveClass, number>>;
+  phaseGrades: Partial<Record<'opening' | 'middlegame' | 'endgame', 'Solid' | 'Fine' | 'Costly'>>;
+  firstMeaningfulPly: number | null;
+  firstMeaningfulFlagged: boolean;
+  mistakeIds: ID[];
+  /** win% of White after each ply (index 0 = start) for the evaluation graph */
+  whiteWinPct: number[];
+  evidenceEligible: boolean;
+  blundersPer40: number;
+}

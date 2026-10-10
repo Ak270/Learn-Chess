@@ -1,27 +1,66 @@
 {
-  "hanging.piece": { "value": "piece_safety", "source": "docs/backend/03 §7 example mapping" },
-  "loose.piece": { "value": "piece_safety", "source": "docs/backend/03 §7 (loose pieces are piece-safety)" },
-  "missed.capture": { "value": "checks_captures_threats", "source": "docs/backend/03 §7 example mapping" },
+  "hanging.piece": {
+    "value": "piece_safety",
+    "source": "docs/backend/03 \u00a77 example mapping"
+  },
+  "loose.piece": {
+    "value": "piece_safety",
+    "source": "docs/backend/03 \u00a77 (loose pieces are piece-safety)"
+  },
+  "missed.capture": {
+    "value": "checks_captures_threats",
+    "source": "docs/backend/03 \u00a77 example mapping"
+  },
   "missed.check": {
     "value": "checks_captures_threats",
-    "source": "docs/backend/03 §7 (Checks/Captures/Threats habit)"
+    "source": "docs/backend/03 \u00a77 (Checks/Captures/Threats habit)"
   },
-  "missed.mate": { "value": "mating_patterns", "source": "docs/backend/03 §7; Phase 5 roadmap 'Back-rank mates'" },
-  "backrank.threat": { "value": "back_rank", "source": "docs/backend/05 roadmap phase 2 'Back-rank mates'" },
-  "backrank.mate": { "value": "back_rank", "source": "docs/backend/05 roadmap phase 2 'Back-rank mates'" },
-  "fork.knight": { "value": "tactic_fork", "source": "docs/backend/03 §7 fork.* -> tactic_fork" },
-  "fork.pawn": { "value": "tactic_fork", "source": "docs/backend/03 §7 fork.* -> tactic_fork" },
-  "fork.queen": { "value": "tactic_fork", "source": "docs/backend/03 §7 fork.* -> tactic_fork" },
-  "fork.other": { "value": "tactic_fork", "source": "docs/backend/03 §7 fork.* -> tactic_fork" },
-  "pin.absolute": { "value": "tactic_pin_skewer", "source": "docs/backend/05 roadmap 'Pins & skewers'" },
-  "pin.relative": { "value": "tactic_pin_skewer", "source": "docs/backend/05 roadmap 'Pins & skewers'" },
-  "skewer": { "value": "tactic_pin_skewer", "source": "docs/backend/05 roadmap 'Pins & skewers'" },
+  "missed.mate": {
+    "value": "mate_patterns",
+    "source": "docs/backend/03 \u00a77; Phase 5 roadmap 'Back-rank mates'"
+  },
+  "backrank.threat": {
+    "value": "tactic_backrank",
+    "source": "docs/backend/05 roadmap phase 2 'Back-rank mates'"
+  },
+  "backrank.mate": {
+    "value": "tactic_backrank",
+    "source": "docs/backend/05 roadmap phase 2 'Back-rank mates'"
+  },
+  "fork.knight": {
+    "value": "tactic_fork",
+    "source": "docs/backend/03 \u00a77 fork.* -> tactic_fork"
+  },
+  "fork.pawn": {
+    "value": "tactic_fork",
+    "source": "docs/backend/03 \u00a77 fork.* -> tactic_fork"
+  },
+  "fork.queen": {
+    "value": "tactic_fork",
+    "source": "docs/backend/03 \u00a77 fork.* -> tactic_fork"
+  },
+  "fork.other": {
+    "value": "tactic_fork",
+    "source": "docs/backend/03 \u00a77 fork.* -> tactic_fork"
+  },
+  "pin.absolute": {
+    "value": "tactic_pin",
+    "source": "docs/backend/05 roadmap 'Pins & skewers'"
+  },
+  "pin.relative": {
+    "value": "tactic_pin",
+    "source": "docs/backend/05 roadmap 'Pins & skewers'"
+  },
+  "skewer": {
+    "value": "tactic_skewer",
+    "source": "docs/backend/05 roadmap 'Pins & skewers'"
+  },
   "discovered.attack": {
     "value": "tactic_discovered",
-    "source": "docs/backend/03 §6.6; skill id finalised in Phase 5 §2"
+    "source": "docs/backend/03 \u00a76.6; skill id finalised in Phase 5 \u00a72"
   },
   "discovered.check": {
     "value": "tactic_discovered",
-    "source": "docs/backend/03 §6.6; skill id finalised in Phase 5 §2"
+    "source": "docs/backend/03 \u00a76.6; skill id finalised in Phase 5 \u00a72"
   }
 }

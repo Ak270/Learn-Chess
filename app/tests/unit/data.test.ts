@@ -72,33 +72,34 @@ describe('repos: create/read/update and compound indexes', () => {
       isFirstMeaningful: true,
       rank: 1,
       motifs: [],
-      skillTags: ['forks'],
+      skillTags: ['tactic_fork'],
       diagnosis: [],
     });
-    expect((await r.mistakeAt(game.id, 3))?.skillTags).toEqual(['forks']);
+    expect((await r.mistakeAt(game.id, 3))?.skillTags).toEqual(['tactic_fork']);
     expect(await r.mistakeAt(game.id, 2)).toBeUndefined();
   });
   it('cards: due query on nested srs.dueAt and skill multi-entry index', async () => {
     const r = repos(db);
     const base = { kind: 'blunder' as const, prompt: 'p', solution: ['e2e4'], why: 'w', state: 'new' as const };
     const srs = (dueAt: number) => ({ scheduler: 'ladder' as const, dueAt, lapses: 0, cleanStreak: 0 });
-    await r.addCard({ ...base, skillTags: ['forks', 'pins'], srs: srs(100) });
-    await r.addCard({ ...base, skillTags: ['pins'], srs: srs(900) });
+    await r.addCard({ ...base, skillTags: ['tactic_fork', 'tactic_pin'], srs: srs(100) });
+    await r.addCard({ ...base, skillTags: ['tactic_pin'], srs: srs(900) });
     expect(await r.dueCards(500)).toHaveLength(1);
-    expect(await r.cardsBySkill('pins')).toHaveLength(2);
+    expect(await r.cardsBySkill('tactic_pin')).toHaveLength(2);
   });
   it('recordAttempt writes attempt + evidence + card atomically (rolls back on failure)', async () => {
     const r = repos(db);
     const ok = await r.recordAttempt(
-      { at: 1, context: 'drill', correct: true, hints: 0, ms: 10, skillTags: ['forks'] },
-      [{ at: 1, skill: 'forks', layer: 'recognition', outcome: 1, weight: 1, assisted: false }],
+      { at: 1, context: 'drill', correct: true, hints: 0, ms: 10, skillTags: ['tactic_fork'] },
+      [{ at: 1, skill: 'tactic_fork', layer: 'recognition', outcome: 1, weight: 1, assisted: false }],
     );
-    expect(await db.evidence.where('skill').equals('forks').count()).toBe(1);
-    expect((await r.attemptsForSkill('forks'))[0].id).toBe(ok.id);
+    expect(await db.evidence.where('skill').equals('tactic_fork').count()).toBe(1);
+    expect((await r.attemptsForSkill('tactic_fork'))[0].id).toBe(ok.id);
     await expect(
-      r.recordAttempt({ id: ok.id, at: 2, context: 'drill', correct: true, hints: 0, ms: 1, skillTags: ['forks'] }, [
-        { at: 2, skill: 'forks', layer: 'recognition', outcome: 1, weight: 1, assisted: false },
-      ]),
+      r.recordAttempt(
+        { id: ok.id, at: 2, context: 'drill', correct: true, hints: 0, ms: 1, skillTags: ['tactic_fork'] },
+        [{ at: 2, skill: 'tactic_fork', layer: 'recognition', outcome: 1, weight: 1, assisted: false }],
+      ),
     ).rejects.toBeTruthy();
     expect(await db.evidence.count()).toBe(1);
   });

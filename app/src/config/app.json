@@ -3,18 +3,56 @@
     "value": 30,
     "source": "docs/DECISIONS.md: owner left blank, default 30 (2026-10-10)"
   },
-  "settings.defaults.restDay": { "value": 0, "source": "docs/DECISIONS.md: default Sunday (0 = Sunday)" },
+  "settings.defaults.restDay": {
+    "value": 0,
+    "source": "docs/DECISIONS.md: default Sunday (0 = Sunday)"
+  },
   "settings.defaults.goalRating": {
     "value": 1000,
     "source": "docs/backend/02-data-model.md Profile.goalRating default"
   },
   "settings.defaults.groqModel": {
     "value": "llama-3.3-70b-versatile",
-    "source": "docs/backend/07 §Groq specifics, default production model; VERIFY at build"
+    "source": "docs/backend/07 \u00a7Groq specifics, default production model; VERIFY at build"
   },
   "importer.pgnMaxBytes": {
     "value": 204800,
-    "source": "docs/backend/09 §4 input safety: limit PGN size (e.g. 200 KB)"
+    "source": "docs/backend/09 \u00a74 input safety: limit PGN size (e.g. 200 KB)"
   },
-  "engine.defaultHashMb": { "value": 32, "source": "docs/backend/01 EngineClient.init defaults; tune in Phase 3" }
+  "engine.defaultHashMb": {
+    "value": 32,
+    "source": "docs/backend/01 EngineClient.init defaults; tune in Phase 3"
+  },
+  "import.onboardingGames": {
+    "value": 20,
+    "source": "docs/backend/04 \u00a71.2 onboarding imports the last 20 games"
+  },
+  "import.minPlies": {
+    "value": 6,
+    "source": "docs/backend/04 \u00a72.4 games shorter than 6 plies are skipped"
+  },
+  "import.skipTerminations": {
+    "value": ["abandoned", "aborted"],
+    "source": "docs/backend/04 \u00a72.4 abandoned/aborted games are skipped"
+  },
+  "import.userAgentNote": {
+    "value": "MentorPersonalCoach/0.1 (personal use)",
+    "source": "docs/backend/04 \u00a72.2 descriptive UA; browsers ignore it, only a local proxy would set it"
+  },
+  "import.chesscomMaxMonths": {
+    "value": 6,
+    "source": "bounded history scan: stop after this many monthly archives per import run (owner can raise)"
+  },
+  "import.backoffMs": {
+    "value": 2000,
+    "source": "docs/backend/04 \u00a72.2 serial access; wait this long after a 429 when no Retry-After header"
+  },
+  "evidence.minBaseSeconds": {
+    "value": 600,
+    "source": "docs/backend/10 \u00a75.2 base time >= 10 min counts as training evidence"
+  },
+  "evidence.minEquivalentSeconds": {
+    "value": 900,
+    "source": "docs/backend/10 \u00a75.2 total >= 15+10-equivalent (base + 40*inc >= 900 -> uses 15 min)"
+  }
 }

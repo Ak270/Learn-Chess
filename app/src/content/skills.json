@@ -1,0 +1,293 @@
+{
+  "_source": "docs/backend/05 §2 skill taxonomy; docs/backend/10 §7 (rules_fluency, material_counting)",
+  "skills": [
+    {
+      "id": "rules_fluency",
+      "title": "Rules fluency",
+      "phase": 0,
+      "prereqs": [],
+      "layers": ["knowledge", "recognition"],
+      "motifs": [],
+      "blurb": "Castling, en passant, promotion, stalemate and draw rules."
+    },
+    {
+      "id": "material_counting",
+      "title": "Counting material and exchanges",
+      "phase": 1,
+      "prereqs": [],
+      "layers": ["knowledge", "recognition"],
+      "motifs": ["unfavorable.trade"],
+      "blurb": "Piece values and counting attackers against defenders."
+    },
+    {
+      "id": "piece_safety",
+      "title": "Piece safety",
+      "phase": 1,
+      "prereqs": [],
+      "layers": ["knowledge", "recognition", "decision", "transfer", "retention"],
+      "motifs": ["hanging.piece", "loose.piece"],
+      "blurb": "Before every move, ask whether a piece can be taken for free."
+    },
+    {
+      "id": "opponent_threats",
+      "title": "Opponent threats",
+      "phase": 1,
+      "prereqs": [],
+      "layers": ["recognition", "decision", "transfer"],
+      "motifs": ["allowed.threat"],
+      "blurb": "Read what their last move attacks."
+    },
+    {
+      "id": "checks_captures_threats",
+      "title": "Checks, captures, threats",
+      "phase": 1,
+      "prereqs": [],
+      "layers": ["recognition", "decision", "transfer"],
+      "motifs": ["missed.capture", "missed.check", "check.waste", "greedy.capture"],
+      "blurb": "Look at every check, capture and threat for both sides."
+    },
+    {
+      "id": "blunder_check",
+      "title": "Blunder check",
+      "phase": 1,
+      "prereqs": ["piece_safety"],
+      "layers": ["decision", "transfer"],
+      "motifs": [],
+      "blurb": "A last look before you press the move."
+    },
+    {
+      "id": "tactic_fork",
+      "title": "Forks",
+      "phase": 2,
+      "prereqs": ["piece_safety", "checks_captures_threats"],
+      "layers": ["knowledge", "recognition", "calculation", "transfer"],
+      "motifs": ["fork.knight", "fork.pawn", "fork.queen", "fork.other"],
+      "blurb": "One move attacks two things."
+    },
+    {
+      "id": "tactic_pin",
+      "title": "Pins",
+      "phase": 2,
+      "prereqs": ["piece_safety"],
+      "layers": ["knowledge", "recognition", "calculation", "transfer"],
+      "motifs": ["pin.absolute", "pin.relative"],
+      "blurb": "A piece cannot move without exposing something more valuable."
+    },
+    {
+      "id": "tactic_skewer",
+      "title": "Skewers",
+      "phase": 2,
+      "prereqs": ["tactic_pin"],
+      "layers": ["knowledge", "recognition", "calculation", "transfer"],
+      "motifs": ["skewer"],
+      "blurb": "The valuable piece moves, and the one behind it falls."
+    },
+    {
+      "id": "tactic_discovered",
+      "title": "Discovered attacks",
+      "phase": 2,
+      "prereqs": ["tactic_pin"],
+      "layers": ["knowledge", "recognition", "calculation", "transfer"],
+      "motifs": ["discovered.attack", "discovered.check"],
+      "blurb": "Moving one piece unmasks another."
+    },
+    {
+      "id": "tactic_backrank",
+      "title": "Back-rank mates",
+      "phase": 2,
+      "prereqs": ["checks_captures_threats"],
+      "layers": ["knowledge", "recognition", "calculation", "transfer"],
+      "motifs": ["backrank.threat", "backrank.mate", "no.luft"],
+      "blurb": "A king boxed in by its own pawns."
+    },
+    {
+      "id": "tactic_removing_defender",
+      "title": "Removing the defender",
+      "phase": 2,
+      "prereqs": ["tactic_fork"],
+      "layers": ["recognition", "calculation", "transfer"],
+      "motifs": ["removing.defender"],
+      "blurb": "Take or chase the piece that guards the target."
+    },
+    {
+      "id": "mate_patterns",
+      "title": "Mating patterns",
+      "phase": 2,
+      "prereqs": ["checks_captures_threats"],
+      "layers": ["recognition", "calculation", "transfer"],
+      "motifs": ["missed.mate"],
+      "blurb": "Common checkmate shapes."
+    },
+    {
+      "id": "candidate_moves",
+      "title": "Candidate moves",
+      "phase": 3,
+      "prereqs": ["blunder_check"],
+      "layers": ["decision", "transfer"],
+      "motifs": [],
+      "blurb": "Find two or three real options before choosing."
+    },
+    {
+      "id": "calculation_2ply",
+      "title": "Calculating two plies",
+      "phase": 3,
+      "prereqs": ["blunder_check"],
+      "layers": ["calculation", "transfer"],
+      "motifs": [],
+      "blurb": "My move, their best reply."
+    },
+    {
+      "id": "calculation_3ply",
+      "title": "Calculating three plies",
+      "phase": 3,
+      "prereqs": ["calculation_2ply"],
+      "layers": ["calculation", "transfer"],
+      "motifs": [],
+      "blurb": "My move, their reply, my follow-up."
+    },
+    {
+      "id": "visualization",
+      "title": "Visualisation",
+      "phase": 3,
+      "prereqs": ["calculation_2ply"],
+      "layers": ["knowledge", "recognition"],
+      "motifs": [],
+      "blurb": "See positions and lines without moving pieces."
+    },
+    {
+      "id": "opening_principles",
+      "title": "Opening principles",
+      "phase": 4,
+      "prereqs": ["piece_safety"],
+      "layers": ["knowledge", "decision", "transfer"],
+      "motifs": ["early.queen", "opening.repeat_piece", "king.center"],
+      "blurb": "Develop, take the centre, castle."
+    },
+    {
+      "id": "opening_repertoire_recall",
+      "title": "Repertoire recall",
+      "phase": 4,
+      "prereqs": ["opening_principles"],
+      "layers": ["retention"],
+      "motifs": [],
+      "blurb": "Remember your chosen lines and why."
+    },
+    {
+      "id": "mg_targets",
+      "title": "Targets",
+      "phase": 5,
+      "prereqs": ["piece_safety", "candidate_moves"],
+      "layers": ["knowledge", "decision", "transfer"],
+      "motifs": [],
+      "blurb": "Pick a weakness and aim at it."
+    },
+    {
+      "id": "mg_worst_piece",
+      "title": "Improve the worst piece",
+      "phase": 5,
+      "prereqs": ["piece_safety", "candidate_moves"],
+      "layers": ["knowledge", "decision", "transfer"],
+      "motifs": [],
+      "blurb": "Find your most passive piece and improve it."
+    },
+    {
+      "id": "mg_pawn_breaks",
+      "title": "Pawn breaks",
+      "phase": 5,
+      "prereqs": ["piece_safety", "candidate_moves"],
+      "layers": ["knowledge", "decision", "transfer"],
+      "motifs": [],
+      "blurb": "Open lines with a well-timed pawn move."
+    },
+    {
+      "id": "mg_trades",
+      "title": "Good trades",
+      "phase": 5,
+      "prereqs": ["material_counting", "candidate_moves"],
+      "layers": ["knowledge", "decision", "transfer"],
+      "motifs": ["unfavorable.trade"],
+      "blurb": "Trade when ahead; avoid it when behind."
+    },
+    {
+      "id": "king_safety",
+      "title": "King safety",
+      "phase": 5,
+      "prereqs": ["piece_safety"],
+      "layers": ["knowledge", "decision", "transfer"],
+      "motifs": ["king.center", "stalemate.risk"],
+      "blurb": "Castle early and keep the shield."
+    },
+    {
+      "id": "eg_basic_mates",
+      "title": "Basic mates",
+      "phase": 1,
+      "prereqs": [],
+      "layers": ["knowledge", "recognition", "calculation"],
+      "motifs": [],
+      "blurb": "King and queen or king and rook against king."
+    },
+    {
+      "id": "eg_opposition",
+      "title": "Opposition",
+      "phase": 6,
+      "prereqs": ["eg_basic_mates"],
+      "layers": ["knowledge", "recognition", "calculation"],
+      "motifs": [],
+      "blurb": "Kings face to face."
+    },
+    {
+      "id": "eg_pawn_races",
+      "title": "Pawn races",
+      "phase": 6,
+      "prereqs": ["eg_basic_mates"],
+      "layers": ["knowledge", "recognition", "calculation"],
+      "motifs": [],
+      "blurb": "Count who queens first."
+    },
+    {
+      "id": "eg_rook_basics",
+      "title": "Rook endings",
+      "phase": 6,
+      "prereqs": ["eg_opposition"],
+      "layers": ["knowledge", "recognition", "calculation"],
+      "motifs": [],
+      "blurb": "Active rooks and key positions."
+    },
+    {
+      "id": "conversion",
+      "title": "Converting an advantage",
+      "phase": 6,
+      "prereqs": ["eg_basic_mates", "material_counting"],
+      "layers": ["decision", "transfer"],
+      "motifs": ["unsound.sacrifice"],
+      "blurb": "Win what is already won, safely."
+    },
+    {
+      "id": "defence",
+      "title": "Defending",
+      "phase": 6,
+      "prereqs": ["piece_safety"],
+      "layers": ["decision", "transfer"],
+      "motifs": [],
+      "blurb": "Hold worse positions."
+    },
+    {
+      "id": "time_management",
+      "title": "Time management",
+      "phase": 7,
+      "prereqs": [],
+      "layers": ["decision", "transfer"],
+      "motifs": [],
+      "blurb": "Spend time on the moves that matter."
+    },
+    {
+      "id": "self_analysis",
+      "title": "Self-analysis",
+      "phase": 7,
+      "prereqs": [],
+      "layers": ["decision", "transfer"],
+      "motifs": [],
+      "blurb": "Find your own mistakes before the engine does."
+    }
+  ]
+}

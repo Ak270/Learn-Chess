@@ -1,5 +1,6 @@
 // Attempts -> evidence -> SkillState. This is the minimal mapping needed for rebuildDerived();
 // Phase 5 §3 refines weights and layers (all weights become config with sources).
+import type { SkillId } from '../../types/ids';
 import type { Attempt, AttemptContext, Layer, SkillEvidence, SkillState } from '../../types/model';
 import { LAYERS } from '../../types/model';
 
@@ -26,7 +27,7 @@ export function evidenceFromAttempt(a: Attempt): Omit<SkillEvidence, 'id' | 'sou
 }
 
 export function skillStatesFromEvidence(ev: SkillEvidence[]): SkillState[] {
-  const bySkill = new Map<string, SkillEvidence[]>();
+  const bySkill = new Map<SkillId, SkillEvidence[]>();
   for (const e of [...ev].sort((a, b) => a.at - b.at || a.id.localeCompare(b.id)))
     (bySkill.get(e.skill) ?? bySkill.set(e.skill, []).get(e.skill)!).push(e);
   return [...bySkill].map(([skill, list]) => {

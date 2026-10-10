@@ -1,7 +1,8 @@
 // Deterministic 30-day synthetic learner for planner/derived tests (docs/backend/02 §8).
+import type { SkillId } from '../../src/types/ids';
 import type { Attempt, AttemptContext } from '../../src/types/model';
 
-const SKILLS = ['hanging_pieces', 'forks', 'pins', 'back_rank'];
+const SKILLS: SkillId[] = ['piece_safety', 'tactic_fork', 'tactic_pin', 'tactic_backrank'];
 const CONTEXTS: AttemptContext[] = ['drill', 'puzzle', 'test', 'recall'];
 const DAY = 86_400_000;
 export const SEED_START = Date.UTC(2026, 8, 1);

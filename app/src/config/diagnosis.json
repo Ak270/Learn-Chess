@@ -1,0 +1,50 @@
+{
+  "diagnosis.rushedMinMs": {
+    "value": 3000,
+    "source": "docs/backend/04 \u00a74: rushedMs = 25% of median, minimum 3 s"
+  },
+  "diagnosis.rushedMedianFrac": {
+    "value": 0.25,
+    "source": "docs/backend/04 \u00a74: < 25% of learner's median time/move"
+  },
+  "diagnosis.slowMedianFactor": {
+    "value": 2,
+    "source": "docs/backend/04 \u00a74 calculation: time > 2x median"
+  },
+  "diagnosis.criticalSwingWinPct": {
+    "value": 15,
+    "source": "docs/backend/04 \u00a74 rushed: critical = eval swing potential >= 15 win%"
+  },
+  "diagnosis.knowledgeGapMisses": {
+    "value": 3,
+    "source": "docs/backend/04 \u00a74 knowledge_gap: same motif missed in lessons/drills/tests >= 3 times"
+  },
+  "diagnosis.transferMinDrillAttempts": {
+    "value": 8,
+    "source": "docs/backend/04 \u00a74 transfer_failure: >= 8 attempts"
+  },
+  "diagnosis.transferMinDrillAccuracy": {
+    "value": 0.8,
+    "source": "docs/backend/04 \u00a74 transfer_failure: >= 80% unaided"
+  },
+  "diagnosis.transferMinGameHits": {
+    "value": 2,
+    "source": "docs/backend/04 \u00a74 transfer_failure: >= 2 times in last 10 games"
+  },
+  "diagnosis.tiltBlundersInWindow": {
+    "value": 2,
+    "source": "docs/backend/04 \u00a74 tilt: >= 2 blunders ..."
+  },
+  "diagnosis.tiltWindowPlies": {
+    "value": 6,
+    "source": "docs/backend/04 \u00a74 tilt: ... in 6 consecutive learner plies after losing material"
+  },
+  "phaseGrade.solidBelow": {
+    "value": 3,
+    "source": "docs/backend/04 \u00a73.1 Solid (< 3 mean win% loss)"
+  },
+  "phaseGrade.fineBelow": {
+    "value": 6,
+    "source": "docs/backend/04 \u00a73.1 Fine (3-6), Costly (> 6 or >= 1 blunder)"
+  }
+}

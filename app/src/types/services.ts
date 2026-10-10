@@ -29,11 +29,25 @@ export interface RawGame {
   source: 'lichess' | 'chesscom' | 'pgn';
   sourceId?: string;
   pgn: string;
+  white: string;
+  black: string;
+  playerColor: 'w' | 'b';
+  result: '1-0' | '0-1' | '1/2-1/2' | '*';
+  startedAt: Ms;
+  timeControl?: string;
+  termination?: string;
+  whiteRating?: number;
+  blackRating?: number;
+  clocks?: number[];
+  plies: number;
 }
 export interface ImportQuery {
   username?: string;
   since?: Ms;
   max?: number;
+  /** called for every game skipped, with a user-facing reason */
+  onSkip?: (code: string, message: string) => void;
+  signal?: { cancelled: boolean };
 }
 export interface Importer {
   id: 'lichess' | 'chesscom' | 'pgn';

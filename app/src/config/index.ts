@@ -2,6 +2,7 @@
 import app from './app.json';
 import chessCfg from './chess.json';
 import skillmap from './skillmap.json';
+import diagnosisCfg from './diagnosis.json';
 
 export interface ConfigEntry<T = unknown> {
   value: T;
@@ -39,4 +40,9 @@ export function createConfig(...files: [string, Record<string, unknown>][]) {
 }
 
 export type Config = ReturnType<typeof createConfig>;
-export const cfg = createConfig(['app.json', app], ['chess.json', chessCfg], ['skillmap.json', skillmap]);
+export const cfg = createConfig(
+  ['app.json', app],
+  ['chess.json', chessCfg],
+  ['skillmap.json', skillmap],
+  ['diagnosis.json', diagnosisCfg],
+);
